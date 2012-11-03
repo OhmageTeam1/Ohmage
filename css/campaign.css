@@ -4,3 +4,9 @@ body {
 .centered {
 	text-align: center;
 }
+.left {
+	text-align: left;
+}
+.dropdown {
+	text-align:left;
+}
