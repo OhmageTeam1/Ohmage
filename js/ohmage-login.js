@@ -14,4 +14,9 @@ $(function() {
         });
         return false;
     });
+	
+	$('.dropdown-toggle').dropdown(function() (
+		$('.z).text() = 'Change';
+		return false;
+	));
 });
