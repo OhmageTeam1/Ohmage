@@ -7,7 +7,7 @@ $(function() {
             var authResponse = $.parseJSON(data);
             if (authResponse.result == "success") {
                 $.cookie("auth_token", authResponse.token);
-				var url = window.location.origin; 
+				var url = window.location.href.replace('/login.html', ''); 
                 window.location = url + "/campaign.html";
             }
             else {
