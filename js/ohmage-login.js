@@ -7,6 +7,8 @@ $(function() {
             var authResponse = $.parseJSON(data);
             if (authResponse.result == "success") {
                 $.cookie("auth_token", authResponse.token);
+				var url = window.location.origin; 
+                window.location = url + "/campaign.html";
             }
             else {
                 $('<div class="alert alert-error">WRONG PASSWORD, YO</div>').prependTo('.content');
@@ -14,9 +16,4 @@ $(function() {
         });
         return false;
     });
-	
-	$('.dropdown-toggle').dropdown(function() (
-		$('.z).text() = 'Change';
-		return false;
-	));
 });
