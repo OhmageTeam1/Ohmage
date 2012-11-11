@@ -1,7 +1,8 @@
 <?php
-	function authorize_user() {
-		if(!isset($_COOKIE['auth_token'])) {
-			header('Location: login.html');
+	function authorizeUser() {
+		if(!isset($_COOKIE['authToken'])) {
+            setNotice('You must log in to edit your campaigns!', 'error');
+			header('Location: login.php');
 			exit();
 		}
 	}
