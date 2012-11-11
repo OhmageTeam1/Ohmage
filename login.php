@@ -1,4 +1,8 @@
 <!DOCTYPE HTML>
+<?php
+    session_start();
+    include('notice.php');
+?>
 <html>
     <head>
         <title>Ohmage - Please log in.</title>
@@ -12,17 +16,15 @@
         <script type="text/javascript" src="js/ohmage-login.js"></script>
         <script type="text/javascript" src="js/alerts.js"></script>
     </head>
-    <body>
+    <body class="login-body">
         <div class="container">
             <div class="row">
                 <div class="offset1 span10 centered content">
                     <?php
-                        if(isset($_POST['auth_fail'])) {
-                            echo "<div class='alert alert-error'>You must be logged in to do this!</div>";
-                        }
+                        getNotice();
                     ?>
                     <div class="hero-unit">
-                        <img src="img/ohmage-logo.png">
+                        <a href="http://www.ohmage.org"><img src="img/ohmage-logo.png"></a>
                         <h1>Campaign Authoring</h1>
                         <br>
                         <p>Please login to create or edit your Ohmage campaigns.</p>
