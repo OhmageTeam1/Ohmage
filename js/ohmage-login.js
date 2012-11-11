@@ -6,6 +6,7 @@ $(function() {
         $.post("https://test.ohmage.org/app/user/auth_token", { user: inputUsername, password: inputPassword, client: "campaign-webapp" }, function(response) {
             if (response.result == "success") {
                 $.cookie("auth_token", response.token);
+                $.cookie("username", inputUsername);
                 window.location.replace('campaign.php'); 
             }
             else {

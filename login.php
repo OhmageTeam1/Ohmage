@@ -22,7 +22,7 @@
                         }
                     ?>
                     <div class="hero-unit">
-                        <img src="img/ohmage-logo.png">
+                        <a href="http://www.ohmage.org"><img src="img/ohmage-logo.png"></a>
                         <h1>Campaign Authoring</h1>
                         <br>
                         <p>Please login to create or edit your Ohmage campaigns.</p>

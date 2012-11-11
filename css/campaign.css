@@ -1,5 +1,16 @@
+/******************************
+            NAVBAR
+******************************/
+.navbar .navbar-container {
+    padding: 0 20px;
+}
+.navbar .brand {
+    padding: 0 0 0 20px;
+}
+
+
 body {
-    padding-top: 20px;
+    padding-top: 60px;
 }
 .centered {
 	text-align: center;

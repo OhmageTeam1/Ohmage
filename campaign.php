@@ -13,8 +13,17 @@
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/jquery-cookie.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/navbar.js"></script>
     </head>
     <body>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="navbar-container">
+                    <a class="brand" href="#"><img src="img/ohmage-logo.png" width="112"></a>
+                    <p class="navbar-text pull-right" id="username"></p>
+                </div>
+            </div>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="offset1 span10 centered content">
