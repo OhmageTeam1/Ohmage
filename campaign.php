@@ -1,4 +1,8 @@
 <!DOCTYPE HTML>
+<?php 
+    include('authorize.php');
+    authorize_user();
+?>
 <html>
     <head>
         <title>Create Campaign</title>
@@ -9,7 +13,6 @@
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/jquery-cookie.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/ohmage-login.js"></script>
     </head>
     <body>
         <div class="container">
@@ -17,16 +20,17 @@
                 <div class="offset1 span10 centered content">
                     <div class="hero-unit">
                         <h1>Ohmage Campaign Editor</h1>
-                        <p>Please login to create or edit your Ohmage campaigns.</p>
-                        <form class="form-horizontal" id="login-form">
+                        <br/>
+                        <form class="form-horizontal" id="campaign-form">
                             <div class="control-group">
-                                <input type="text" id="inputUsername" placeholder="Username">
-                            </div>
+                                <label for="campaignTitle">
+                                    Campaign Title
+                                    <span class="label label-info">Required</span>
+                                </label>
+                                <input type="text" id="campaignTitle" placeholder="Campaign Title" />
+                            </div>                           
                             <div class="control-group">
-                                <input type="password" id="inputPassword" placeholder="Password">
-                            </div>
-                            <div class="control-group">
-                                <button type="submit" class="btn btn-primary">Login</button>
+                                <button type="button" class="btn btn-primary" data-toggle="button">Create Campaign</button>
                             </div>
                         </form>
                     </div>
