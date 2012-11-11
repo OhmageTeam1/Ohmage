@@ -10,3 +10,6 @@ body {
 .dropdown {
 	text-align:left;
 }
+.hide {
+	display: none;
+}

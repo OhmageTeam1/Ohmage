@@ -6,12 +6,11 @@ $(function() {
         $.post("https://test.ohmage.org/app/user/auth_token", { user: inputUsername, password: inputPassword, client: "campaign-webapp" }, function(response) {
             if (response.result == "success") {
                 $.cookie("auth_token", response.token);
-				var url = window.location.href.replace('/login.html', ''); 
-                window.location = url + "/campaign.html";
+                window.location.href('campaign.html'); 
             }
             else {
-				$(".alert").alert('close');
-                $('<div class="alert alert-block alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>' + response.errors[0].text + '</div>').prependTo('.content');
+                var errorAlert = '<div class="alert alert-block alert-error hide"><button class="close">&times;</button><strong>Login Failed: </strong>' + response.errors[0].text + '</div>';
+                $(errorAlert).prependTo('.content').slideToggle();
             }
         }, "json");
         return false;
