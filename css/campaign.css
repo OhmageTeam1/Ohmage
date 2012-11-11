@@ -7,8 +7,16 @@
 .navbar .brand {
     padding: 0 0 0 20px;
 }
+.logout-button {
+    margin-left: 10px;
+}
 
-
+/******************************
+             MISC
+******************************/
+.login-body {
+    padding-top: 20px;
+}
 body {
     padding-top: 60px;
 }
