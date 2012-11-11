@@ -13,13 +13,15 @@
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/jquery-cookie.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/campaign.js"></script>
     </head>
     <body>
         <div class="container">
             <div class="row">
                 <div class="offset1 span10 centered content">
                     <div class="hero-unit">
-                        <h1>Ohmage Campaign Editor</h1>
+						<img src="img/ohmage-logo.png">
+                        <h1>Campaign Editor</h1>
                         <br/>
                         <form class="form-horizontal" id="campaign-form">
                             <div class="control-group">
