@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <?php 
-    include("authorize.php");
+    include('authorize.php');
     authorize_user();
 ?>
 <html>
