@@ -58,12 +58,12 @@
                                 </label>
                             </div>
                             <div class="control-group">
-                                <label for="surveySummaryText">Survey Summary Text </label>
-                                <textarea id="surveySummaryText" placeholder="Survey Summary Text"></textarea>
+                                <label id="surveySummaryTextLabel">Survey Summary Text </label>
+                                <textarea id="surveySummaryText" placeholder="Survey Summary Text" disabled="disable" ></textarea>
                             </div>         
                             <div class="control-group">
                                 <label class="checkbox">
-                                    <input type="checkbox" id="editSummary" value="">
+                                    <input type="checkbox" id="editSummary" value="" disabled="disable">
                                     Can the user edit their responses while viewing the summary?
                                 </label>
                             </div> 
