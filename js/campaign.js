@@ -1,10 +1,24 @@
-$(document).ready(function() {
-	$('button').click(function() {
-		// saving to JSON
-		var title = $('#campaignTitle').val();
-		var campaign = {title:title};
-		
-		// go to next page
-		window.location.replace('survey.php');
-	}); // end click
-}); // end ready
+$(function() {
+    $.post("https://test.ohmage.org/app/user_info/read", { auth_token: $.cookie('authToken'), client: "campaign-webapp" },
+        function(response) {
+            if(response.result === "success"){
+                var campaignCount = 0;
+                $.each(response.data[$.cookie('username')].campaigns, function(index, val) {
+                    $('.campaign-select').append('<option value="' + index + '">' + val + "</option>");
+                    campaignCount++;
+                });
+                if(campaignCount === 0) {
+                    $('.existing-campaigns').remove();
+                }
+            }
+        }, "json");
+
+    $('#create-campaign').click(function(button) {
+        var title = $('#campaignTitle').val();
+        var campaign = {title:title};
+        console.log("hello");
+        window.location.replace('survey.php');
+        console.log("hello");
+        button.preventDefault();
+    });
+});
