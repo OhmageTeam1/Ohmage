@@ -38,7 +38,7 @@
                                 <input type="text" id="campaignTitle" placeholder="Campaign Title" />
                             </div>                           
                             <div class="control-group">
-                                <button type="button" class="btn btn-primary" data-toggle="button">Create Campaign</button>
+                                <button type="button" class="btn btn-primary" data-toggle="button" action="survey.html">Create Campaign</button>
                             </div>
                         </form>
                     </div>
