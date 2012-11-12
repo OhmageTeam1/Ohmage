@@ -6,15 +6,18 @@
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/campaign.css" rel="stylesheet" type="text/css"/>
+        <link href="css/prompt.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/jquery-cookie.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/prompt.js"></script>
     </head>
     <body>
 		<?php
             include('navbar.php');
         ?>
         <div class="container">
+            
             <div class="row">
                 <div class="well span2">
                     <h2>Number of Questions</h2>
@@ -40,7 +43,10 @@
                                     <div class="accordion-inner">
                                         <form class="form-horizontal" id="message-form">
                                             <div class="control-group">
-                                                <label for="messageText">Message Text</label>
+                                                <label for="messageText">
+                                                Message Text
+                                                <span class="label label-info">Required</span>
+                                                </label>
                                                 <textarea id="messageText" placeholder="Message Text"></textarea>
                                             </div>
                                             <div class="control-group">
@@ -112,15 +118,41 @@
 														</ul>
 												</div>
 												-->
-												<input type="radio" name="groupPromptType" value="Multiple Choice"> Multiple Choice<br>
-												<input type="radio" name="groupPromptType" value="Multiple Choice Custom"> Multiple Choice Custom<br>
-												<input type="radio" name="groupPromptType" value="Number"> Number<br>
-												<input type="radio" name="groupPromptType" value="Photo"> Photo<br>
-												<input type="radio" name="groupPromptType" value="Remote Activity"> Remote Activity<br>
-												<input type="radio" name="groupPromptType" value="Single Choice"> Single Choice<br>
-												<input type="radio" name="groupPromptType" value="Single Choice Custon"> Single Choice Custon<br>
-												<input type="radio" name="groupPromptType" value="Text"> Text<br>
-												<input type="radio" name="groupPromptType" value="Timestamp"> Timestamp<br>
+												<input type="radio" name="groupPromptType" id="Multiple Choice" value="Multiple Choice">Multiple Choice<br>
+												<input type="radio" name="groupPromptType" id="Multiple Choice Custom" value="Multiple Choice Custom"> Multiple Choice Custom<br>
+												<input type="radio" name="groupPromptType" id="Number" value="Number"> Number<br>
+												<input type="radio" name="groupPromptType" id="Photo" value="Photo"> Photo<br>
+												<input type="radio" name="groupPromptType" id="Remote Activity" value="Remote Activity"> Remote Activity<br>
+												<input type="radio" name="groupPromptType" id="Single Choice" value="Single Choice"> Single Choice<br>
+												<input type="radio" name="groupPromptType" id="Single Choice Custon" value="Single Choice Custon"> Single Choice Custon<br>
+												<input type="radio" name="groupPromptType" id="Text" value="Text"> Text<br>
+												<input type="radio" name="groupPromptType" id="Timestamp" value="Timestamp"> Timestamp<br>
+                                                
+                                                <!-- Overlay window section -->
+                                                <div class="overlay" id="overlay" style="display:none;"></div>
+ 
+                                                <!-- <div class="box" id="box">
+                                                    <a class="boxclose" id="boxclose"></a>
+                                                    <h1>Important message</h1>
+                                                    <p>
+                                                        Here comes a very important message for your user.
+                                                        Turn this window off by clicking the cross.
+                                                    </p>
+                                                </div>
+                                                -->
+                                                <div class="MultipleChoiceBox" id="MultipleChoiceBox">
+                                                    <a class="boxclose" id="boxclose"></a>
+                                                    <h1>Multiple Choice</h1>
+                                                    <p>
+                                                        Type each question follow by a new line
+                                                    </p>
+                                                    <textarea type="text" placeholder="Question"></textarea>
+                                                    <div class="control-group">
+                                                        <button type="button" class="btn btn-primary" data-toggle="button" id="MultipleChoiceOK">OK</button>
+                                                    </div>
+                                                </div>
+                                                
+                                                
 											</div>
 											<div class="control-group">
 												<label for="default">
@@ -141,10 +173,10 @@
 												</label>
 											</div> 
 											<div class="control-group">
-												<label for="skipLabel">
+												<label id="skipLabelLabel">
 													Skip Label
 												</label>
-												<input type="text" id="skipLabel" placeholder="Skip Label" />
+												<input type="text" id="skipLabel" placeholder="Skip Label" disabled="disable"/>
 											</div>
 											<div class="control-group">
 												<label for="properties">
@@ -177,5 +209,8 @@
                 </div>
             </div>
         </div>
+        <?php
+            include('footer.php');
+        ?>
     </body>
 </html>
