@@ -17,6 +17,7 @@
             include('navbar.php');
         ?>
         <div class="container">
+            
             <div class="row">
                 <div class="well span2">
                     <h2>Number of Questions</h2>
@@ -42,7 +43,10 @@
                                     <div class="accordion-inner">
                                         <form class="form-horizontal" id="message-form">
                                             <div class="control-group">
-                                                <label for="messageText">Message Text</label>
+                                                <label for="messageText">
+                                                Message Text
+                                                <span class="label label-info">Required</span>
+                                                </label>
                                                 <textarea id="messageText" placeholder="Message Text"></textarea>
                                             </div>
                                             <div class="control-group">
@@ -147,6 +151,8 @@
                                                         <button type="button" class="btn btn-primary" data-toggle="button" id="MultipleChoiceOK">OK</button>
                                                     </div>
                                                 </div>
+                                                
+                                                
 											</div>
 											<div class="control-group">
 												<label for="default">
@@ -167,10 +173,10 @@
 												</label>
 											</div> 
 											<div class="control-group">
-												<label for="skipLabel">
+												<label id="skipLabelLabel">
 													Skip Label
 												</label>
-												<input type="text" id="skipLabel" placeholder="Skip Label" />
+												<input type="text" id="skipLabel" placeholder="Skip Label" disabled="disable"/>
 											</div>
 											<div class="control-group">
 												<label for="properties">
