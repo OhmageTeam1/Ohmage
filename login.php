@@ -23,7 +23,7 @@
                     <?php
                         getNotice();
                     ?>
-                    <div class="hero-unit">
+                    <div class="box-rounded box-dark">
                         <a href="http://www.ohmage.org"><img src="img/ohmage-logo.png"></a>
                         <h1>Campaign Authoring</h1>
                         <br>
@@ -36,12 +36,15 @@
                                 <input type="password" id="inputPassword" placeholder="Password">
                             </div>
                             <div class="control-group">
-                                <button type="submit" class="btn btn-primary">Login</button>
+                                <button type="submit" class="btn btn-primary btn-large">Login</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+        <?php
+            include('footer.php');
+        ?>
     </body>
 </html>
