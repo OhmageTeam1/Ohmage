@@ -7,7 +7,7 @@
         $_SESSION[$type] = $message;
     }
 
-    // Display an cross-page alerts, then delete them
+    // Display cross-page alerts, then delete them
     function getNotice() {
         if(isset($_SESSION['error'])) {
             $alert = '<div class="alert alert-error"><button class="close">&times;</button>' . $_SESSION['error'] . '</div>'; 
