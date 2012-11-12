@@ -16,9 +16,7 @@ $(function() {
     $('#create-campaign').click(function(button) {
         var title = $('#campaignTitle').val();
         var campaign = {title:title};
-        console.log("hello");
         window.location.replace('survey.php');
-        console.log("hello");
         button.preventDefault();
     });
 });
