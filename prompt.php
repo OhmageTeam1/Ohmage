@@ -131,18 +131,9 @@
                                                 <!-- Overlay window section -->
                                                 <div class="overlay" id="overlay" style="display:none;"></div>
  
-                                                <!-- <div class="box" id="box">
-                                                    <a class="boxclose" id="boxclose"></a>
-                                                    <h1>Important message</h1>
-                                                    <p>
-                                                        Here comes a very important message for your user.
-                                                        Turn this window off by clicking the cross.
-                                                    </p>
-                                                </div>
-                                                -->
                                                 <div class="MultipleChoiceBox" id="MultipleChoiceBox">
                                                     <a class="boxclose" id="boxclose"></a>
-                                                    <h1>Multiple Choice</h1>
+                                                    <h2>Multiple Choice</h2>
                                                     <p>
                                                         Type each question follow by a new line
                                                     </p>
@@ -151,7 +142,18 @@
                                                         <button type="button" class="btn btn-primary" data-toggle="button" id="MultipleChoiceOK">OK</button>
                                                     </div>
                                                 </div>
-                                                
+                                                <div class="NumberBox" id="NumberBox">
+                                                    <h2>Number</h2>
+                                                    <p> Minumum value
+                                                    <input type="number" placeholder="0"></input>
+                                                    </p>
+                                                    <p> Maximum value
+                                                    <input type="number" placeholder="100"></input>
+                                                    </p>
+                                                    <div class="control-group">
+                                                        <button type="button" class="btn btn-primary" data-toggle="button" id="NumberOK">OK</button>
+                                                    </div>
+                                                </div>
                                                 
 											</div>
 											<div class="control-group">
