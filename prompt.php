@@ -15,6 +15,7 @@
     <body>
 		<?php
             include('navbar.php');
+            require_once('authorize.php');
         ?>
         <div class="container">
             
