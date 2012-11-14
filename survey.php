@@ -2,7 +2,7 @@
 <?php
     session_start(); 
     include('notice.php');
-    include('authorize.php');
+    require_once('authorize.php');
     authorizeUser();
 ?>
 <html>
