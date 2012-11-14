@@ -24,6 +24,11 @@ $(document).ready(function() {
             $('#MultipleChoiceBox').animate({'top':'160px'},500);
             });
         }
+        else if (value == 'Number') {
+            $('#overlay').fadeIn('fast',function(){
+            $('#NumberBox').animate({'top':'160px'},500);
+            });
+        }
         else if (value == 'Single Choice') {
           
         }
@@ -33,4 +38,10 @@ $(document).ready(function() {
             $('#overlay').fadeOut('fast');
         });
     })
+    $('#NumberOK').click(function(){
+        $('#NumberBox').animate({'top':'-300px'},500,function(){
+            $('#overlay').fadeOut('fast');
+        });
+    })
+    
 }); // end ready
