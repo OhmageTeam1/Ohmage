@@ -78,11 +78,15 @@
 													Display Type
 													<span class="label label-info">Required</span>
 												</label>
-												<input type="radio" name="group1" value="Measurement"> Measurement<br>
-												<input type="radio" name="group1" value="Event"> Event<br>
-												<input type="radio" name="group1" value="Count"> Count<br>
-												<input type="radio" name="group1" value="Category"> Category<br>
-												<input type="radio" name="group1" value="Metadata"> Metadata<br>
+                                                <select>
+                                                    <option value="None">Please choose a display type</option>
+                                                    <option value="Measurement">Measurement</option>
+                                                    <option value="Event">Event</option>
+                                                    <option value="Count">Count</option>
+                                                    <option value="Category">Category</option>
+                                                    <option value="Metadata">Metadata</option>
+                                                </select>
+												
 											</div>
 											<div class="control-group">
 												<label for="promptText">
@@ -103,22 +107,21 @@
 													Prompt Type
 													<span class="label label-info">Required</span>
 												</label>
+												
+                                                <select id="groupPromptType">
+                                                    <option value="None">Please choose a prompt type</option>
+                                                    <option value="Multiple Choice">Multiple Choice</option>
+                                                    <option value="Multiple Choice Custom">Multiple Choice Custom</option>
+                                                    <option value="Number">Number</option>
+                                                    <option value="Photo">Photo</option>
+                                                    <option value="Remote Activity">Remote Activity</option>
+                                                    <option value="Single Choice ">Single Choice</option>
+                                                    <option value="Single Choice Custom">Single Choice Custom</option>
+                                                    <option value="Text">Text</option>
+                                                    <option value="Timestamp">Timestamp</option>
+                                                </select>
+                                                
 												<!--
-												<div class="dropdown">
-													<a class="dropdown-toggle" id="promptType" role="button" data-toggle="dropdown" data-target="#">Choose Type<b class="caret"></b></a>
-														<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-															<li><a tabindex="-1" href="#">Multiple Choice</a></li>
-															<li><a tabindex="-1" href="#">Multiple Choice Custom</a></li>
-															<li><a tabindex="-1" href="#">Number</a></li>
-															<li><a tabindex="-1" href="#">Photo</a></li>
-															<li><a tabindex="-1" href="#">Remote Activity</a></li>
-															<li><a tabindex="-1" href="#">Single Choice</a></li>
-															<li><a tabindex="-1" href="#">Single Choice Custon</a></li>
-															<li><a tabindex="-1" href="#">Text</a></li>
-															<li><a tabindex="-1" href="#">Timestamp</a></li>
-														</ul>
-												</div>
-												-->
 												<input type="radio" name="groupPromptType" id="Multiple Choice" value="Multiple Choice">Multiple Choice<br>
 												<input type="radio" name="groupPromptType" id="Multiple Choice Custom" value="Multiple Choice Custom"> Multiple Choice Custom<br>
 												<input type="radio" name="groupPromptType" id="Number" value="Number"> Number<br>
@@ -128,17 +131,14 @@
 												<input type="radio" name="groupPromptType" id="Single Choice Custon" value="Single Choice Custon"> Single Choice Custon<br>
 												<input type="radio" name="groupPromptType" id="Text" value="Text"> Text<br>
 												<input type="radio" name="groupPromptType" id="Timestamp" value="Timestamp"> Timestamp<br>
-                                                
+                                                -->
                                                 <!-- Overlay window section -->
                                                 <div class="overlay" id="overlay" style="display:none;"></div>
  
                                                 <div class="MultipleChoiceBox" id="MultipleChoiceBox">
                                                     <a class="boxclose" id="boxclose"></a>
-                                                    <h2>Multiple Choice</h2>
-                                                    <p>
-                                                        Type each question follow by a new line
-                                                    </p>
-                                                    <textarea type="text" placeholder="Question"></textarea>
+                                                    <div class="data" id="data">
+                                                    </div>
                                                     <div class="control-group">
                                                         <button type="button" class="btn btn-primary" data-toggle="button" id="MultipleChoiceOK">OK</button>
                                                     </div>
@@ -157,30 +157,7 @@
                                                 </div>
                                                 
 											</div>
-											<div class="control-group">
-												<label for="default">
-													Default
-												</label>
-												<input type="text" id="default" placeholder="Default" />
-											</div>
-											<div class="control-group">
-												<label for="condition">
-													Condition
-												</label>
-												<input type="text" id="condition" placeholder="Condition" />
-											</div>
-											<div class="control-group">
-												<label class="checkbox">
-													<input type="checkbox" id="skippable" value="">
-														Can this survey be skippable?
-												</label>
-											</div> 
-											<div class="control-group">
-												<label id="skipLabelLabel">
-													Skip Label
-												</label>
-												<input type="text" id="skipLabel" placeholder="Skip Label" disabled="disable"/>
-											</div>
+											
 											<div class="control-group">
 												<label for="properties">
 													Properties
@@ -188,6 +165,46 @@
 												</label>
 												<textarea type="text" id="properties" placeholder="Properties"></textarea>
 											</div>
+                                            
+                                            <div class="accordion" id="OptionalSection">
+                                                <div class="accordion-group">
+                                                    <div class="accordion-heading">
+                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#OptionalSection" href="#newSection">
+                                                        Open Optional Section
+                                                        </a>
+                                                    </div>
+                                                    <div id="newSection" class="accordion-body collapse in">
+                                                        <div class="accordion-inner">
+                                                            <div class="control-group">
+                                                                <label for="default">
+                                                                Default
+                                                                </label>
+                                                                <input type="text" id="default" placeholder="Default" />
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label for="condition">
+                                                                Condition
+                                                                </label>
+                                                                <input type="text" id="condition" placeholder="Condition" />
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="checkbox">
+                                                                <input type="checkbox" id="skippable" value="">
+                                                                Can this survey be skippable?
+                                                                </label>
+                                                            </div> 
+                                                            <div class="control-group">
+                                                                <label id="skipLabelLabel">
+                                                                Skip Label
+                                                                </label>
+                                                                <input type="text" id="skipLabel" placeholder="Skip Label" disabled="disable"/>
+                                                            </div>
+                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
 											<div class="control-group">
 												<button type="button" class="btn btn-primary" data-toggle="button">Add Prompt</button>
 											</div>

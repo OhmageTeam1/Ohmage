@@ -17,6 +17,25 @@ $(document).ready(function() {
         }
     });
     
+    function displayPrompt() {
+        $('#data').empty();
+        var promptType = $('#groupPromptType').val();
+        if (promptType == "Multiple Choice") {
+            $('#overlay').fadeIn('fast',function(){
+            $('#data').empty();
+            $('#data').append('<h2>Multiple Choice</h2>');
+            $('#data').append('<p>Type each question follow by a new line</p>');
+            $('#data').append('<textarea type="text" placeholder="Question" id="MultipleChoiceQuestion"></textarea>');
+            $('#MultipleChoiceBox').animate({'top':'160px'},500);
+            });
+        }
+    }
+    
+   
+    $("select").change(displayPrompt);
+    displayPrompt();
+    /*
+    This section is for reference, please do not delete it
     $("input:radio[name=groupPromptType]").click(function() {
         var value = $(this).val();
         if (value == 'Multiple Choice') {
@@ -33,12 +52,15 @@ $(document).ready(function() {
           
         }
     });
+    */
     $('#boxclose').click(function(){
         $('#MultipleChoiceBox').animate({'top':'-300px'},500,function(){
             $('#overlay').fadeOut('fast');
         });
     })
-    $('#NumberOK').click(function(){
+    $('#MultipleChoiceOK').click(function(){
+        var test = $("textarea#MultipleChoiceQuestion").val();
+        alert(test);
         $('#NumberBox').animate({'top':'-300px'},500,function(){
             $('#overlay').fadeOut('fast');
         });
