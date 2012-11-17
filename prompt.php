@@ -26,10 +26,12 @@
                 </div>
                 <div class="well span9 content">
 					<img src="img/ohmage-logo.png">
-                    <div class="previousItems">
-                        <h2>Previous Items</h2>
-                        PREVIOUSLY ADDED ITEMS HERE
-                    </div>
+                    <h2>Previous Items</h2>
+                    <table>
+                        <div class="previousItems" id="previousItem">
+                            PREVIOUSLY ADDED ITEMS HERE
+                        </div>
+                    </table>
                     <hr/>
                     <div class="addNewItem">
                         <h2>Add a New Item</h2>
@@ -48,10 +50,10 @@
                                                 Message Text
                                                 <span class="label label-info">Required</span>
                                                 </label>
-                                                <textarea id="messageText" placeholder="Message Text"></textarea>
+                                                <textarea name="messageText" id="messageText" placeholder="Message Text"></textarea>
                                             </div>
                                             <div class="control-group">
-                                                <button type="submit" class="btn btn-primary">Create Message</button>
+                                                <button type="submit" class="btn btn-primary" id="create message" value="Create Message">Create Message</button>
                                             </div>
                                         </form>
                                     </div>
