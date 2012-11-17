@@ -1,3 +1,6 @@
+td, th {
+    padding: 5px;
+}
 .overlay{
     background:transparent url(images/overlay.png) repeat top left;
     position:fixed;
