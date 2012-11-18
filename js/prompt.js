@@ -5,17 +5,42 @@ var index = 0; // array index
 var isEdit = false;
 var editIndex = 0;
 
-function openAccordion(index) {
-        var obj = jQuery.parseJSON(promptArray[index][0]);
-        $('.collapse').collapse('show');
-        $('textarea#messageText').val(promptArray[index][0].value);
-        document.getElementById("create message").innerHTML="Edit Message";
-        isEdit = true;
-        editIndex = index;
-}
-
-$(document).ready(function() {
+function showValues() {
+    $("#previousItem").empty();
     
+    jQuery.each(promptArray, function(index, JSONvalue) {
+        $("#previousItem").append("<tr>"
+                                 + "<th>"
+                                 + index + ":" + promptArray[index].value
+                                 + "</th>"
+                                 + "<th>"
+                                 + '<a href="#newMessage" onclick="openAccordion(' + index + '); return false;" id="Edit">Edit</a>'
+                                 + "</th>"
+                                 + "<th>"
+                                 + '<a href="#" onclick="deletePrompt(' + index + '); return false;" id="Delete">Delete</a>'
+                                 + "</th>"
+                                 + "</tr>");
+        });
+}
+    
+function openAccordion(index) {
+    var obj = jQuery.parseJSON(promptArray[index]);
+    $('#newMessage').collapse('show');
+    //document.getElementById("newMessage").collapse('show');
+    $('textarea#messageText').val(promptArray[index].value);
+    document.getElementById("create message").innerHTML="Edit Message";
+    isEdit = true;
+    editIndex = index;
+}
+function deletePrompt(curr_index) {
+    promptArray.splice(curr_index, 1);
+    index--;
+    showValues();
+}
+$(document).ready(function() {
+    $( "#previousItem" ).sortable();
+    $( "#previousItem" ).disableSelection();
+    $('.collapse').collapse();
     var skipLabel = $('#skipLabelLabel').text();
     $('#skippable').change(function() { 
         if (this.checked) {
@@ -49,20 +74,6 @@ $(document).ready(function() {
         alert('Edit');
     });
     
-    function showValues() {
-        $("#previousItem").empty();
-        jQuery.each(promptArray, function(index, JSONvalue) {
-            $("#previousItem").append("<tr>"
-                                      + "<th>"
-                                      + index + ":" + promptArray[index][0].value
-                                      + "</th>"
-                                      + "<th>"
-                                      //+ '<button type="button" id="Edit">Edit</button>' 
-                                      + '<a href="#newMessage" onclick="openAccordion(' + index + '); return false;" id="Edit">Edit</a>'
-                                      + "</th>"
-                                      + "</tr>");
-        });
-    }
     
     // This function wiil clear (reset) the form
     // credit goes to: http://www.learningjquery.com/2007/08/clearing-form-data
@@ -88,7 +99,8 @@ $(document).ready(function() {
         //alert('test');
         if (isEdit == false) { // create
             event.preventDefault();
-            promptArray[index] = ($(this).serializeArray());
+            temp = ($(this).serializeArray());
+            promptArray[index] = temp[0];
             index++;
             console.log(promptArray);
             $(this).clearForm();
@@ -97,7 +109,8 @@ $(document).ready(function() {
         }
         else { // edit, not create
             event.preventDefault();
-            promptArray[editIndex] = ($(this).serializeArray());
+            temp = ($(this).serializeArray());
+            promptArray[editIndex] = temp[0];
             $(this).clearForm();
             $('.collapse').collapse();
             //reset value
