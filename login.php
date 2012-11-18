@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <?php
     session_start();
+    if(isset($_COOKIE['authToken']))
+    {
+            header('Location: campaign.php');
+            exit();
+    }
     include('notice.php');
 ?>
 <html>
