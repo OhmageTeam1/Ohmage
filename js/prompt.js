@@ -1,23 +1,24 @@
 // overlay box script from : http://tympanus.net/codrops/2009/12/03/css-and-jquery-tutorial-overlay-with-slide-out-box/
 
-var promptArray = new Array(); // array JSON prompt
-var index = 0; // array index
+var promptArray = new Array(); // array of JSON prompt
+var typeArray = new Array(); // array of type (message, prompt, etc..)
+var arrayIndex = 0; // array index
 var isEdit = false;
 var editIndex = 0;
 
 function showValues() {
     $("#previousItem").empty();
     
-    jQuery.each(promptArray, function(index, JSONvalue) {
+    jQuery.each(promptArray, function(i, JSONvalue) {
         $("#previousItem").append("<tr>"
                                  + "<th>"
-                                 + index + ":" + promptArray[index].value
+                                 + i + ":" + promptArray[i][0].value
                                  + "</th>"
                                  + "<th>"
-                                 + '<a href="#newMessage" onclick="openAccordion(' + index + '); return false;" id="Edit">Edit</a>'
+                                 + '<a href="#newMessage" onclick="openAccordion(' + i + '); return false;" id="Edit">Edit</a>'
                                  + "</th>"
                                  + "<th>"
-                                 + '<a href="#" onclick="deletePrompt(' + index + '); return false;" id="Delete">Delete</a>'
+                                 + '<a href="#" onclick="deletePrompt(' + i + '); return false;" id="Delete">Delete</a>'
                                  + "</th>"
                                  + "</tr>");
         });
@@ -27,18 +28,97 @@ function openAccordion(index) {
     var obj = jQuery.parseJSON(promptArray[index]);
     $('#newMessage').collapse('show');
     //document.getElementById("newMessage").collapse('show');
-    $('textarea#messageText').val(promptArray[index].value);
+    $('textarea#messageText').val(promptArray[index][0].value);
     document.getElementById("create message").innerHTML="Edit Message";
     isEdit = true;
     editIndex = index;
 }
 function deletePrompt(curr_index) {
     promptArray.splice(curr_index, 1);
-    index--;
+    //index--;
     showValues();
 }
+function swapArrayElem(prompt, type, index_a, index_b) {
+    var tmp = prompt[index_a];
+    prompt[index_a] = prompt[index_b];
+    prompt[index_b] = tmp;
+    
+    // swap type
+    tmp = type[index_a];
+    type[index_a] = type[index_b];
+    type[index_b] = tmp;
+}
+function loadOverlay() {
+    //loads popup only if it is disabled  
+    if($("#bgPopup").data("state")==0){  
+        $("#bgPopup").css({  
+            "opacity": "0.7"  
+        });  
+        $("#bgPopup").fadeIn("medium");  
+        $("#condition_container").fadeIn("medium");  
+        $("#bgPopup").data("state",1);  
+    }
+}
+function centerPopup(){  
+    var winw = $(window).width();  
+    var winh = $(window).height();  
+    var popw = $('#condition_container').width();  
+    var poph = $('#condition_container').height();  
+    $("#condition_container").css({  
+        "position" : "absolute",  
+        "top" : winh/4-poph/2,  
+        "left" : winw/4-popw/2  
+    });  
+}
+function disablePopup(){  
+    if ($("#bgPopup").data("state")==1){  
+        $("#bgPopup").fadeOut("medium");  
+        $("#condition_container").fadeOut("medium");  
+        $("#bgPopup").data("state",0);  
+    }  
+}
+
+// click the condition text box
+function conditionClick() {
+    centerPopup();
+    // create drop down from prompt array
+    $("#promptIDList").empty();
+    jQuery.each(promptArray, function(i, JSONvalue) {
+        var val = promptArray[i][0].value;
+        $("#promptIDList").append("<option value=" + val + ">" + val + "</option>");
+    });
+    
+    loadOverlay();
+}
+    
 $(document).ready(function() {
-    $( "#previousItem" ).sortable();
+    $("#bgPopup").data("state",0);  
+    $("#saveCondition").click(function(){
+        // save to condition text box
+        var promptID = $('#promptIDList').val();
+        console.log(promptID);
+        var operator = $('#operator').val();
+        console.log(operator);
+        var val = $('#conditionValue').val();
+        console.log(val);
+        var condition = promptID + " " + operator + " " + val;
+        console.log(condition);
+        $('#condition').val(condition);
+        disablePopup();  
+    });
+    $( "#previousItem" ).sortable({
+			start: function(event, ui) {
+                ui.item.startPos = ui.item.index();
+            },
+            stop: function(event, ui) {
+                console.log("Start position: " + ui.item.startPos);
+                console.log("New position: " + ui.item.index());
+                swapArrayElem(promptArray, typeArray, ui.item.startPos, ui.item.index());
+                console.log(promptArray);
+                console.log(typeArray);
+                showValues();
+            }
+    });
     $( "#previousItem" ).disableSelection();
     $('.collapse').collapse();
     var skipLabel = $('#skipLabelLabel').text();
@@ -88,11 +168,12 @@ $(document).ready(function() {
           this.checked = false;
         else if (tag == 'select')
           this.selectedIndex = -1;
+        //special cases
+        $('#skipLabel').attr('disabled', 'disabled');
+        $('#skipLabelLabel').html(skipLabel);
       });
     };
     
-
-    var fields = $('#message-form').serializeArray();
     // submit message and save to JSON object
     $('#message-form').submit(function(event) {
 		// saving to JSON
@@ -100,13 +181,45 @@ $(document).ready(function() {
         if (isEdit == false) { // create
             event.preventDefault();
             temp = ($(this).serializeArray());
-            promptArray[index] = temp[0];
-            index++;
+            promptArray.push(temp);
+            typeArray.push("message");
             console.log(promptArray);
+            console.log(typeArray);
             $(this).clearForm();
             $('.collapse').collapse();
             showValues();
         }
+        else { // edit, not create
+            event.preventDefault();
+            temp = ($(this).serializeArray());
+            promptArray[editIndex] = temp;
+            $(this).clearForm();
+            $('.collapse').collapse();
+            //reset value
+            isEdit = false;
+            document.getElementById("create message").innerHTML="Create Message";
+            showValues();
+        }
+        
+	}); // end click
+   
+    // submit prompt and save to JSON object
+    $('#campaign-form').submit(function(event) {
+        
+		// saving to JSON
+        if (isEdit == false) { // create
+            event.preventDefault();
+            temp = ($(this).serializeArray());
+            console.log(temp);
+            promptArray.push(temp);
+            typeArray.push("prompt");
+            console.log(promptArray);
+            console.log(typeArray);
+            $(this).clearForm();
+            $('.collapse').collapse();
+            showValues();            
+        }
+        /*
         else { // edit, not create
             event.preventDefault();
             temp = ($(this).serializeArray());
@@ -118,10 +231,8 @@ $(document).ready(function() {
             document.getElementById("create message").innerHTML="Create Message";
             showValues();
         }
-        
+        */
 	}); // end click
-   
-    
     
     $("select").change(displayPrompt);
     displayPrompt();
@@ -157,5 +268,8 @@ $(document).ready(function() {
             $('#overlay').fadeOut('fast');
         });
     })
+    
+    
+    
     
 }); // end ready
