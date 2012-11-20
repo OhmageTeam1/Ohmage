@@ -13,6 +13,7 @@
         <script type="text/javascript" src="js/jquery-ui-1.9.0.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/prompt.js"></script>
+        
     </head>
     <body>
 		<?php
@@ -70,49 +71,54 @@
                                 <div id="newPrompt" class="accordion-body collapse in">
                                     <div class="accordion-inner">
                                         <form class="form-horizontal" id="campaign-form">
+                                            <div class="control-group">
+												<label for="promptID">
+												Prompt ID
+												<span class="label label-info">Required</span>
+												</label>
+												<input type="text" name="id" id="Prompt ID" placeholder="Prompt ID" />
+											</div>
 											<div class="control-group">
 												<label for="displayLabel">
-													Display Label
-													<span class="label label-info">Required</span>
+												Display Label
+												<span class="label label-info">Required</span>
 												</label>
-												<input type="text" id="displayLabel" placeholder="Display Label" />
+												<input type="text" name="Display Label" id="Display Label" placeholder="Display Label" />
 											</div>
 											<div class="control-group">
 												<label for="displayType">
 													Display Type
 													<span class="label label-info">Required</span>
 												</label>
-                                                <select>
+                                                <select name="Display Type">
                                                     <option value="None">Please choose a display type</option>
                                                     <option value="Measurement">Measurement</option>
                                                     <option value="Event">Event</option>
                                                     <option value="Count">Count</option>
                                                     <option value="Category">Category</option>
                                                     <option value="Metadata">Metadata</option>
-                                                </select>
-												
+                                                </select>	
 											</div>
 											<div class="control-group">
 												<label for="promptText">
 													Prompt Text
 													<span class="label label-info">Required</span>
 												</label>
-												<textarea type="text" id="promptText" placeholder="Prompt Text"></textarea>
+												<textarea type="text" name="Prompt Text" id="Prompt Text" placeholder="Prompt Text"></textarea>
 											</div>
 											<div class="control-group">
 												<label for="abbreviatedText">
 													Abbreviated Text
 													<span class="label label-info">Required</span>
 												</label>
-												<textarea type="text" id="abbreviatedText" placeholder="Abbreviated Text"></textarea>
+												<textarea type="text" name="Abbreviated Text" id="Abbreviated Text" placeholder="Abbreviated Text"></textarea>
 											</div>
 											<div class="control-group">
 												<label for="promptType">
 													Prompt Type
 													<span class="label label-info">Required</span>
 												</label>
-												
-                                                <select id="groupPromptType">
+                                                <select name="Prompt Type" id="groupPromptType">
                                                     <option value="None">Please choose a prompt type</option>
                                                     <option value="Multiple Choice">Multiple Choice</option>
                                                     <option value="Multiple Choice Custom">Multiple Choice Custom</option>
@@ -124,19 +130,9 @@
                                                     <option value="Text">Text</option>
                                                     <option value="Timestamp">Timestamp</option>
                                                 </select>
-                                                
-												<!--
-												<input type="radio" name="groupPromptType" id="Multiple Choice" value="Multiple Choice">Multiple Choice<br>
-												<input type="radio" name="groupPromptType" id="Multiple Choice Custom" value="Multiple Choice Custom"> Multiple Choice Custom<br>
-												<input type="radio" name="groupPromptType" id="Number" value="Number"> Number<br>
-												<input type="radio" name="groupPromptType" id="Photo" value="Photo"> Photo<br>
-												<input type="radio" name="groupPromptType" id="Remote Activity" value="Remote Activity"> Remote Activity<br>
-												<input type="radio" name="groupPromptType" id="Single Choice" value="Single Choice"> Single Choice<br>
-												<input type="radio" name="groupPromptType" id="Single Choice Custon" value="Single Choice Custon"> Single Choice Custon<br>
-												<input type="radio" name="groupPromptType" id="Text" value="Text"> Text<br>
-												<input type="radio" name="groupPromptType" id="Timestamp" value="Timestamp"> Timestamp<br>
-                                                -->
+                                            
                                                 <!-- Overlay window section -->
+                                                
                                                 <div class="overlay" id="overlay" style="display:none;"></div>
  
                                                 <div class="MultipleChoiceBox" id="MultipleChoiceBox">
@@ -159,15 +155,16 @@
                                                         <button type="button" class="btn btn-primary" data-toggle="button" id="NumberOK">OK</button>
                                                     </div>
                                                 </div>
-                                                
+                                               
 											</div>
 											
+                                            
 											<div class="control-group">
 												<label for="properties">
 													Properties
 													<span class="label label-info">Required</span>
 												</label>
-												<textarea type="text" id="properties" placeholder="Properties"></textarea>
+												<textarea type="text" name="Properties" id="Properties" placeholder="Properties"></textarea>
 											</div>
                                             
                                             <div class="accordion" id="OptionalSection">
@@ -183,17 +180,42 @@
                                                                 <label for="default">
                                                                 Default
                                                                 </label>
-                                                                <input type="text" id="default" placeholder="Default" />
+                                                                <input type="text" name="Default" id="Default" placeholder="Default" />
                                                             </div>
                                                             <div class="control-group">
                                                                 <label for="condition">
                                                                 Condition
                                                                 </label>
-                                                                <input type="text" id="condition" placeholder="Condition" />
+                                                                <input type="text" name="Condition" id="condition" onclick="conditionClick()" placeholder="Click to edit conditions" />
+                                                                <div id="condition_container">
+                                                                    <table>
+                                                                        <tr>
+                                                                            <td><input type="radio" name="opt" style="vertical-align: middle"></td>
+                                                                            <td>Simple</td>
+                                                                            <td><input type="radio" name="opt" style="vertical-align: middle"></td>
+                                                                            <td>Advance</td>
+                                                                        </tr>
+                                                                    </table>
+                                                                    <p> </p>
+                                                                    <select id="promptIDList">
+                                                                    </select>
+                                                                    <select id="operator">
+                                                                        <option value="==">&#61;</option>
+                                                                        <option value="!=">&#33;&#61;</option>
+                                                                        <option value="<">&#60;</option>
+                                                                        <option value="<=">&#60;&#61;</option>
+                                                                        <option value=">">&#62;</option>
+                                                                        <option value=">=">&#62;&#61;</option>
+                                                                    </select>
+                                                                    <input type="text" id="conditionValue" placeholder="value"/>
+                                                                    <p><button type="button" class="btn btn-primary" id="saveCondition">Save Condition</button></p>
+                                                                </div>
+                                                                <div id="bgPopup"></div>
+                                                                <!--<input type="text" name="Condition" id="Condition" placeholder="Condition" /> -->
                                                             </div>
                                                             <div class="control-group">
                                                                 <label class="checkbox">
-                                                                <input type="checkbox" id="skippable" value="">
+                                                                <input type="checkbox" name="skippable" id="skippable">
                                                                 Can this survey be skippable?
                                                                 </label>
                                                             </div> 
@@ -201,7 +223,7 @@
                                                                 <label id="skipLabelLabel">
                                                                 Skip Label
                                                                 </label>
-                                                                <input type="text" id="skipLabel" placeholder="Skip Label" disabled="disable"/>
+                                                                <input type="text" name="skipLabel" id="skipLabel" placeholder="Skip Label" disabled="disable"/>
                                                             </div>
                                             
                                                         </div>
@@ -210,9 +232,9 @@
                                             </div>
                                             
 											<div class="control-group">
-												<button type="button" class="btn btn-primary" data-toggle="button">Add Prompt</button>
+												<button type="submit" class="btn btn-primary" id="add prompt">Add Prompt</button>
 											</div>
-											</form>
+										</form>
                                     </div>
                                 </div>
                             </div>
