@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="offset1 span10 content">
                     <div class="box-rounded box-dark">
-                        <h1>Campaign Editor <small>Choose a campaign, or create a new one.</small></h1>
+                        <h1>Campaign Editor <small>Create a new campaign, or edit an existing one.</small></h1>
                         <div class="existing-campaigns">
                             <hr>
                             <h3>Edit an Existing Campaign</h3>
@@ -45,7 +45,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div>
+                        <div class="new-campaign">
                             <hr>
                             <form class="form-horizontal" id="campaign-form">
                                 <h3>Create a New Campaign</h3>
@@ -53,7 +53,7 @@
                                     <label class="control-label" for="campaignTitle">Campaign Title*</label>
                                     <div class="controls">
                                         <input type="text" class="input-xlarge" id="campaignTitle" placeholder="Campaign Title" />
-                                        <i class="help-icon icon-question-sign" data-content="Content" data-original-title="The name of your campaign." rel="tooltip" data-placement="right"></i>
+                                        <i class="help-icon icon-question-sign" ata-original-title="The name of your campaign." rel="tooltip" data-placement="right"></i>
                                     </div>
                                 </div>                           
                                 <div class="control-group">
