@@ -9,7 +9,6 @@ function displayPrompt() {
         $('#overlay').fadeIn('fast',function(){
         $('#data').empty();
         $('#data').append('<h3>Multiple Choice</h3>');
-        $('#data').append('<p><input type="text" id="questionMultiple" placeholder="Question ?"/></p>');
         $('#data').append('<p>Type each answer follow by a new line</p>');
         $('#data').append('<textarea type="text" placeholder="Answers" id="MultipleChoiceQuestion"></textarea>');    
         });
@@ -46,7 +45,6 @@ function displayPrompt() {
         $('#overlay').fadeIn('fast',function(){
         $('#data').empty();
         $('#data').append('<h3>Single Choice</h3>');
-        $('#data').append('<p><input type="text" id="questionSingle" placeholder="Question ?"/></p>');
         $('#data').append('<p>Type each answer follow by a new line</p>');
         $('#data').append('<textarea type="text" placeholder="Answers" id="SingleChoiceQuestion"></textarea>');    
         });
@@ -63,7 +61,9 @@ function displayPrompt() {
         // doing nothing
         isAnimate = false;
     }
-    
+    else {
+        isAnimate = false;
+    }
     if (isAnimate) {
         $('#PromptBox').animate({'top':'160px'},500);
     }    

@@ -72,7 +72,7 @@ function centerPopup(){
     var poph = $('#condition_container').height();  
     $("#condition_container").css({  
         "position" : "absolute",  
-        "top" : winh/4-poph/2,  
+        "top" : winh/5-poph/2,  
         "left" : winw/4-popw/2  
     });  
 }
