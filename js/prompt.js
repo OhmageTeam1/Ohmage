@@ -179,21 +179,6 @@ $(document).ready(function() {
         }
     });
     
-    /*
-    function displayPrompt() {
-        $('#data').empty();
-        var promptType = $('#groupPromptType').val();
-        if (promptType == "Multiple Choice") {
-            $('#overlay').fadeIn('fast',function(){
-            $('#data').empty();
-            $('#data').append('<h2>Multiple Choice</h2>');
-            $('#data').append('<p>Type each question follow by a new line</p>');
-            $('#data').append('<textarea type="text" placeholder="Question" id="MultipleChoiceQuestion"></textarea>');
-            $('#MultipleChoiceBox').animate({'top':'160px'},500);
-            });
-        }
-    }
-    */
     // This function wiil clear (reset) the form
     // credit goes to: http://www.learningjquery.com/2007/08/clearing-form-data
     $.fn.clearForm = function() {
@@ -275,31 +260,96 @@ $(document).ready(function() {
     
     $("select").change(displayPrompt);
     displayPrompt();
-    //showValues();
-    /*
-    This section is for reference, please do not delete it
-    $("input:radio[name=groupPromptType]").click(function() {
-        var value = $(this).val();
-        if (value == 'Multiple Choice') {
-            $('#overlay').fadeIn('fast',function(){
-            $('#MultipleChoiceBox').animate({'top':'160px'},500);
-            });
-        }
-        else if (value == 'Number') {
-            $('#overlay').fadeIn('fast',function(){
-            $('#NumberBox').animate({'top':'160px'},500);
-            });
-        }
-        else if (value == 'Single Choice') {
-          
-        }
-    });
-    */
+    
     $('#PromptBoxOK').click(function(){
+        $('#addedPrompt').empty();
+        var promptType = $('#groupPromptType').val();
+        var header = promptType + "\n";
+        if (promptType == "Multiple Choice" || promptType == "Multiple Choice Custom") {
+            var text, value;
+            text = $('#MultipleChoiceAnswer').val(); 
+            text = text.replace("\r\n", "\n"); 
+            text = text.split("\n");
+            value = $('#MultipleChoiceValue').val(); 
+            value = value.replace("\r\n", "\n"); 
+            value = value.split("\n");
+            
+            lenText = text.length;
+            lenVal = value. length;
+            var answers = "";
+            for (i = 0; i < lenText; i++)
+            {
+               if (i < lenVal) {
+                answers += text[i] + ":" + value[i] + "\n";               
+               }
+               else {
+                answers += text[i] + ":" + "\n";  
+               }
+            }
+            $('#addedPrompt').val(header + answers);
+        }
+        else if (promptType == "Number") {
+            var min = $('#minNumber').val();
+            var max = $('#maxNumber').val();
+            var answers = "Min: " + min + "\n" + "Max: " + max;
+            $('#addedPrompt').val(header + answers);
+        }
+        else if (promptType == "Photo") {
+            var res = $('#resPhoto').val();
+            var answers = "Resolution: " + res;
+            $('#addedPrompt').val(header + answers);
+        }
+        else if (promptType == "Remote Activity") {
+            var pack = $('#packageRemote').val();
+            var activity = $('#activityRemote').val();
+            var action = $('#actionRemote').val();
+            var auto = $('#autolaunchRemote').val();
+            var retry = $('#retriesRemote').val();
+            var min = $('#minrunRemote').val();
+            var input = $('#inputRemote').val();
+            var answers = "Package: " + pack + "\n"
+                          + "Activity: " + activity + "\n"
+                          + "Action: " + action + "\n"
+                          + "Auto: " + auto + "\n"
+                          + "Retry: " + retry + "\n"
+                          + "Min run: " + min + "\n"
+                          + "Input: " + input + "\n"
+            $('#addedPrompt').val(header + answers);             
+        }
+        else if (promptType == "Single Choice" || promptType == "Single Choice Custom") {
+            var text, value;
+            text = $('#SingleChoiceAnswer').val(); 
+            text = text.replace("\r\n", "\n"); 
+            text = text.split("\n");
+            value = $('#SingleChoiceValue').val(); 
+            value = value.replace("\r\n", "\n"); 
+            value = value.split("\n");
+            
+            lenText = text.length;
+            lenVal = value. length;
+            var answers = "";
+            for (i = 0; i < lenText; i++)
+            {
+               if (i < lenVal) {
+                answers += text[i] + ":" + value[i] + "\n";               
+               }
+               else {
+                answers += text[i] + ":" + "\n";  
+               }
+            }
+            $('#addedPrompt').val(header + answers);
+        }
+        else if (promptType == "Text") {
+            var min = $('#minText').val();
+            var max = $('#maxText').val();
+            var answers = "Min: " + min + "\n" + "Max: " + max;
+            $('#addedPrompt').val(header + answers);
+        }
+        
         $('#PromptBox').animate({'top':'-300px'},500,function(){
             $('#data').empty();
             $('#overlay').fadeOut('fast');
-        });
+        });       
     })
     
     

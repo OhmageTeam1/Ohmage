@@ -138,6 +138,10 @@
                                                     </select>
                                                     <i class="help-icon icon-question-sign" data-original-title="Choose type of your prompt" rel="tooltip" data-placement="right"></i>
                                                 </div>
+                                                <div class="controls"> 
+                                                    <p></p>
+                                                    <p><textarea name="addedPrompt" id="addedPrompt" readonly></textarea></p>
+                                                </div>
                                                 <!-- Overlay window section -->
                                                 
                                                 <div class="overlay" id="overlay" style="display:none;"></div>

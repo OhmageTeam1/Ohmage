@@ -2,36 +2,31 @@
 Prompt type dropdown
 */
 function displayPrompt() {
-    $('#data').empty();
+    
     var promptType = $('#groupPromptType').val();
     var isAnimate = true;
+    $('#data').empty();
+    $('#data').append('<h3>' + promptType + '</h3>');
     if (promptType == "Multiple Choice" || promptType == "Multiple Choice Custom") {
         $('#overlay').fadeIn('fast',function(){
-        $('#data').empty();
-        $('#data').append('<h3>Multiple Choice</h3>');
-        $('#data').append('<p>Type each answer follow by a new line</p>');
-        $('#data').append('<textarea type="text" placeholder="Answers" id="MultipleChoiceQuestion"></textarea>');    
+        $('#data').append('<p>Type each answer on the left box and its corresponding value on the right box, follow by a new line</p>');
+        $('#data').append('<textarea type="text" placeholder="Answers" id="MultipleChoiceAnswer"></textarea>');
+        $('#data').append('<textarea type="text" placeholder="Values" id="MultipleChoiceValue"></textarea>');
         });
     }
     else if (promptType == "Number") {
         $('#overlay').fadeIn('fast',function(){
-        $('#data').empty();
-        $('#data').append('<h3>Number</h3>');
         $('#data').append('<p><input type="text" id="minNumber" placeholder="Min"/></p>');
         $('#data').append('<p><input type="text" id="maxNumber" placeholder="Max"/></p>');
         });
     }
     else if (promptType == "Photo") {
         $('#overlay').fadeIn('fast',function(){
-        $('#data').empty();
-        $('#data').append('<h3>Photo</h3>');
         $('#data').append('<p><input type="text" id="resPhoto" placeholder="Resolution"/></p>');
         });
     }
     else if (promptType == "Remote Activity") {
         $('#overlay').fadeIn('fast',function(){
-        $('#data').empty();
-        $('#data').append('<h3>Remote Activity</h3>');
         $('#data').append('<p><input type="text" id="packageRemote" placeholder="Package"/></p>');
         $('#data').append('<p><input type="text" id="activityRemote" placeholder="Activity"/></p>');
         $('#data').append('<p><input type="text" id="actionRemote" placeholder="Action"/></p>');
@@ -43,16 +38,13 @@ function displayPrompt() {
     }
     else if (promptType == "Single Choice" || promptType == "Single Choice Custom") {
         $('#overlay').fadeIn('fast',function(){
-        $('#data').empty();
-        $('#data').append('<h3>Single Choice</h3>');
         $('#data').append('<p>Type each answer follow by a new line</p>');
-        $('#data').append('<textarea type="text" placeholder="Answers" id="SingleChoiceQuestion"></textarea>');    
+        $('#data').append('<textarea type="text" placeholder="Answers" id="SingleChoiceAnswer"></textarea>');
+        $('#data').append('<textarea type="text" placeholder="Values" id="SingleChoiceValue"></textarea>');
         });
     }
     else if (promptType == "Text") {
         $('#overlay').fadeIn('fast',function(){
-        $('#data').empty();
-        $('#data').append('<h3>Text</h3>');
         $('#data').append('<p><input type="text" id="minText" placeholder="Min"/></p>');
         $('#data').append('<p><input type="text" id="maxText" placeholder="Max"/></p>');
         });
