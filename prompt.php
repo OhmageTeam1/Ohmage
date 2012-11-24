@@ -12,6 +12,7 @@
         <script type="text/javascript" src="js/jquery-cookie.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.0.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/promptType.js"></script>
         <script type="text/javascript" src="js/prompt.js"></script>
         
     </head>
@@ -135,27 +136,14 @@
                                                 
                                                 <div class="overlay" id="overlay" style="display:none;"></div>
  
-                                                <div class="MultipleChoiceBox" id="MultipleChoiceBox">
+                                                <div class="PromptBox" id="PromptBox">
                                                     <a class="boxclose" id="boxclose"></a>
                                                     <div class="data" id="data">
                                                     </div>
                                                     <div class="control-group">
-                                                        <button type="button" class="btn btn-primary" data-toggle="button" id="MultipleChoiceOK">OK</button>
+                                                        <button type="button" class="btn btn-primary" data-toggle="button" id="PromptBoxOK">OK</button>
                                                     </div>
                                                 </div>
-                                                <div class="NumberBox" id="NumberBox">
-                                                    <h2>Number</h2>
-                                                    <p> Minumum value
-                                                    <input type="number" placeholder="0"></input>
-                                                    </p>
-                                                    <p> Maximum value
-                                                    <input type="number" placeholder="100"></input>
-                                                    </p>
-                                                    <div class="control-group">
-                                                        <button type="button" class="btn btn-primary" data-toggle="button" id="NumberOK">OK</button>
-                                                    </div>
-                                                </div>
-                                               
 											</div>
 											
                                             

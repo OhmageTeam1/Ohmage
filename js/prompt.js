@@ -173,6 +173,7 @@ $(document).ready(function() {
         }
     });
     
+    /*
     function displayPrompt() {
         $('#data').empty();
         var promptType = $('#groupPromptType').val();
@@ -186,7 +187,7 @@ $(document).ready(function() {
             });
         }
     }
-    
+    */
     // This function wiil clear (reset) the form
     // credit goes to: http://www.learningjquery.com/2007/08/clearing-form-data
     $.fn.clearForm = function() {
@@ -289,14 +290,14 @@ $(document).ready(function() {
     });
     */
     $('#boxclose').click(function(){
-        $('#MultipleChoiceBox').animate({'top':'-300px'},500,function(){
+        $('#PromptBox').animate({'top':'-300px'},500,function(){
             $('#overlay').fadeOut('fast');
         });
     })
-    $('#MultipleChoiceOK').click(function(){
+    $('#PromptBox').click(function(){
         var test = $("textarea#MultipleChoiceQuestion").val();
         alert(test);
-        $('#NumberBox').animate({'top':'-300px'},500,function(){
+        $('#PromptBox').animate({'top':'-300px'},500,function(){
             $('#overlay').fadeOut('fast');
         });
     })

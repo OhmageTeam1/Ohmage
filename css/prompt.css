@@ -12,7 +12,7 @@ td, th {
     z-index:100;
 }
 
-.MultipleChoiceBox, .NumberBox{
+.PromptBox{
     position:fixed;
     top:-300px;
     left:30%;
