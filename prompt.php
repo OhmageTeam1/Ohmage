@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="well span2">
                     <h2>Number of Questions</h2>
-                    <p>0</p>
+                    <p id="numQuestion">0</p>
                 </div>
                 <div class="well span9 content">
 					<img src="img/ohmage-logo.png">
@@ -284,8 +284,14 @@
                                                 <input type="text" name="Condition" id="conditionRepeatable" placeholder="Click to edit conditions" />
                                             </div>
                                             <div class="control-group">
+                                                <label for="choose">
+                                                Choose prompts to add to the repeatable set
+                                                </label>
                                                 <select id="repeatPromptList">
                                                 </select>
+                                                <a href="#" id="addPromptRepeatable">Add</a>
+                                                <p></p>
+                                                <p><textarea name="promptsRepeatablt" id="promptsRepeatablt" readonly></textarea></p>
                                             </div>
                                             <div class="control-group">
                                                 <button type="submit" class="btn btn-primary" id="create repeatable" value="Create Repeatble">Create Repeatable Set</button>

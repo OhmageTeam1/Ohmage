@@ -8,7 +8,9 @@ var editIndex = 0;
 
 function showValues() {
     $("#previousItem").empty();
-    
+    $("#repeatPromptList").empty();
+    var length = promptArray.length;
+    $("#numQuestion").text(length);
     jQuery.each(promptArray, function(i, JSONvalue) {
         $("#previousItem").append("<tr>"
                                  + "<th>"
@@ -21,9 +23,11 @@ function showValues() {
                                  + '<a href="#" onclick="deletePrompt(' + i + '); return false;" id="Delete">Delete</a>'
                                  + "</th>"
                                  + "</tr>");
+        // update for select in repeatble set
+        // placeholder
+        $("#repeatPromptList").append("<option value=" + promptArray[i][0].value + ">" + promptArray[i][0].value + "</option>");    
         });
-    // update for select in repeatble set
-    // placeholder
+    
 }
     
 function openAccordion(index) {
