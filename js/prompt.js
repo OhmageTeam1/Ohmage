@@ -22,6 +22,8 @@ function showValues() {
                                  + "</th>"
                                  + "</tr>");
         });
+    // update for select in repeatble set
+    // placeholder
 }
     
 function openAccordion(index) {
@@ -93,7 +95,7 @@ function conditionClick() {
 }
     
 $(document).ready(function() {
-
+    $('#groupPromptType').val("None");
     /*
     Condition text box section
     */

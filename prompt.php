@@ -236,7 +236,61 @@
                                 </div>
                                 <div id="newRepeatableSet" class="accordion-body collapse in">
                                     <div class="accordion-inner">
-                                        NEW REPEATABLE SET FORM
+                                        <form class="form-horizontal" id="repeatable-form">
+                                            <div class="control-group">
+                                                <label for="idRepeatable">
+                                                Repeatable set ID
+                                                <span class="label label-info">Required</span>
+                                                </label>
+                                                <input type="text" name="idRepeatable" id="idRepeatable" placeholder="ID"/>
+                                            </div>
+                                            <div class="control-group">
+                                                <label for="terminationQuestion">
+                                                Termination Question
+                                                <span class="label label-info">Required</span>
+                                                </label>
+                                                <input type="text" name="terminationQuestion" id="terminationQuestion" placeholder="Termination Question"/>
+                                            </div>
+                                            <div class="control-group">
+                                                <label for="terminationTrueLabel">
+                                                Termination True Label
+                                                <span class="label label-info">Required</span>
+                                                </label>
+                                                <input type="text" name="terminationTrueLabel" id="terminationTrueLabel" placeholder="Termination True Label"/>
+                                            </div>
+                                            <div class="control-group">
+                                                <label for="terminationFalseLabel">
+                                                Termination False Label
+                                                <span class="label label-info">Required</span>
+                                                </label>
+                                                <input type="text" name="terminationFalseLabel" id="terminationFalseLabel" placeholder="Termination False Label"/>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="checkbox">
+                                                <input type="checkbox" name="terminationSkipEnabled" id="terminationSkipEnabled">
+                                                Show Termination Skip button?
+                                                </label>
+                                            </div> 
+                                            <div class="control-group">
+                                                <label id="terminationSkipLabel">
+                                                Skip Label
+                                                </label>
+                                                <input type="text" name="terminationSkipLabel" id="terminationSkipLabel" placeholder="Skip Label" disabled="disable"/>
+                                            </div>
+                                            <div class="control-group">
+                                                <label for="condition">
+                                                Condition
+                                                </label>
+                                                <input type="text" name="Condition" id="conditionRepeatable" placeholder="Click to edit conditions" />
+                                            </div>
+                                            <div class="control-group">
+                                                <select id="repeatPromptList">
+                                                </select>
+                                            </div>
+                                            <div class="control-group">
+                                                <button type="submit" class="btn btn-primary" id="create repeatable" value="Create Repeatble">Create Repeatable Set</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
