@@ -12,7 +12,7 @@ function showValues() {
     var length = promptArray.length;
     $("#numQuestion").text(length);
     jQuery.each(promptArray, function(i, JSONvalue) {
-        $("#previousItem").append("<tr>"
+        $("#previousItem").append("<tr onmouseover='' style='cursor: pointer;'>"
                                  + "<th>"
                                  + i + ":" + promptArray[i][0].value
                                  + "</th>"
@@ -295,12 +295,7 @@ $(document).ready(function() {
         }
     });
     */
-    $('#boxclose').click(function(){
-        $('#PromptBox').animate({'top':'-300px'},500,function(){
-            $('#overlay').fadeOut('fast');
-        });
-    })
-    $('#PromptBox').click(function(){
+    $('#PromptBoxOK').click(function(){
         $('#PromptBox').animate({'top':'-300px'},500,function(){
             $('#data').empty();
             $('#overlay').fadeOut('fast');
