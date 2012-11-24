@@ -295,9 +295,8 @@ $(document).ready(function() {
         });
     })
     $('#PromptBox').click(function(){
-        var test = $("textarea#MultipleChoiceQuestion").val();
-        alert(test);
         $('#PromptBox').animate({'top':'-300px'},500,function(){
+            $('#data').empty();
             $('#overlay').fadeOut('fast');
         });
     })

@@ -126,7 +126,7 @@
                                                     <option value="Number">Number</option>
                                                     <option value="Photo">Photo</option>
                                                     <option value="Remote Activity">Remote Activity</option>
-                                                    <option value="Single Choice ">Single Choice</option>
+                                                    <option value="Single Choice">Single Choice</option>
                                                     <option value="Single Choice Custom">Single Choice Custom</option>
                                                     <option value="Text">Text</option>
                                                     <option value="Timestamp">Timestamp</option>
