@@ -190,24 +190,26 @@
                                                                 <div id="condition_container">
                                                                     <table>
                                                                         <tr>
-                                                                            <td><input type="radio" name="opt" style="vertical-align: middle"></td>
+                                                                            <td><input type="radio" name="condType" style="vertical-align: middle" value="Simple" checked="checked"></td>
                                                                             <td>Simple</td>
-                                                                            <td><input type="radio" name="opt" style="vertical-align: middle"></td>
+                                                                            <td><input type="radio" name="condType" style="vertical-align: middle" value="Advance"></td>
                                                                             <td>Advance</td>
                                                                         </tr>
                                                                     </table>
                                                                     <p> </p>
-                                                                    <select id="promptIDList">
-                                                                    </select>
-                                                                    <select id="operator">
-                                                                        <option value="==">&#61;</option>
-                                                                        <option value="!=">&#33;&#61;</option>
-                                                                        <option value="<">&#60;</option>
-                                                                        <option value="<=">&#60;&#61;</option>
-                                                                        <option value=">">&#62;</option>
-                                                                        <option value=">=">&#62;&#61;</option>
-                                                                    </select>
-                                                                    <input type="text" id="conditionValue" placeholder="value"/>
+                                                                    <div id="condType">
+                                                                        <select id="promptIDList">
+                                                                        </select>
+                                                                        <select id="operator">
+                                                                            <option value="==">&#61;</option>
+                                                                            <option value="!=">&#33;&#61;</option>
+                                                                            <option value="<">&#60;</option>
+                                                                            <option value="<=">&#60;&#61;</option>
+                                                                            <option value=">">&#62;</option>
+                                                                            <option value=">=">&#62;&#61;</option>
+                                                                        </select>
+                                                                        <input type="text" id="conditionValue" placeholder="value"/>
+                                                                    </div>
                                                                     <p><button type="button" class="btn btn-primary" id="saveCondition">Save Condition</button></p>
                                                                 </div>
                                                                 <div id="bgPopup"></div>

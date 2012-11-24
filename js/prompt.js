@@ -81,6 +81,7 @@ function disablePopup(){
 // click the condition text box
 function conditionClick() {
     centerPopup();
+    
     // create drop down from prompt array
     $("#promptIDList").empty();
     jQuery.each(promptArray, function(i, JSONvalue) {
@@ -92,20 +93,59 @@ function conditionClick() {
 }
     
 $(document).ready(function() {
+
+    /*
+    Condition text box section
+    */
     $("#bgPopup").data("state",0);  
     $("#saveCondition").click(function(){
-        // save to condition text box
-        var promptID = $('#promptIDList').val();
-        console.log(promptID);
-        var operator = $('#operator').val();
-        console.log(operator);
-        var val = $('#conditionValue').val();
-        console.log(val);
-        var condition = promptID + " " + operator + " " + val;
-        console.log(condition);
+        var value = $('input:radio[name=condType]:checked').val();
+        var condition = "";
+        if (value == "Simple") {     
+            // save to condition text box
+            var promptID = $('#promptIDList').val();
+            var operator = $('#operator').val();
+            var val = $('#conditionValue').val();
+            condition = promptID + " " + operator + " " + val;         
+        }
+        else { // advance
+            condition = $('#advanceCondition').val();
+        }
         $('#condition').val(condition);
-        disablePopup();  
+        disablePopup();
+        
     });
+    $("input:radio[name=condType]").click(function() {
+        var value = $(this).val();
+        if (value == "Advance") {
+            $("#condType").empty();
+            $("#condType").append("<input type='text' name='Condition' id='advanceCondition' placeholder='Input condition' />");
+        }
+        else {
+            $("#condType").empty();
+            $("#condType").append("<select id='promptIDList'>" + 
+                                  "</select>" +
+                                  "<select id='operator'>" +
+                                  "<option value='=='>&#61;</option>" +
+                                  "<option value='!='>&#33;&#61;</option>" +
+                                  "<option value='<'>&#60;</option>" +
+                                  "<option value='<='>&#60;&#61;</option>" +
+                                  "<option value='>'>&#62;</option>" +
+                                  "<option value='>='>&#62;&#61;</option>" +
+                                  "</select>" +
+                                  "<input type='text' id='conditionValue' placeholder='value'/>");
+            // create drop down from prompt array
+            $("#promptIDList").empty();
+            jQuery.each(promptArray, function(i, JSONvalue) {
+                var val = promptArray[i][0].value;
+                $("#promptIDList").append("<option value=" + val + ">" + val + "</option>");
+            });
+        }
+    });
+    
+    /*
+    Previous item area
+    */
     $( "#previousItem" ).sortable({
 			start: function(event, ui) {
                 ui.item.startPos = ui.item.index();
@@ -146,14 +186,6 @@ $(document).ready(function() {
             });
         }
     }
-    
-    // Show prompt at the top of the page
-    
-    
-    $('#Edit').click(function() {
-        alert('Edit');
-    });
-    
     
     // This function wiil clear (reset) the form
     // credit goes to: http://www.learningjquery.com/2007/08/clearing-form-data
