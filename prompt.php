@@ -31,6 +31,7 @@
                 <div class="well span2">
                     <h2>Number of Questions</h2>
                     <p id="numQuestion">0</p>
+                    <!-- <p><button type="button" class="btn btn-primary" id="viewXML">View XML</button></p> -->
                 </div>
                 <div class="well span9 content">
 					<img src="img/ohmage-logo.png">
@@ -55,10 +56,24 @@
                                         <hr>
                                         <form class="form-horizontal" id="message-form">
                                             <div class="control-group">
+                                                <label class="control-label" for="messageID">Message ID*</label>
+                                                <div class="controls">
+                                                    <textarea name="id" id="messageID" placeholder="Message ID"></textarea>
+                                                    <i class="help-icon icon-question-sign" data-original-title="A unique identifier for this message." rel="tooltip" data-placement="right"></i>
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
                                                 <label class="control-label" for="messageText">Message Text*</label>
                                                 <div class="controls">
                                                     <textarea name="messageText" id="messageText" placeholder="Message Text"></textarea>
                                                     <i class="help-icon icon-question-sign" data-original-title="The text to be displayed to the user." rel="tooltip" data-placement="right"></i>
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label" for="condition">Condition</label>
+                                                <div class="controls">
+                                                    <input type="text" name="condition" id="conditionMessage" placeholder="Click to edit conditions" />
+                                                    <i class="help-icon icon-question-sign" data-original-title="The condition which determines if the message is displayed or not." rel="tooltip" data-placement="right"></i>
                                                 </div>
                                             </div>
                                             <div class="control-group">
@@ -80,7 +95,7 @@
                                             <div class="control-group">
 												<label class="control-label" for="promptID">Prompt ID*</label>
                                                 <div class="controls">
-                                                    <input type="text" name="id" id="Prompt ID" placeholder="Prompt ID" />
+                                                    <input type="text" name="id" id="promptID" placeholder="Prompt ID" />
                                                     <i class="help-icon icon-question-sign" data-original-title="A unique identifier for the prompt." rel="tooltip" data-placement="right"></i>
                                                 </div>
                                             </div>
@@ -88,7 +103,7 @@
 											<div class="control-group">
 												<label class="control-label" for="displayLabel">Display Label*</label>
                                                 <div class="controls">
-                                                    <input type="text" name="displayLabel" id="Display Label" placeholder="Display Label" />
+                                                    <input type="text" name="displayLabel" id="displayLabel" placeholder="Display Label" />
                                                     <i class="help-icon icon-question-sign" data-original-title="The user-friendly name of this prompt used in visualizations." rel="tooltip" data-placement="right"></i>
                                                 </div>
 											</div>
@@ -96,7 +111,7 @@
 											<div class="control-group">
 												<label class="control-label" for="displayType">Display Type*</label>
                                                 <div class="controls">
-                                                    <select name="displayType">
+                                                    <select name="displayType" id="displayType">
                                                         <option value="None">Please choose a display type</option>
                                                         <option value="Measurement">Measurement</option>
                                                         <option value="Event">Event</option>
@@ -111,7 +126,7 @@
 											<div class="control-group">
 												<label class="control-label" for="promptText">Prompt Text*</label>
                                                 <div class="controls">
-                                                    <textarea type="text" name="promptText" id="Prompt Text" placeholder="Prompt Text"></textarea>
+                                                    <textarea type="text" name="promptText" id="promptText" placeholder="Prompt Text"></textarea>
                                                     <i class="help-icon icon-question-sign" data-original-title="The text to display to the user when prompting them to respond." rel="tooltip" data-placement="right"></i>
                                                 </div>
 											</div>
@@ -119,7 +134,7 @@
 											<div class="control-group">
 												<label class="control-label" for="abbreviatedText">Abbreviated Text*</label>
                                                 <div class="controls">
-                                                    <textarea type="text" name="abbreviatedText" id="Abbreviated Text" placeholder="Abbreviated Text"></textarea>
+                                                    <textarea type="text" name="abbreviatedText" id="abbreviatedText" placeholder="Abbreviated Text"></textarea>
                                                     <i class="help-icon icon-question-sign" data-original-title="An abbreviated version of the prompt text for use in situations where space is limited or for display purposes." rel="tooltip" data-placement="right"></i>
                                                 </div>
 											</div>
@@ -182,7 +197,7 @@
                                                             <div class="control-group">
                                                                 <label class="control-label" for="default">Default</label>
                                                                 <div class="controls">
-                                                                    <input type="text" name="default" id="Default" placeholder="Default" />
+                                                                    <input type="text" name="default" id="default" placeholder="Default" />
                                                                     <i class="help-icon icon-question-sign" data-original-title="The default value for this prompt. This is type-dependent." rel="tooltip" data-placement="right"></i>
                                                                 </div>
                                                             </div>

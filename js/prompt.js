@@ -10,6 +10,7 @@ var editIndex = 0;
 function showValues() {
     $("#previousItem").empty();
     $("#repeatPromptList").empty();
+    /*
     var length = promptArray.length;
     $("#numQuestion").text(length);
     jQuery.each(promptArray, function(i, JSONvalue) {
@@ -28,17 +29,93 @@ function showValues() {
         // placeholder
         $("#repeatPromptList").append("<option value=" + promptArray[i][0].value + ">" + promptArray[i][0].value + "</option>");    
         });
-    
+    */
+    var length = promptXMLArray.length;
+    $("#numQuestion").text(length);
+    jQuery.each(promptXMLArray, function(i, value) {
+        var xml = $.parseXML(promptXMLArray[i]);
+        var id = $(xml).find("id").text();
+        var link = "#";
+        if (typeArray[i] == "message") {
+            link = "#newMessage";
+        }
+        else if (typeArray[i] == "message") {
+            link = "#newPrompt";
+        }
+        $("#previousItem").append("<tr onmouseover='' style='cursor: pointer;'>"
+                                 + "<th>"
+                                 + i + ":" + id
+                                 + "</th>"
+                                 + "<th>"
+                                 + '<a href="' + link + '" onclick="openAccordion(' + i + '); return false;" id="Edit">Edit</a>'
+                                 + "</th>"
+                                 + "<th>"
+                                 + '<a href="#" onclick="deletePrompt(' + i + '); return false;" id="Delete">Delete</a>'
+                                 + "</th>"
+                                 + "</tr>");
+        // update for select in repeatble set
+        // placeholder
+        $("#repeatPromptList").append("<option value=" + id + ">" + id + "</option>");    
+        });
 }
     
-function openAccordion(index) {
-    var obj = jQuery.parseJSON(promptArray[index]);
-    $('#newMessage').collapse('show');
-    //document.getElementById("newMessage").collapse('show');
-    $('textarea#messageText').val(promptArray[index][0].value);
-    document.getElementById("create message").innerHTML="Edit Message";
-    isEdit = true;
-    editIndex = index;
+function openAccordion(index) { 
+    if (typeArray[index] == "message") {
+        //var obj = jQuery.parseJSON(promptArray[index]);
+        var xml = $.parseXML(promptXMLArray[index]);
+        $('#newMessage').collapse('show');
+        
+        //get data from XML object
+        var id = $(xml).find("id").text();
+        var messageText = $(xml).find("messageText").text();
+        var condition = $(xml).find("condition").text();
+        //$('textarea#messageText').val(promptArray[index][0].value);
+        
+        // parse data back to form
+        $('#messageID').val(id);
+        $('#messageText').val(messageText);
+        $('#conditionMessage').val(condition);
+        
+        document.getElementById("create message").innerHTML="Edit Message";
+        isEdit = true;
+        editIndex = index;
+    }
+    else if (typeArray[index] == "prompt") {
+        var xml = $.parseXML(promptXMLArray[index]);
+        $('#newPrompt').collapse('show');
+        
+        // get data from XML object
+        var id = $(xml).find("id").text();
+        var displayLabel = $(xml).find("displayLabel").text();
+        var displayType = $(xml).find("displayType").text();
+        var promptText = $(xml).find("promptText").text();
+        var abbreviatedText = $(xml).find("abbreviatedText").text();
+        var promptType = $(xml).find("promptType").text();
+        var pDefault = $(xml).find("default").text();
+        var condition = $(xml).find("condition").text();
+        var skippable = $(xml).find("skippable").text();
+        var skipLabel = $(xml).find("skipLabel").text();
+        // properties
+        
+        // parse data back to form
+        $('#promptID').val(id);
+        $('#displayLabel').val(displayLabel);
+        $('#displayType').val(displayType);
+        $('#promptText').val(promptText);
+        $('#abbreviatedText').val(abbreviatedText);
+        console.log(promptType);
+        $('#groupPromptType').val(promptType);
+        $('#default').val(pDefault);
+        $('#condition').val(condition);
+        if (skippable == "on") {
+            $('#skippable').prop('checked', true);;
+        }
+        $('#skipLabel').val(skipLabel);
+        
+        document.getElementById("add prompt").innerHTML="Edit Prompt";
+        isEdit = true;
+        editIndex = index;
+    }
 }
 function deletePrompt(curr_index) {
     promptArray.splice(curr_index, 1);
@@ -201,23 +278,31 @@ $(document).ready(function() {
     
     // submit message and save to JSON object
     $('#message-form').submit(function(event) {
-		// saving to JSON
-        //alert('test');
         if (isEdit == false) { // create
             event.preventDefault();
             temp = ($(this).serializeArray());
             promptArray.push(temp);
             typeArray.push("message");
-            console.log(promptArray);
-            console.log(typeArray);
+            
+            var temp2 = JSON.stringify($('#message-form').serializeObject());
+            text = "<message>" + json2xml(jQuery.parseJSON(temp2), "")  + "</message>";
+            xml = text;
+            promptXMLArray.push(xml);
+            console.log(xml);
+            
             $(this).clearForm();
             $('.collapse').collapse();
             showValues();
         }
         else { // edit, not create
             event.preventDefault();
-            temp = ($(this).serializeArray());
-            promptArray[editIndex] = temp;
+            
+            var temp2 = JSON.stringify($('#message-form').serializeObject());
+            text = "<message>" + json2xml(jQuery.parseJSON(temp2), "")  + "</message>";
+            xml = text;
+            console.log(xml);
+            promptXMLArray[editIndex] = xml;
+            
             $(this).clearForm();
             $('.collapse').collapse();
             //reset value
@@ -259,7 +344,7 @@ $(document).ready(function() {
             
             text = "<prompt>" + json2xml(jQuery.parseJSON(temp2), "")  + "</prompt>";
             
-            var xml = $.parseXML(text) ; 
+            var xml = $.parseXML(text); 
             var promptType = $('#groupPromptType').val();
             xml = addProperties(text, promptType);
             xml = $.XMLtoStr(xml);
