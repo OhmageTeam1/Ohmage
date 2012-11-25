@@ -1,56 +1,7 @@
-/******************************
-            NAVBAR
-******************************/
-.navbar .navbar-container {
-    padding: 0 20px;
-}
-.navbar .brand {
-    padding: 0 0 0 20px;
-}
-.logout-button {
-    margin-left: 10px;
+#privacyStateBtn, #runningStateBtn {
+    width: 150px;
 }
 
-/******************************
-             MISC
-******************************/
-.login-body {
-    padding-top: 20px;
-}
-body {
-    padding-top: 60px;
-}
-.box {
-    background-color: #FFF;
-    border: 1px solid #EEE;
-    padding: 20px;
-}
-.box-rounded {
-    background-color: #FFF;
-    padding: 20px;
-    -moz-border-radius-top-right: 10px;
-    -webkit-border-bottom-left-radius: 10px;
-    border-radius: 10px;
-    border: 1px solid #EEE;
-}
-.box-dark {
-    background-color: #F4F4F4;
-    border: 1px solid #EAEAEA;
-}
-.box-dark hr {
-    border-top: 1px solid #E4E4E4;
-    border-bottom: 1px solid #FCFCFC;
-}
-
-.centered {
-	text-align: center;
-}
-.left {
-	text-align: left;
-}
-.dropdown {
-	text-align:left;
-}
-.hide {
-	display: none;
+.btn i.icon-white {
+    margin-left: 5px;
 }
