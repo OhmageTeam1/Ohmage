@@ -227,6 +227,22 @@ $(document).ready(function() {
         
 	}); // end click
    
+    $.fn.serializeObject = function()
+    {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
     // submit prompt and save to JSON object
     $('#campaign-form').submit(function(event) {
         
@@ -234,11 +250,14 @@ $(document).ready(function() {
         if (isEdit == false) { // create
             event.preventDefault();
             temp = ($(this).serializeArray());
-            console.log(temp);
+            //console.log(temp);
             promptArray.push(temp);
             typeArray.push("prompt");
             console.log(promptArray);
             console.log(typeArray);
+            var temp2 = JSON.stringify($('#campaign-form').serializeObject());
+            console.log(temp2);
+            console.log(json2xml(jQuery.parseJSON(temp2), ""));
             $(this).clearForm();
             $('.collapse').collapse();
             showValues();            
