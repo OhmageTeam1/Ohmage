@@ -40,7 +40,7 @@ var campaignEditor = {
         survey['id'] = title.replace(/\s/g, '');    // ID is equivalent to title sans whitespace
         survey['title'] = title;
         if (description) survey['description'] = description;
-        if (introText) 1survey['introText'] = introText;
+        if (introText) survey['introText'] = introText;
         survey['submitText'] = submitText;
         survey['showSummary'] = showSummary
         if (showSummary) {
