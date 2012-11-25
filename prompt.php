@@ -15,6 +15,7 @@
         <script type="text/javascript" src="js/json2xml.js"></script>
         <script type="text/javascript" src="js/promptType.js"></script>
         <script type="text/javascript" src="js/prompt.js"></script>
+        <script type="text/javascript" src="js/XMLProcessor.js"></script>
         <script type="text/javascript" src="js/help-icon.js"></script>
         
     </head>
@@ -86,7 +87,7 @@
 											<div class="control-group">
 												<label class="control-label" for="displayLabel">Display Label*</label>
                                                 <div class="controls">
-                                                    <input type="text" name="Display Label" id="Display Label" placeholder="Display Label" />
+                                                    <input type="text" name="displayLabel" id="Display Label" placeholder="Display Label" />
                                                     <i class="help-icon icon-question-sign" data-original-title="The user-friendly name of this prompt used in visualizations." rel="tooltip" data-placement="right"></i>
                                                 </div>
 											</div>
@@ -94,7 +95,7 @@
 											<div class="control-group">
 												<label class="control-label" for="displayType">Display Type*</label>
                                                 <div class="controls">
-                                                    <select name="Display Type">
+                                                    <select name="displayType">
                                                         <option value="None">Please choose a display type</option>
                                                         <option value="Measurement">Measurement</option>
                                                         <option value="Event">Event</option>
@@ -109,7 +110,7 @@
 											<div class="control-group">
 												<label class="control-label" for="promptText">Prompt Text*</label>
                                                 <div class="controls">
-                                                    <textarea type="text" name="Prompt Text" id="Prompt Text" placeholder="Prompt Text"></textarea>
+                                                    <textarea type="text" name="promptText" id="Prompt Text" placeholder="Prompt Text"></textarea>
                                                     <i class="help-icon icon-question-sign" data-original-title="The text to display to the user when prompting them to respond." rel="tooltip" data-placement="right"></i>
                                                 </div>
 											</div>
@@ -117,7 +118,7 @@
 											<div class="control-group">
 												<label class="control-label" for="abbreviatedText">Abbreviated Text*</label>
                                                 <div class="controls">
-                                                    <textarea type="text" name="Abbreviated Text" id="Abbreviated Text" placeholder="Abbreviated Text"></textarea>
+                                                    <textarea type="text" name="abbreviatedText" id="Abbreviated Text" placeholder="Abbreviated Text"></textarea>
                                                     <i class="help-icon icon-question-sign" data-original-title="An abbreviated version of the prompt text for use in situations where space is limited or for display purposes." rel="tooltip" data-placement="right"></i>
                                                 </div>
 											</div>
@@ -125,7 +126,7 @@
 											<div class="control-group">
 												<label class="control-label" for="promptType">Prompt Type*</label>
                                                 <div class="controls">
-                                                    <select name="Prompt Type" id="groupPromptType">
+                                                    <select name="promptType" id="groupPromptType">
                                                         <option value="None">Please choose a prompt type</option>
                                                         <option value="Multiple Choice">Multiple Choice</option>
                                                         <option value="Multiple Choice Custom">Multiple Choice Custom</option>
@@ -139,9 +140,12 @@
                                                     </select>
                                                     <i class="help-icon icon-question-sign" data-original-title="Choose type of your prompt" rel="tooltip" data-placement="right"></i>
                                                 </div>
-                                                <div class="controls"> 
-                                                    <p></p>
-                                                    <p><textarea name="addedPrompt" id="addedPrompt" readonly></textarea></p>
+                                                <div class="controls">
+                                                    
+                                                    <div>
+                                                        <p></p>
+                                                        <p><textarea name="properties" id="addedPrompt" readonly></textarea></p>
+                                                    </div>
                                                 </div>
                                                 <!-- Overlay window section -->
                                                 
@@ -177,14 +181,14 @@
                                                             <div class="control-group">
                                                                 <label class="control-label" for="default">Default</label>
                                                                 <div class="controls">
-                                                                    <input type="text" name="Default" id="Default" placeholder="Default" />
+                                                                    <input type="text" name="default" id="Default" placeholder="Default" />
                                                                     <i class="help-icon icon-question-sign" data-original-title="The default value for this prompt. This is type-dependent." rel="tooltip" data-placement="right"></i>
                                                                 </div>
                                                             </div>
                                                             <div class="control-group">
                                                                 <label class="control-label" for="condition">Condition</label>
                                                                 <div class="controls">
-                                                                    <input type="text" name="Condition" id="condition" onclick="conditionClick()" placeholder="Click to edit conditions" />
+                                                                    <input type="text" name="condition" id="condition" onclick="conditionClick()" placeholder="Click to edit conditions" />
                                                                     <i class="help-icon icon-question-sign" data-original-title="The condition which determines if the prompt is displayed or not." rel="tooltip" data-placement="right"></i>
                                                                 </div>
                                                                 <div id="condition_container">

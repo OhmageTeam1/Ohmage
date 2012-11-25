@@ -1,5 +1,6 @@
 // overlay box script from : http://tympanus.net/codrops/2009/12/03/css-and-jquery-tutorial-overlay-with-slide-out-box/
 
+var promptXMLArray = new Array(); // array of XML prompt
 var promptArray = new Array(); // array of JSON prompt
 var typeArray = new Array(); // array of type (message, prompt, etc..)
 var arrayIndex = 0; // array index
@@ -250,14 +251,22 @@ $(document).ready(function() {
         if (isEdit == false) { // create
             event.preventDefault();
             temp = ($(this).serializeArray());
-            //console.log(temp);
+            
             promptArray.push(temp);
             typeArray.push("prompt");
-            console.log(promptArray);
-            console.log(typeArray);
+            
             var temp2 = JSON.stringify($('#campaign-form').serializeObject());
-            console.log(temp2);
-            console.log(json2xml(jQuery.parseJSON(temp2), ""));
+            
+            text = "<prompt>" + json2xml(jQuery.parseJSON(temp2), "")  + "</prompt>";
+            
+            var xml = $.parseXML(text) ; 
+            var promptType = $('#groupPromptType').val();
+            xml = addProperties(text, promptType);
+            xml = $.XMLtoStr(xml);
+            xml=xml.replace(/(&lt;)/g,"<").replace(/(&gt;)/g,">");
+            promptXMLArray.push(xml);
+            console.log(xml);
+            //alert($.XMLtoStr(xml));
             $(this).clearForm();
             $('.collapse').collapse();
             showValues();            
@@ -305,18 +314,15 @@ $(document).ready(function() {
                 answers += text[i] + ":" + "\n";  
                }
             }
-            $('#addedPrompt').val(header + answers);
         }
         else if (promptType == "Number") {
             var min = $('#minNumber').val();
             var max = $('#maxNumber').val();
-            var answers = "Min: " + min + "\n" + "Max: " + max;
-            $('#addedPrompt').val(header + answers);
+            var answers = "min:" + min + "\n" + "max:" + max;
         }
         else if (promptType == "Photo") {
             var res = $('#resPhoto').val();
-            var answers = "Resolution: " + res;
-            $('#addedPrompt').val(header + answers);
+            var answers = "Resolution:" + res;
         }
         else if (promptType == "Remote Activity") {
             var pack = $('#packageRemote').val();
@@ -326,14 +332,13 @@ $(document).ready(function() {
             var retry = $('#retriesRemote').val();
             var min = $('#minrunRemote').val();
             var input = $('#inputRemote').val();
-            var answers = "Package: " + pack + "\n"
-                          + "Activity: " + activity + "\n"
-                          + "Action: " + action + "\n"
-                          + "Auto: " + auto + "\n"
-                          + "Retry: " + retry + "\n"
-                          + "Min run: " + min + "\n"
-                          + "Input: " + input + "\n"
-            $('#addedPrompt').val(header + answers);             
+            var answers = "Package:" + pack + "\n"
+                          + "Activity:" + activity + "\n"
+                          + "Action:" + action + "\n"
+                          + "Auto:" + auto + "\n"
+                          + "Retry:" + retry + "\n"
+                          + "Min run:" + min + "\n"
+                          + "Input:" + input + "\n"           
         }
         else if (promptType == "Single Choice" || promptType == "Single Choice Custom") {
             var text, value;
@@ -356,14 +361,13 @@ $(document).ready(function() {
                 answers += text[i] + ":" + "\n";  
                }
             }
-            $('#addedPrompt').val(header + answers);
         }
         else if (promptType == "Text") {
             var min = $('#minText').val();
             var max = $('#maxText').val();
-            var answers = "Min: " + min + "\n" + "Max: " + max;
-            $('#addedPrompt').val(header + answers);
+            var answers = "Min:" + min + "\n" + "Max:" + max;  
         }
+        $('#addedPrompt').val(answers);
         
         $('#PromptBox').animate({'top':'-300px'},500,function(){
             $('#data').empty();
