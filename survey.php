@@ -11,7 +11,8 @@
         <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/campaign.css" rel="stylesheet" type="text/css"/>
+        <link href="css/layout.css" rel="stylesheet" type="text/css"/>
+        <link href="css/navbar.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/jquery-cookie.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
