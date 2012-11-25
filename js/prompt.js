@@ -341,6 +341,26 @@ $(document).ready(function() {
             typeArray.push("prompt");
             
             var temp2 = JSON.stringify($('#campaign-form').serializeObject());
+            text = "<prompt>" + json2xml(jQuery.parseJSON(temp2), "")  + "</prompt>";
+            
+            var xml = $.parseXML(text); 
+            var promptType = $('#groupPromptType').val();
+            xml = addProperties(text, promptType);
+            xml = $.XMLtoStr(xml);
+            xml=xml.replace(/(&lt;)/g,"<").replace(/(&gt;)/g,">");
+            promptXMLArray.push(xml);    
+            console.log(xml);
+
+            $(this).clearForm();
+            $('.collapse').collapse();
+            showValues();            
+        }
+        else { // edit, not create
+            event.preventDefault();
+            //temp = ($(this).serializeArray());
+            //promptXMLArray[editIndex] = temp[0];
+            
+            var temp2 = JSON.stringify($('#campaign-form').serializeObject());
             
             text = "<prompt>" + json2xml(jQuery.parseJSON(temp2), "")  + "</prompt>";
             
@@ -349,29 +369,20 @@ $(document).ready(function() {
             xml = addProperties(text, promptType);
             xml = $.XMLtoStr(xml);
             xml=xml.replace(/(&lt;)/g,"<").replace(/(&gt;)/g,">");
-            promptXMLArray.push(xml);
+            promptXMLArray[editIndex] = xml;
             console.log(xml);
-            //alert($.XMLtoStr(xml));
+            
             $(this).clearForm();
             $('.collapse').collapse();
-            showValues();            
-        }
-        /*
-        else { // edit, not create
-            event.preventDefault();
-            temp = ($(this).serializeArray());
-            promptArray[editIndex] = temp[0];
-            $(this).clearForm();
-            $('.collapse').collapse();
+            
             //reset value
             isEdit = false;
-            document.getElementById("create message").innerHTML="Create Message";
+            document.getElementById("add prompt").innerHTML="Add Prompt";
             showValues();
         }
-        */
 	}); // end click
     
-    $("select").change(displayPrompt);
+    $("select#groupPromptType").change(displayPrompt);
     displayPrompt();
     
     $('#PromptBoxOK').click(function(){
