@@ -106,7 +106,7 @@ var campaignEditor = {
         promptItem['displayLabel'] = displayLabel;
         promptItem['displayType'] = displayType;
         promptItem['promptText'] = promptText;
-        if (campaign['surveys']['survey'][surveyIndex]['showSummary'] === 'true') {
+        if (showSummary) {
             promptItem['abbreviatedText'] = abbrText;
         }
         promptItem['promptType'] = promptType;
