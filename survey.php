@@ -20,6 +20,7 @@
         <script type="text/javascript" src="js/help-icon.js"></script>
         <script type="text/javascript" src="js/form-helper.js"></script>
         <script type="text/javascript" src="js/json2xml.js"></script>
+        <script type="text/javascript" src="js/campaign-editor.js"></script>
     </head>
     <body>
 		<?php
