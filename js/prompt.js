@@ -1,5 +1,6 @@
 // overlay box script from : http://tympanus.net/codrops/2009/12/03/css-and-jquery-tutorial-overlay-with-slide-out-box/
 
+var promptXMLArray = new Array(); // array of XML prompt
 var promptArray = new Array(); // array of JSON prompt
 var typeArray = new Array(); // array of type (message, prompt, etc..)
 var arrayIndex = 0; // array index
@@ -8,9 +9,11 @@ var editIndex = 0;
 
 function showValues() {
     $("#previousItem").empty();
-    
+    $("#repeatPromptList").empty();
+    var length = promptArray.length;
+    $("#numQuestion").text(length);
     jQuery.each(promptArray, function(i, JSONvalue) {
-        $("#previousItem").append("<tr>"
+        $("#previousItem").append("<tr onmouseover='' style='cursor: pointer;'>"
                                  + "<th>"
                                  + i + ":" + promptArray[i][0].value
                                  + "</th>"
@@ -21,7 +24,11 @@ function showValues() {
                                  + '<a href="#" onclick="deletePrompt(' + i + '); return false;" id="Delete">Delete</a>'
                                  + "</th>"
                                  + "</tr>");
+        // update for select in repeatble set
+        // placeholder
+        $("#repeatPromptList").append("<option value=" + promptArray[i][0].value + ">" + promptArray[i][0].value + "</option>");    
         });
+    
 }
     
 function openAccordion(index) {
@@ -66,7 +73,7 @@ function centerPopup(){
     var poph = $('#condition_container').height();  
     $("#condition_container").css({  
         "position" : "absolute",  
-        "top" : winh/4-poph/2,  
+        "top" : winh/5-poph/2,  
         "left" : winw/4-popw/2  
     });  
 }
@@ -81,6 +88,7 @@ function disablePopup(){
 // click the condition text box
 function conditionClick() {
     centerPopup();
+    
     // create drop down from prompt array
     $("#promptIDList").empty();
     jQuery.each(promptArray, function(i, JSONvalue) {
@@ -92,20 +100,59 @@ function conditionClick() {
 }
     
 $(document).ready(function() {
+    $('#groupPromptType').val("None");
+    /*
+    Condition text box section
+    */
     $("#bgPopup").data("state",0);  
     $("#saveCondition").click(function(){
-        // save to condition text box
-        var promptID = $('#promptIDList').val();
-        console.log(promptID);
-        var operator = $('#operator').val();
-        console.log(operator);
-        var val = $('#conditionValue').val();
-        console.log(val);
-        var condition = promptID + " " + operator + " " + val;
-        console.log(condition);
+        var value = $('input:radio[name=condType]:checked').val();
+        var condition = "";
+        if (value == "Simple") {     
+            // save to condition text box
+            var promptID = $('#promptIDList').val();
+            var operator = $('#operator').val();
+            var val = $('#conditionValue').val();
+            condition = promptID + " " + operator + " " + val;         
+        }
+        else { // advance
+            condition = $('#advanceCondition').val();
+        }
         $('#condition').val(condition);
-        disablePopup();  
+        disablePopup();
+        
     });
+    $("input:radio[name=condType]").click(function() {
+        var value = $(this).val();
+        if (value == "Advance") {
+            $("#condType").empty();
+            $("#condType").append("<input type='text' name='Condition' id='advanceCondition' placeholder='Input condition' />");
+        }
+        else {
+            $("#condType").empty();
+            $("#condType").append("<select id='promptIDList'>" + 
+                                  "</select>" +
+                                  "<select id='operator'>" +
+                                  "<option value='=='>&#61;</option>" +
+                                  "<option value='!='>&#33;&#61;</option>" +
+                                  "<option value='<'>&#60;</option>" +
+                                  "<option value='<='>&#60;&#61;</option>" +
+                                  "<option value='>'>&#62;</option>" +
+                                  "<option value='>='>&#62;&#61;</option>" +
+                                  "</select>" +
+                                  "<input type='text' id='conditionValue' placeholder='value'/>");
+            // create drop down from prompt array
+            $("#promptIDList").empty();
+            jQuery.each(promptArray, function(i, JSONvalue) {
+                var val = promptArray[i][0].value;
+                $("#promptIDList").append("<option value=" + val + ">" + val + "</option>");
+            });
+        }
+    });
+    
+    /*
+    Previous item area
+    */
     $( "#previousItem" ).sortable({
 			start: function(event, ui) {
                 ui.item.startPos = ui.item.index();
@@ -132,28 +179,6 @@ $(document).ready(function() {
             $('#skipLabelLabel').html(skipLabel);
         }
     });
-    
-    function displayPrompt() {
-        $('#data').empty();
-        var promptType = $('#groupPromptType').val();
-        if (promptType == "Multiple Choice") {
-            $('#overlay').fadeIn('fast',function(){
-            $('#data').empty();
-            $('#data').append('<h2>Multiple Choice</h2>');
-            $('#data').append('<p>Type each question follow by a new line</p>');
-            $('#data').append('<textarea type="text" placeholder="Question" id="MultipleChoiceQuestion"></textarea>');
-            $('#MultipleChoiceBox').animate({'top':'160px'},500);
-            });
-        }
-    }
-    
-    // Show prompt at the top of the page
-    
-    
-    $('#Edit').click(function() {
-        alert('Edit');
-    });
-    
     
     // This function wiil clear (reset) the form
     // credit goes to: http://www.learningjquery.com/2007/08/clearing-form-data
@@ -203,6 +228,22 @@ $(document).ready(function() {
         
 	}); // end click
    
+    $.fn.serializeObject = function()
+    {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
     // submit prompt and save to JSON object
     $('#campaign-form').submit(function(event) {
         
@@ -210,11 +251,22 @@ $(document).ready(function() {
         if (isEdit == false) { // create
             event.preventDefault();
             temp = ($(this).serializeArray());
-            console.log(temp);
+            
             promptArray.push(temp);
             typeArray.push("prompt");
-            console.log(promptArray);
-            console.log(typeArray);
+            
+            var temp2 = JSON.stringify($('#campaign-form').serializeObject());
+            
+            text = "<prompt>" + json2xml(jQuery.parseJSON(temp2), "")  + "</prompt>";
+            
+            var xml = $.parseXML(text) ; 
+            var promptType = $('#groupPromptType').val();
+            xml = addProperties(text, promptType);
+            xml = $.XMLtoStr(xml);
+            xml=xml.replace(/(&lt;)/g,"<").replace(/(&gt;)/g,">");
+            promptXMLArray.push(xml);
+            console.log(xml);
+            //alert($.XMLtoStr(xml));
             $(this).clearForm();
             $('.collapse').collapse();
             showValues();            
@@ -236,37 +288,91 @@ $(document).ready(function() {
     
     $("select").change(displayPrompt);
     displayPrompt();
-    //showValues();
-    /*
-    This section is for reference, please do not delete it
-    $("input:radio[name=groupPromptType]").click(function() {
-        var value = $(this).val();
-        if (value == 'Multiple Choice') {
-            $('#overlay').fadeIn('fast',function(){
-            $('#MultipleChoiceBox').animate({'top':'160px'},500);
-            });
+    
+    $('#PromptBoxOK').click(function(){
+        $('#addedPrompt').empty();
+        var promptType = $('#groupPromptType').val();
+        var header = promptType + "\n";
+        if (promptType == "Multiple Choice" || promptType == "Multiple Choice Custom") {
+            var text, value;
+            text = $('#MultipleChoiceAnswer').val(); 
+            text = text.replace("\r\n", "\n"); 
+            text = text.split("\n");
+            value = $('#MultipleChoiceValue').val(); 
+            value = value.replace("\r\n", "\n"); 
+            value = value.split("\n");
+            
+            lenText = text.length;
+            lenVal = value. length;
+            var answers = "";
+            for (i = 0; i < lenText; i++)
+            {
+               if (i < lenVal) {
+                answers += text[i] + ":" + value[i] + "\n";               
+               }
+               else {
+                answers += text[i] + ":" + "\n";  
+               }
+            }
         }
-        else if (value == 'Number') {
-            $('#overlay').fadeIn('fast',function(){
-            $('#NumberBox').animate({'top':'160px'},500);
-            });
+        else if (promptType == "Number") {
+            var min = $('#minNumber').val();
+            var max = $('#maxNumber').val();
+            var answers = "min:" + min + "\n" + "max:" + max;
         }
-        else if (value == 'Single Choice') {
-          
+        else if (promptType == "Photo") {
+            var res = $('#resPhoto').val();
+            var answers = "Resolution:" + res;
         }
-    });
-    */
-    $('#boxclose').click(function(){
-        $('#MultipleChoiceBox').animate({'top':'-300px'},500,function(){
+        else if (promptType == "Remote Activity") {
+            var pack = $('#packageRemote').val();
+            var activity = $('#activityRemote').val();
+            var action = $('#actionRemote').val();
+            var auto = $('#autolaunchRemote').val();
+            var retry = $('#retriesRemote').val();
+            var min = $('#minrunRemote').val();
+            var input = $('#inputRemote').val();
+            var answers = "Package:" + pack + "\n"
+                          + "Activity:" + activity + "\n"
+                          + "Action:" + action + "\n"
+                          + "Auto:" + auto + "\n"
+                          + "Retry:" + retry + "\n"
+                          + "Min run:" + min + "\n"
+                          + "Input:" + input + "\n"           
+        }
+        else if (promptType == "Single Choice" || promptType == "Single Choice Custom") {
+            var text, value;
+            text = $('#SingleChoiceAnswer').val(); 
+            text = text.replace("\r\n", "\n"); 
+            text = text.split("\n");
+            value = $('#SingleChoiceValue').val(); 
+            value = value.replace("\r\n", "\n"); 
+            value = value.split("\n");
+            
+            lenText = text.length;
+            lenVal = value. length;
+            var answers = "";
+            for (i = 0; i < lenText; i++)
+            {
+               if (i < lenVal) {
+                answers += text[i] + ":" + value[i] + "\n";               
+               }
+               else {
+                answers += text[i] + ":" + "\n";  
+               }
+            }
+        }
+        else if (promptType == "Text") {
+            var min = $('#minText').val();
+            var max = $('#maxText').val();
+            var answers = "Min:" + min + "\n" + "Max:" + max;  
+        }
+        $('#addedPrompt').val(answers);
+        
+        $('#PromptBox').animate({'top':'-300px'},500,function(){
+            $('#data').empty();
             $('#overlay').fadeOut('fast');
-        });
-    })
-    $('#MultipleChoiceOK').click(function(){
-        var test = $("textarea#MultipleChoiceQuestion").val();
-        alert(test);
-        $('#NumberBox').animate({'top':'-300px'},500,function(){
-            $('#overlay').fadeOut('fast');
-        });
+        });       
     })
     
     

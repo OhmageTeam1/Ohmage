@@ -53,7 +53,7 @@
                                     <label class="control-label" for="campaignTitle">Campaign Title*</label>
                                     <div class="controls">
                                         <input type="text" class="input-xlarge" id="campaignTitle" placeholder="Campaign Title" />
-                                        <i class="help-icon icon-question-sign" ata-original-title="The name of your campaign." rel="tooltip" data-placement="right"></i>
+                                        <i class="help-icon icon-question-sign" data-original-title="The name of your campaign." rel="tooltip" data-placement="right"></i>
                                     </div>
                                 </div>                           
                                 <div class="control-group">
