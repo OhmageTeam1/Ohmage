@@ -96,6 +96,12 @@ function openAccordion(index) {
         var skippable = $(xml).find("skippable").text();
         var skipLabel = $(xml).find("skipLabel").text();
         // properties
+        var properties = ""
+        $(xml).find('property').each(function(){
+            var label = $(this).find('label').text();
+            var value = $(this).find('value').text();
+            properties = label + ":" + value + '\n';
+        });
         
         // parse data back to form
         $('#promptID').val(id);
@@ -111,6 +117,7 @@ function openAccordion(index) {
             $('#skippable').prop('checked', true);;
         }
         $('#skipLabel').val(skipLabel);
+        $('#addedPrompt').val(properties);
         
         document.getElementById("add prompt").innerHTML="Edit Prompt";
         isEdit = true;
