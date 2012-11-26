@@ -225,7 +225,7 @@ $(document).ready(function() {
                 ui.item.startPos = ui.item.index();
             },
             stop: function(event, ui) {
-                swapArrayElem(promptArray, typeArray, ui.item.startPos, ui.item.index());
+                swapArrayElem(promptXMLArray, typeArray, ui.item.startPos, ui.item.index());
                 showValues();
             }
     });
