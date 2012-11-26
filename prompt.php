@@ -46,13 +46,11 @@
                     
                 </div>
                 <div class="well span9 content">
-					<img src="img/ohmage-logo.png">
-                    <h2>Previous Items</h2>
-                    <table>
+					<img src="img/ohmage-logo.png" alt="ohmage logo">
+                    <h2>Previous Items</h2>                   
                         <div class="previousItems" id="previousItem">
                             PREVIOUSLY ADDED ITEMS HERE
-                        </div>
-                    </table>
+                        </div>                   
                     <hr/>
                     <div class="addNewItem">
                         <h2>Add a New Item</h2>
@@ -248,7 +246,7 @@
                                                             <div class="control-group">
                                                                 <label class="control-label" id="skipLabelLabel">Skip Label</label>
                                                                 <div class="controls">
-                                                                    <input type="text" name="skipLabel" id="skipLabel" placeholder="Skip Label" disabled="disable"/>
+                                                                    <input type="text" name="skipLabel" id="skipLabel" placeholder="Skip Label" disabled="disabled"/>
                                                                 </div>
                                                             </div>
                                             
@@ -314,7 +312,7 @@
                                             <div class="control-group">
                                                 <label class="control-label" id="terminationSkipLabel">Skip Label</label>
                                                 <div class="controls">
-                                                    <input type="text" name="terminationSkipLabel" id="terminationSkipLabel" placeholder="Skip Label" disabled="disable"/>
+                                                    <input type="text" name="terminationSkipLabel" id="terminationSkipLabel" placeholder="Skip Label" disabled="disabled"/>
                                                 </div>
                                             </div>
                                             
