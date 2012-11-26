@@ -2,7 +2,7 @@ td, th {
     padding: 5px;
     text-align:left;
 }
-.overlay{
+.overlay, .overlayXML{
     background:transparent url(images/overlay.png) repeat top left;
     position:fixed;
     top:0px;
@@ -12,7 +12,7 @@ td, th {
     z-index:100;
 }
 
-.PromptBox{
+.OverlayBox{
     position:fixed;
     top:-300px;
     left:30%;
