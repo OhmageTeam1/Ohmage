@@ -15,7 +15,7 @@ $(function() {
         }, "json");
 
     // Privacy State Button
-    $('#runningStateBtn').click(function(button) {
+    $('#runningStateBtn').click(function(e) {
         var $this = $(this);
         $this.toggleClass('btn-success btn-danger');
         if ($this.html() === 'Running') {
@@ -23,7 +23,7 @@ $(function() {
         } else {
             $this.html('Running')
         }
-        button.preventDefault();
+        e.preventDefault();
     });
 
     // Running State Button
@@ -41,6 +41,17 @@ $(function() {
     // Create Campaign Button
     $('#create-campaign').click(function(button) {
         var title = $('#campaignTitle').val();
+        var campaign = campaignEditor.createCampaign(title);
+        if (!campaign) {
+            var errorAlert = '<div class="alert alert-error create-campaign-error hide"><button class="close">&times;</button><strong>Error:</strong> A campaign needs to have a title!</div>';
+            $(errorAlert).insertAfter('.new-campaign hr').slideToggle();
+            if($('.create-campaign-error').size() > 1) {
+                $('.create-campaign-error').slice(1).delay('1000').slideToggle('slow',function() { $(this).alert('close')});
+            }
+            button.preventDefault();
+            return;
+        }
+
         var campaignWrapper = {
             'privacyState': $('#privacyStateBtn').html(),
             'runningState': $('#runningStateBtn').html(),

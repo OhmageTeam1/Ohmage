@@ -1,5 +1,5 @@
 $(function() {
-    $("#login-form").submit(function() {
+    $("#login-form").submit(function(button) {
         var $this = $(this);
         var inputUsername = $this.find("#inputUsername").val();
         var inputPassword = $this.find("#inputPassword").val();
@@ -17,6 +17,6 @@ $(function() {
                 }
             }
         }, "json");
-        return false;
+        button.preventDefault();
     });
 });
