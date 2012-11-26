@@ -10,26 +10,7 @@ var editIndex = 0;
 function showValues() {
     $("#previousItem").empty();
     $("#repeatPromptList").empty();
-    /*
-    var length = promptArray.length;
-    $("#numQuestion").text(length);
-    jQuery.each(promptArray, function(i, JSONvalue) {
-        $("#previousItem").append("<tr onmouseover='' style='cursor: pointer;'>"
-                                 + "<th>"
-                                 + i + ":" + promptArray[i][0].value
-                                 + "</th>"
-                                 + "<th>"
-                                 + '<a href="#newMessage" onclick="openAccordion(' + i + '); return false;" id="Edit">Edit</a>'
-                                 + "</th>"
-                                 + "<th>"
-                                 + '<a href="#" onclick="deletePrompt(' + i + '); return false;" id="Delete">Delete</a>'
-                                 + "</th>"
-                                 + "</tr>");
-        // update for select in repeatble set
-        // placeholder
-        $("#repeatPromptList").append("<option value=" + promptArray[i][0].value + ">" + promptArray[i][0].value + "</option>");    
-        });
-    */
+    
     var length = promptXMLArray.length;
     $("#numQuestion").text(length);
     jQuery.each(promptXMLArray, function(i, value) {
@@ -66,9 +47,10 @@ function openAccordion(index) {
         $('#newMessage').collapse('show');
         
         //get data from XML object
-        var id = $(xml).find("id").text();
-        var messageText = $(xml).find("messageText").text();
-        var condition = $(xml).find("condition").text();
+        $xml = $(xml);
+        var id = $xml.find("id").text();
+        var messageText = $xml.find("messageText").text();
+        var condition = $xml.find("condition").text();
         //$('textarea#messageText').val(promptArray[index][0].value);
         
         // parse data back to form
@@ -85,16 +67,17 @@ function openAccordion(index) {
         $('#newPrompt').collapse('show');
         
         // get data from XML object
-        var id = $(xml).find("id").text();
-        var displayLabel = $(xml).find("displayLabel").text();
-        var displayType = $(xml).find("displayType").text();
-        var promptText = $(xml).find("promptText").text();
-        var abbreviatedText = $(xml).find("abbreviatedText").text();
-        var promptType = $(xml).find("promptType").text();
-        var pDefault = $(xml).find("default").text();
-        var condition = $(xml).find("condition").text();
-        var skippable = $(xml).find("skippable").text();
-        var skipLabel = $(xml).find("skipLabel").text();
+        $xml = $(xml);
+        var id = $xml.find("id").text();
+        var displayLabel = $xml.find("displayLabel").text();
+        var displayType = $xml.find("displayType").text();
+        var promptText = $xml.find("promptText").text();
+        var abbreviatedText = $xml.find("abbreviatedText").text();
+        var promptType = $xml.find("promptType").text();
+        var pDefault = $xml.find("default").text();
+        var condition = $xml.find("condition").text();
+        var skippable = $xml.find("skippable").text();
+        var skipLabel = $xml.find("skipLabel").text();
         // properties
         var properties = ""
         $(xml).find('property').each(function(){
@@ -242,11 +225,7 @@ $(document).ready(function() {
                 ui.item.startPos = ui.item.index();
             },
             stop: function(event, ui) {
-                console.log("Start position: " + ui.item.startPos);
-                console.log("New position: " + ui.item.index());
                 swapArrayElem(promptArray, typeArray, ui.item.startPos, ui.item.index());
-                console.log(promptArray);
-                console.log(typeArray);
                 showValues();
             }
     });
@@ -392,6 +371,9 @@ $(document).ready(function() {
     $("select#groupPromptType").change(displayPrompt);
     displayPrompt();
     
+    /*
+        Click Ok on the Prompt type overlay window
+    */
     $('#PromptBoxOK').click(function(){
         $('#addedPrompt').empty();
         var promptType = $('#groupPromptType').val();
@@ -478,7 +460,23 @@ $(document).ready(function() {
         });       
     })
     
-    
-    
+    $('#viewXML').click(function(){
+        $('#XMLdata').empty();
+        var smlString = "";
+        xmlString = createXMLString(promptXMLArray);
+        console.log(xmlString);
+        $('textarea#XMLdata').css('height', '400px');
+        $('textarea#XMLdata').css('width', '500px');
+        $('textarea#XMLdata').val(vkbeautify.xml(xmlString));
+        $('#XMLBox').animate({'top':'160px'},500);
+    });
+    $('#XMLBoxOK').click(function(){
+        $('#XMLBox').animate({'top':'-300px'},500,function(){
+            $('#XMLdata').empty();
+            $('#overlayXML').fadeOut('fast');
+            $('textarea#XMLdata').css('height', '50px');
+            $('textarea#XMLdata').css('width', '50px');
+        });
+    });
     
 }); // end ready

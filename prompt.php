@@ -18,6 +18,7 @@
         <script type="text/javascript" src="js/prompt.js"></script>
         <script type="text/javascript" src="js/XMLProcessor.js"></script>
         <script type="text/javascript" src="js/help-icon.js"></script>
+        <script type="text/javascript" src="js/vkbeautify.0.99.00.beta.js"></script>
         
     </head>
     <body>
@@ -31,7 +32,18 @@
                 <div class="well span2">
                     <h2>Number of Questions</h2>
                     <p id="numQuestion">0</p>
-                    <!-- <p><button type="button" class="btn btn-primary" id="viewXML">View XML</button></p> -->
+                    <p><button type="button" class="btn btn-primary" id="viewXML">View XML</button></p> 
+                    <div class="overlay" id="overlayXML" style="display:none;"></div>
+                        <div class="OverlayBox" id="XMLBox">
+                            <div class="controls" >
+                                <h3>XML</h3>
+                                <textarea type="text" placeholder="XML" id="XMLdata"></textarea>
+                            </div>
+                            <div class="control-group">
+                                <button type="button" class="btn btn-primary" data-toggle="button" id="XMLBoxOK">OK</button>
+                            </div>
+                        </div>
+                    
                 </div>
                 <div class="well span9 content">
 					<img src="img/ohmage-logo.png">
@@ -167,8 +179,7 @@
                                                 
                                                 <div class="overlay" id="overlay" style="display:none;"></div>
  
-                                                <div class="PromptBox" id="PromptBox">
-                                                    <a class="boxclose" id="boxclose"></a>
+                                                <div class="OverlayBox" id="PromptBox">
                                                     <div class="data" id="data">
                                                     </div>
                                                     <div class="control-group">
@@ -177,14 +188,6 @@
                                                 </div>
 											</div>
 											
-                                            <!--
-											<div class="control-group">
-												<label class="control-label" for="properties">Properties
-													<span class="label label-info">Required</span>
-												</label>
-												<textarea type="text" name="Properties" id="Properties" placeholder="Properties"></textarea>
-											</div>
-                                            -->
                                             <div class="accordion" id="OptionalSection">
                                                 <div class="accordion-group">
                                                     <div class="accordion-heading">

@@ -1,6 +1,12 @@
 /*
     XML processor for prompt page
 */
+
+/*
+    addProperties will add properties with right tag
+    input: the XML of the prompt
+    promptType: prompt's type (multiple choice, single choice, etc..)
+*/
 function addProperties(input, promptType) {
     xml = $.parseXML(input);
     text = $(xml).find("properties").text();
@@ -104,10 +110,27 @@ function addProperties(input, promptType) {
     }
     
 }
+/*
+    change a XML object into string
+*/
 jQuery.XMLtoStr = function(xmlData) {
   if (window.ActiveXObject) {
     return xmlData.xml;
   } else {
     return (new XMLSerializer()).serializeToString(xmlData);
   }
+}
+
+/*
+    Create XML string for viewing from XML array
+*/
+function createXMLString(array) {
+    var len = array.length;
+    var result = "";
+    for (i = 0; i < len; i++) {
+        result += array[i];
+    }
+    result = "<survey>" + result + "</survey>";
+    console.log(result);
+    return result;
 }
