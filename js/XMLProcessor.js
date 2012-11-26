@@ -104,9 +104,11 @@ function addProperties(input, promptType) {
     }
     else if (promptType == "Timestamp") {
         // doing nothing
+        return xml;
     }
     else {
         // invalid
+        return xml;
     }
     
 }
