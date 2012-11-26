@@ -17,6 +17,7 @@
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/jquery-cookie.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/alerts.js"></script>
         <script type="text/javascript" src="js/navbar.js"></script>
         <script type="text/javascript" src="js/campaign.js"></script>
         <script type="text/javascript" src="js/help-icon.js"></script>
@@ -29,7 +30,7 @@
         <div class="container">
             <div class="row">
                 <div class="offset1 span10 content">
-                    <div class="box-rounded box-dark">
+                    <div class="boxRounded boxDark">
                         <h1>Campaign Editor <small>Create a new campaign, or edit an existing one.</small></h1>
                         <div class="existing-campaigns">
                             <hr>

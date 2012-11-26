@@ -22,29 +22,42 @@
         <script type="text/javascript" src="js/ohmage-login.js"></script>
         <script type="text/javascript" src="js/alerts.js"></script>
     </head>
-    <body class="login-body">
+    <body class="loginBody">
         <div class="container">
             <div class="row">
-                <div class="offset1 span10 centered content">
+                <div class="span12 centered content">
                     <?php
                         getNotice();
                     ?>
-                    <div class="box-rounded box-dark">
+                    <div class="boxRounded boxDark">
                         <a href="http://www.ohmage.org"><img src="img/ohmage-logo.png"></a>
                         <h1>Campaign Authoring</h1>
                         <br>
                         <p>Please login to create or edit your Ohmage campaigns.</p>
-                        <form class="form-horizontal" id="login-form">
-                            <div class="control-group">
-                                <input type="text" id="inputUsername" placeholder="Username">
+                        <hr>
+                        <div class="row">
+                            <div class="offset2 span6">
+                                <form class="form-horizontal" id="login-form" action="campaign.php">
+                                    <div class="control-group">
+                                        <label class="control-label" for="inputUsername">Username</label>
+                                        <div class="controls">
+                                            <input type="text" class="span4" id="inputUsername" placeholder="Username">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="inputPassword">Password</label>
+                                        <div class="controls">
+                                            <input type="password" class="span4" id="inputPassword" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <button type="submit" class="btn btn-primary btn-large btn-block">Login</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="control-group">
-                                <input type="password" id="inputPassword" placeholder="Password">
-                            </div>
-                            <div class="control-group">
-                                <button type="submit" class="btn btn-primary btn-large">Login</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
