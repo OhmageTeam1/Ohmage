@@ -4,6 +4,9 @@
 .navbar .brand {
     padding: 0 0 0 20px;
 }
-.logout-button {
+.logoutButton {
     margin-left: 10px;
+}
+#username i {
+    margin-top: 2px;
 }

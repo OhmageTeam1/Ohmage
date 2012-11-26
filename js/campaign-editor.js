@@ -4,6 +4,11 @@ var campaignEditor = {
     // INPUT: Campaign metadata
     // OUTPUT: New campaign object
     createCampaign: function(title, description = 'campaign', version = 1) {
+
+        if (!title) {
+            return false;
+        }
+
         var author = $.cookie('username');
         var campaign = {};
 
@@ -166,7 +171,7 @@ var campaignEditor = {
     // OUTPUT: The campaign URN string
     generateCampaignURN: function(title, author, description, version) {
         var campaignURN = 'urn:campaign:';
-        campaignURN += title + ':' + description + ':' + author + ':' + version;
+        campaignURN += title.replace(/\s/g, '') + ':' + description + ':' + author + ':' + version;
 
         return campaignURN;
     }

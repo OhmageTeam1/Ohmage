@@ -13,13 +13,13 @@
         <link href="css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/layout.css" rel="stylesheet" type="text/css"/>
         <link href="css/navbar.css" rel="stylesheet" type="text/css"/>
+        <link href="css/survey.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/jquery-cookie.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/navbar.js"></script>
         <script type="text/javascript" src="js/survey.js"></script>
         <script type="text/javascript" src="js/help-icon.js"></script>
-        <script type="text/javascript" src="js/form-helper.js"></script>
         <script type="text/javascript" src="js/json2xml.js"></script>
         <script type="text/javascript" src="js/campaign-editor.js"></script>
     </head>
@@ -29,53 +29,69 @@
         ?>
         <div class="container">
             <div class="row">
-                <div class="offset1 span10 content">
-                    <div class="box-rounded box-dark">
+                <div class="span3">
+                    <div class="boxRounded boxDark">
+                        <div class="addPropertiesBox centered">
+                            <h2 class="muted">Optional Properties</h2>
+                            <hr>
+                            <button type="button" class="formToggleBtn btn btn-primary" id="descriptionAdd"><i class="icon-plus icon-white"></i> Add Description</button>
+                            <button type="button" class="formToggleBtn btn btn-primary" id="introTextAdd"><i class="icon-plus icon-white"></i> Add Introduction Text</button>
+                            <button type="button" class="formToggleBtn btn btn-primary" id="summaryTextAdd"><i class="icon-plus icon-white"></i> Add Summary Text</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="span9 content">
+                    <div class="boxRounded boxDark">
                         <h1>Campaign Details <small>Create a new survey, or edit an existing one.</small></h1>
                         <div class="new-survey">
                             <hr>
                             <form class="form-horizontal" id="survey-form">
-
                                 <div class="control-group">
-                                    <label class="control-label" for="surveyTitle">Title*</label>
+                                    <label class="control-label" for="surveyTitle">Title <i class="icon-asterisk"></i></label>
                                     <div class="controls">
-                                        <input type="text" id="surveyTitle" placeholder="Survey Title" />
+                                        <input type="text" id="surveyTitle" />
                                         <i class="help-icon icon-question-sign" data-original-title="The name of your survey." rel="tooltip" data-placement="right"></i>
                                     </div>
                                 </div>
 
-                                <button type="button" class="form-toggle-btn btn btn-primary pull-right"><span class="action-add">Add</span><span class="action-remove hide">Remove</span> Survey Description</button>
-                                <div class="control-group">
-                                    <label class="control-label hide" for="surveyDescription">Desciption </label>
-                                    <div class="controls hide">
-                                        <textarea id="surveyDescription" class="" placeholder="Survey Description"></textarea>
-                                        <i class="help-icon icon-question-sign" data-original-title="What is your survey about?" rel="tooltip" data-placement="right"></i>
+                                <div class="descriptionInput hide">
+                                    <button type="button" class="formToggleBtn btn btn-danger pull-right btn-small" id="descriptionRemove"><i class="icon-remove icon-white"></i> Remove</button>
+                                    <div class="control-group">
+                                        <label class="control-label" for="surveyDescription">Desciption </label>
+                                        <div class="controls">
+                                            <textarea id="surveyDescription" class="" placeholder="Enter the description of your survey here..."></textarea>
+                                            <i class="help-icon icon-question-sign" data-original-title="What is your survey about?" rel="tooltip" data-placement="right"></i>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <button type="button" class="form-toggle-btn btn btn-primary pull-right"><span class="action-add">Add</span><span class="action-remove hide">Remove</span> Intro Text</button>
-                                <div class="control-group">
-                                    <label class="control-label hide" for="surveyIntroText">Intro Text</label>
-                                    <div class="controls hide">
-                                        <textarea id="surveyIntroText" placeholder="Survey Intro Text"></textarea>
-                                        <i class="help-icon icon-question-sign" data-original-title="Text to display to the user before they begin the survey." rel="tooltip" data-placement="right"></i>
+                                <div class="introTextInput hide">
+                                    <button type="button" class="formToggleBtn btn btn-danger pull-right btn-small" id="introTextRemove"><i class="icon-remove icon-white"></i> Remove</button>
+                                    <div class="control-group">
+                                        <label class="control-label" for="surveyIntroText">Intro Text</label>
+                                        <div class="controls">
+                                            <textarea id="surveyIntroText" placeholder="Text to display to the user before they begin the survey..."></textarea>
+                                            <i class="help-icon icon-question-sign" data-original-title="Text to display to the user before they begin the survey." rel="tooltip" data-placement="right"></i>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="surveySubmitText">Submit Text*</label>
+                                    <label class="control-label" for="surveySubmitText">Submit Text <i class="icon-asterisk"></i></label>
                                     <div class="controls">
-                                        <textarea id="surveySubmitText" placeholder="Survey Submit Text"></textarea>
+                                        <textarea id="surveySubmitText" placeholder="Text to display to a user upon survey completion..."></textarea>
                                         <i class="help-icon icon-question-sign" data-original-title="Text to display to the user after they complete the survey." rel="tooltip" data-placement="right"></i>
                                     </div>
                                 </div>     
 
-                                <button type="button" class="form-toggle-btn btn btn-primary pull-right survey-summary"><span class="action-add">Add</span><span class="action-remove hide">Remove</span> Summary Text</button>
-                                <div class="control-group">
-                                    <label class="control-label hide" id="surveySummaryTextLabel">Summary Text*</label>
-                                    <div class="controls hide">
-                                        <textarea id="surveySummaryText" placeholder="Survey Summary Text"></textarea>
-                                        <i class="help-icon icon-question-sign" data-original-title="Text to show to the user at the summary screen." rel="tooltip" data-placement="right"></i>
+                                <div class="summaryTextInput hide">
+                                    <div class="control-group">
+                                        <button type="button" class="formToggleBtn btn btn-danger pull-right btn-small" id="summaryTextRemove"><i class="icon-remove icon-white"></i> Remove</button>
+                                        <label class="control-label" id="surveySummaryTextLabel">Summary Text <i class="icon-asterisk"></i></label>
+                                        <div class="controls">
+                                            <textarea id="surveySummaryText" placeholder="Enter your survey summary text here..."></textarea>
+                                            <i class="help-icon icon-question-sign" data-original-title="Text to show to the user at the summary screen." rel="tooltip" data-placement="right"></i>
+                                        </div>
                                     </div>
                                 </div>
 
