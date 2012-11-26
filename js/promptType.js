@@ -1,5 +1,6 @@
 /*
 Prompt type dropdown
+This function is called when a prompt type is chosen
 */
 function displayPrompt() {
     
