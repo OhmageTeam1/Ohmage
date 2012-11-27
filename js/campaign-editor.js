@@ -3,7 +3,10 @@ var campaignEditor = {
     // Creates and sets up new campaign object.
     // INPUT: Campaign metadata
     // OUTPUT: New campaign object
-    createCampaign: function(title, version = 1) {
+    createCampaign: function(title, version) {
+        if (typeof(version) === 'undefined') {
+            version = 1;
+        }
 
         if (!title) {
             return false;
