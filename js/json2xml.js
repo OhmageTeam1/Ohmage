@@ -70,7 +70,10 @@ function json2xml(o, tab) {
 
 function xml2json(xml, tab) {
    var X = {
-      toObj: function(xml, surveyItem = false) {
+      toObj: function(xml, surveyItem) {
+         if (typeof(surveyItem) === 'undefined') {
+            surveyItem = false;
+         }
          var o = {};
          if (surveyItem)   // hack for Ohmage
             o = {"":[]};

@@ -39,7 +39,7 @@ $(function() {
     });
 
     // Create Campaign Button
-    $('#create-campaign').click(function(button) {
+    $('#create-campaign').click(function(e) {
         var title = $('#campaignTitle').val();
         var campaign = campaignEditor.createCampaign(title);
         if (!campaign) {
@@ -48,16 +48,15 @@ $(function() {
             if($('.create-campaign-error').size() > 1) {
                 $('.create-campaign-error').slice(1).delay('1000').slideToggle('slow',function() { $(this).alert('close')});
             }
-            button.preventDefault();
-            return;
+            e.preventDefault();
+        } else {
+            var campaignWrapper = {
+                'privacyState': $('#privacyStateBtn').html(),
+                'runningState': $('#runningStateBtn').html(),
+                'campaign': campaignEditor.createCampaign(title)
+            };
+
+            localStorage['campaignWrapper'] = JSON.stringify(campaignWrapper);
         }
-
-        var campaignWrapper = {
-            'privacyState': $('#privacyStateBtn').html(),
-            'runningState': $('#runningStateBtn').html(),
-            'campaign': campaignEditor.createCampaign(title)
-        };
-
-        localStorage['campaignWrapper'] = JSON.stringify(campaignWrapper);
     });
 });
