@@ -33,7 +33,7 @@
                 <div class="span3">
                     <div class="boxRounded boxDark">
                         <div class="addPropertiesBox centered">
-                            <strong><h4>Optional Properties</h4></strong>
+                            <h4>Optional Properties</h4>
                             <hr>
                             <button type="button" class="formToggleBtn btn btn-primary btn-block" id="descriptionAdd"><i class="icon-plus icon-white"></i> Add Description</button>
                             <button type="button" class="formToggleBtn btn btn-primary btn-block" id="introTextAdd"><i class="icon-plus icon-white"></i> Add Introduction Text</button>
