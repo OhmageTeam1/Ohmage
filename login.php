@@ -37,7 +37,7 @@
                         <hr>
                         <div class="row">
                             <div class="offset2 span6">
-                                <form class="form-horizontal" id="login-form" action="campaign.php">
+                                <form class="form-horizontal" id="login-form">
                                     <div class="control-group">
                                         <label class="control-label" for="inputUsername">Username</label>
                                         <div class="controls">

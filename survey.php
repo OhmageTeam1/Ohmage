@@ -23,12 +23,19 @@
         <script type="text/javascript" src="js/help-icon.js"></script>
         <script type="text/javascript" src="js/json2xml.js"></script>
         <script type="text/javascript" src="js/campaign-editor.js"></script>
+        <script type="text/javascript" src="js/breadcrumb.js"></script>
     </head>
     <body>
 		<?php
             include('navbar.php');
         ?>
         <div class="container">
+            <div class="breadcrumbsNav">
+                <ul class="breadcrumb">
+                    <li id="homeBreadcrumb"><i class="icon-home"></i> <a href="campaign.php">Campaigns</a> <span class="divider"><i class="icon-chevron-right"></i></span></li>
+                    <li class="active" id="campaignBreadcrumb"></li>
+                </ul>
+            </div>
             <div class="row">
                 <div class="span3">
                     <div class="boxRounded boxDark">
