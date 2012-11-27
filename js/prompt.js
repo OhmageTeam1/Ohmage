@@ -7,6 +7,8 @@ var arrayIndex = 0; // array index
 var isEdit = false;
 var editIndex = 0;
 
+var campaignWrapper = $.parseJSON(localStorage['campaignWrapper']);
+
 function showValues() {
     $("#previousItem").empty();
     $("#repeatPromptList").empty();

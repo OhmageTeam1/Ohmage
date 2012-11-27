@@ -28,8 +28,13 @@
             include('navbar.php');
         ?>
         <div class="container">
+            <div class="breadcrumbsNav">
+                <ul class="breadcrumb">
+                    <li class="active" id="homeBreadcrumb"><i class="icon-home"></i> Campaigns</li>
+                </ul>
+            </div>
             <div class="row">
-                <div class="offset1 span10 content">
+                <div class="span12 content">
                     <div class="boxRounded boxDark">
                         <h1>Campaign Editor <small>Create a new campaign, or edit an existing one.</small></h1>
                         <div class="existing-campaigns">
