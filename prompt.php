@@ -19,6 +19,8 @@
         <script type="text/javascript" src="js/XMLProcessor.js"></script>
         <script type="text/javascript" src="js/help-icon.js"></script>
         <script type="text/javascript" src="js/vkbeautify.0.99.00.beta.js"></script>
+        <script type="text/javascript" src="js/breadcrumb.js"></script>
+
         
     </head>
     <body>
@@ -27,7 +29,13 @@
             require_once('authorize.php');
         ?>
         <div class="container">
-            
+            <div class="breadcrumbsNav">
+                <ul class="breadcrumb">
+                    <li id="homeBreadcrumb"><i class="icon-home"></i> <a href="campaign.php">Campaigns</a> <span class="divider"><i class="icon-chevron-right"></i></span></li>
+                    <li id="campaignBreadcrumb"><a href="survey.php"></a> <span class="divider"><i class="icon-chevron-right"></i></span></li>
+                    <li id="surveyBreadcrumb" class="active"></li>
+                </ul>
+            </div>
             <div class="row">
                 <div class="well span2">
                     <h2>Number of Questions</h2>

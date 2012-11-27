@@ -1,3 +1,5 @@
+var campaignWrapper = $.parseJSON(localStorage['campaignWrapper']);
+
 $(function() {
     $('.formToggleBtn').click(function(e) {
         var $this = $(this);
@@ -13,7 +15,6 @@ $(function() {
     });
 
     $('#surveyForm').submit(function(e) {
-        var campaignWrapper = $.parseJSON(localStorage['campaignWrapper']);
         var surveyData = {};
 
         // Extract all form data and show error to user if present
@@ -48,6 +49,7 @@ $(function() {
             }
             e.preventDefault();
         } else {
+            $.cookie('currentSurvey', campaignWrapper['campaign']['surveys']['survey'].length - 1);
             localStorage['campaignWrapper'] = JSON.stringify(campaignWrapper);
         }
     });

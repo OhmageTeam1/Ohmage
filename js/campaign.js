@@ -55,7 +55,7 @@ $(function() {
                 'runningState': $('#runningStateBtn').html(),
                 'campaign': campaignEditor.createCampaign(title)
             };
-
+            $.cookie('currentCampaign', campaignWrapper['campaign']['campaignName']);
             localStorage['campaignWrapper'] = JSON.stringify(campaignWrapper);
         }
     });
