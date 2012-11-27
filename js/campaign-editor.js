@@ -3,7 +3,10 @@ var campaignEditor = {
     // Creates and sets up new campaign object.
     // INPUT: Campaign metadata
     // OUTPUT: New campaign object
-    createCampaign: function(title, description = 'campaign', version = 1) {
+    createCampaign: function(title, version) {
+        if (typeof(version) === 'undefined') {
+            version = 1;
+        }
 
         if (!title) {
             return false;
@@ -12,7 +15,7 @@ var campaignEditor = {
         var author = $.cookie('username');
         var campaign = {};
 
-        campaign['campaignUrn'] = campaignEditor.generateCampaignURN(title, author, description, version);
+        campaign['campaignUrn'] = campaignEditor.generateCampaignURN(title, author, version);
         campaign['campaignName'] = title;
         campaign['surveys'] = {'survey': []};
 
@@ -22,37 +25,27 @@ var campaignEditor = {
     // Adds a survey to the given campaign object.
     // INPUT: Campaign object, survey metadata
     // OUTPUT: True if the addition succeeded, false otherwise
-    addSurvey: function(
-        campaign,
-        title,
-        description,
-        introText,
-        submitText,
-        showSummary,
-        summaryText,
-        editSummary,
-        anytime
-        ) {
-
+    addSurvey: function(campaign, surveyData) {
         // Check if all required components are present
-        if (!campaign || !title || !submitText || (showSummary && !summaryText) || 
-            (typeof(anytime) === 'undefined')) {
+        if (!campaign || !surveyData['title'] || !surveyData['submitText'] ||
+            (surveyData['showSummary'] && !surveyData['summaryText']) || 
+            (typeof(surveyData['anytime']) === 'undefined')) {
             return false;
         }
 
         var survey = {'contentList': []};
            
-        survey['id'] = title.replace(/\s/g, '');    // ID is equivalent to title sans whitespace
-        survey['title'] = title;
-        if (description) survey['description'] = description;
-        if (introText) survey['introText'] = introText;
-        survey['submitText'] = submitText;
-        survey['showSummary'] = showSummary
-        if (showSummary) {
-            survey['summaryText'] = summaryText;
-            survey['editSummary'] = editSummary
+        survey['id'] = surveyData['title'].replace(/\s/g, '');    // ID is equivalent to title sans whitespace
+        survey['title'] = surveyData['title'];
+        if (surveyData['description']) survey['description'] = surveyData['description'];
+        if (surveyData['introText']) survey['introText'] = surveyData['introText'];
+        survey['submitText'] = surveyData['submitText'];
+        survey['showSummary'] = surveyData['showSummary'];
+        if (surveyData['showSummary']) {
+            survey['summaryText'] = surveyData['summaryText'];
+            survey['editSummary'] = surveyData['editSummary'];
         }
-        survey['anytime'] = anytime
+        survey['anytime'] = surveyData['anytime'];
 
         campaign['surveys']['survey'].push(survey);
 
@@ -80,6 +73,8 @@ var campaignEditor = {
         return true;
     },
 
+
+    //TODO: TURN PARAMETERS INTO AN OBJECT INSTEAD..
     // Adds a prompt to the given survey of the given campaign.
     // INPUT: Campaign object, the index of the survey within that campaign, prompt metadata
     // OUTPUT: True if the addition succeeded, false otherwise
@@ -169,9 +164,9 @@ var campaignEditor = {
     // Generate the URN for a campaign based on the campaign title, current author, etc.
     // INPUT: Campaign metadata, current author
     // OUTPUT: The campaign URN string
-    generateCampaignURN: function(title, author, description, version) {
+    generateCampaignURN: function(title, author, version) {
         var campaignURN = 'urn:campaign:';
-        campaignURN += title.replace(/\s/g, '') + ':' + description + ':' + author + ':' + version;
+        campaignURN += title.replace(/\s/g, '') + '::' + author + ':' + version;
 
         return campaignURN;
     }
