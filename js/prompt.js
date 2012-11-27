@@ -108,7 +108,7 @@ function openAccordion(index) {
     }
 }
 function deletePrompt(curr_index) {
-    promptXMLArray.splice(curr_index, 1);
+    promptArray.splice(curr_index, 1);
     //index--;
     showValues();
 }
