@@ -18,6 +18,7 @@
         <script type="text/javascript" src="js/jquery-cookie.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/navbar.js"></script>
+        <script type="text/javascript" src="js/alerts.js"></script>
         <script type="text/javascript" src="js/survey.js"></script>
         <script type="text/javascript" src="js/help-icon.js"></script>
         <script type="text/javascript" src="js/json2xml.js"></script>
@@ -32,20 +33,19 @@
                 <div class="span3">
                     <div class="boxRounded boxDark">
                         <div class="addPropertiesBox centered">
-                            <h2 class="muted">Optional Properties</h2>
+                            <strong><h4>Optional Properties</h4></strong>
                             <hr>
-                            <button type="button" class="formToggleBtn btn btn-primary" id="descriptionAdd"><i class="icon-plus icon-white"></i> Add Description</button>
-                            <button type="button" class="formToggleBtn btn btn-primary" id="introTextAdd"><i class="icon-plus icon-white"></i> Add Introduction Text</button>
-                            <button type="button" class="formToggleBtn btn btn-primary" id="summaryTextAdd"><i class="icon-plus icon-white"></i> Add Summary Text</button>
+                            <button type="button" class="formToggleBtn btn btn-primary btn-block" id="descriptionAdd"><i class="icon-plus icon-white"></i> Add Description</button>
+                            <button type="button" class="formToggleBtn btn btn-primary btn-block" id="introTextAdd"><i class="icon-plus icon-white"></i> Add Introduction Text</button>
                         </div>
                     </div>
                 </div>
                 <div class="span9 content">
                     <div class="boxRounded boxDark">
                         <h1>Campaign Details <small>Create a new survey, or edit an existing one.</small></h1>
-                        <div class="new-survey">
+                        <div class="newSurvey">
                             <hr>
-                            <form class="form-horizontal" id="survey-form">
+                            <form class="form-horizontal" id="surveyForm" action="prompt.php">
                                 <div class="control-group">
                                     <label class="control-label" for="surveyTitle">Title <i class="icon-asterisk"></i></label>
                                     <div class="controls">
@@ -68,7 +68,7 @@
                                 <div class="introTextInput hide">
                                     <button type="button" class="formToggleBtn btn btn-danger pull-right btn-small" id="introTextRemove"><i class="icon-remove icon-white"></i> Remove</button>
                                     <div class="control-group">
-                                        <label class="control-label" for="surveyIntroText">Intro Text</label>
+                                        <label class="control-label" for="surveyIntroText">Introduction Text</label>
                                         <div class="controls">
                                             <textarea id="surveyIntroText" placeholder="Text to display to the user before they begin the survey..."></textarea>
                                             <i class="help-icon icon-question-sign" data-original-title="Text to display to the user before they begin the survey." rel="tooltip" data-placement="right"></i>
@@ -84,38 +84,54 @@
                                     </div>
                                 </div>     
 
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" id="showSummary" value="">
+                                            Show a summary screen at the end of the survey?
+                                        </label>
+                                    </div>
+                                </div> 
+
                                 <div class="summaryTextInput hide">
                                     <div class="control-group">
-                                        <button type="button" class="formToggleBtn btn btn-danger pull-right btn-small" id="summaryTextRemove"><i class="icon-remove icon-white"></i> Remove</button>
                                         <label class="control-label" id="surveySummaryTextLabel">Summary Text <i class="icon-asterisk"></i></label>
                                         <div class="controls">
-                                            <textarea id="surveySummaryText" placeholder="Enter your survey summary text here..."></textarea>
+                                            <textarea id="surveySummaryText" placeholder="Text to display to the user at the summary screen..."></textarea>
                                             <i class="help-icon icon-question-sign" data-original-title="Text to show to the user at the summary screen." rel="tooltip" data-placement="right"></i>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="control-group hide">
-                                    <div class="controls">
-                                        <label class="checkbox">
-                                            <input type="checkbox" id="editSummary" value="">
-                                            Editable Summary
-                                            <i class="help-icon icon-question-sign" data-original-title="Can the user edit their responses while viewing the summary?" rel="tooltip" data-placement="right"></i>
-                                        </label>
-                                    </div>
-                                </div> 
+                                <div class="editableSummaryInput hide">
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <label class="checkbox">
+                                                <input type="checkbox" id="editSummary" value="">
+                                                Editable Summary
+                                                <i class="help-icon icon-question-sign" data-original-title="Can the user edit their responses while viewing the summary?" rel="tooltip" data-placement="right"></i>
+                                            </label>
+                                        </div>
+                                    </div> 
+                                </div>
 
                                 <div class="control-group">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="surveyAnytime" value="">
-                                        Can this survey be taken at any time?
-                                    </label>
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" id="surveyAnytime" value="">
+                                            Do you want the survey to be active upon submission?
+                                            <i class="help-icon icon-question-sign" data-original-title="Note: You can also activate this survey at a later time." rel="tooltip" data-placement="right"></i>
+                                        </label>
+                                    </div>
                                 </div>                          
                                 <div class="control-group">
-                                    <button type="button" class="btn btn-primary" data-toggle="button">Create Survey</button>
+                                    <div class="controls">
+                                        <button type="submit" class="btn btn-primary">Create Survey</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
+                        <i class="icon-asterisk"></i> Required Fields
                     </div>
                 </div>
             </div>
