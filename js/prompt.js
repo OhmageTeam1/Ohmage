@@ -5,16 +5,20 @@ var promptArray = new Array(); // array of JSON prompt
 var typeArray = new Array(); // array of type (message, prompt, etc..)
 var arrayIndex = 0; // array index
 var isEdit = false;
-var editIndex = 0;
+var editIndex = -1;
 
 var campaignWrapper = $.parseJSON(localStorage['campaignWrapper']);
    
 $(document).ready(function() {
     $('#groupPromptType').val("None");
+    $( "#previousItem" ).disableSelection();
+    $('.collapse').collapse();
+    $("select#groupPromptType").change(displayPrompt);
+    displayPrompt();
+    
     /*
-    Condition text box section
+    Condition text box
     */
-     
     $("#saveCondition").click(function(){
         var value = $('input:radio[name=condType]:checked').val();
         var condition = "";
@@ -70,7 +74,7 @@ $(document).ready(function() {
     });
     
     /*
-    Previous item area
+    Previous item section
     */
     $( "#previousItem" ).sortable({
 			start: function(event, ui) {
@@ -81,8 +85,7 @@ $(document).ready(function() {
                 update();
             }
     });
-    $( "#previousItem" ).disableSelection();
-    $('.collapse').collapse();
+   
     var skipLabel = $('#skipLabelLabel').text();
     $('#skippable').change(function() { 
         if (this.checked) {
@@ -97,9 +100,10 @@ $(document).ready(function() {
     
     // submit message and save to JSON object
     $('#message-form').submit(function(event) {
+        event.preventDefault();
         var $this = $(this);
         if (isEdit == false) { // create
-            event.preventDefault();
+            
             temp = ($this.serializeArray());
             
             typeArray.push("message");
@@ -114,20 +118,26 @@ $(document).ready(function() {
             update();
         }
         else { // edit, not create
-            event.preventDefault();
-            
-            var temp2 = JSON.stringify($('#message-form').serializeObject());
-            text = "<message>" + json2xml(jQuery.parseJSON(temp2), "")  + "</message>";
-            xml = text;
-            console.log(xml);
-            promptXMLArray[editIndex] = xml;
-            
-            $this.clearForm();
-            $('.collapse').collapse();
-            
-            //reset value
-            isEdit = false;
-            document.getElementById("create message").innerHTML="Create Message";
+            // check if user try to create while edit (click edit prompt but then open create message section)
+            if (typeArray[editIndex] != "message") {
+                alert("Cannot create new items while in edit mode");
+            }
+            else {
+                
+                
+                var temp2 = JSON.stringify($('#message-form').serializeObject());
+                text = "<message>" + json2xml(jQuery.parseJSON(temp2), "")  + "</message>";
+                xml = text;
+                promptXMLArray[editIndex] = xml;
+                
+                $this.clearForm();
+                $('.collapse').collapse();
+                
+                //reset value
+                document.getElementById("create message").innerHTML="Create Message";
+                isEdit = false;
+                editIndex = -1; 
+            }                     
             update();
         }
         
@@ -136,7 +146,7 @@ $(document).ready(function() {
     
     // submit prompt and save to JSON object
     $('#campaign-form').submit(function(event) {
-        
+        event.preventDefault();
 		// saving to JSON
         if (isEdit == false) { // create
             event.preventDefault();
@@ -159,32 +169,35 @@ $(document).ready(function() {
             update();            
         }
         else { // edit, not create
-            event.preventDefault();
-          
-            var temp2 = JSON.stringify($('#campaign-form').serializeObject());      
-            text = "<prompt>" + json2xml(jQuery.parseJSON(temp2), "")  + "</prompt>";
             
-            var xml = $.parseXML(text); 
-            var promptType = $('#groupPromptType').val();
-            xml = addProperties(text, promptType);
-            xml = $.XMLtoStr(xml);
-            xml=xml.replace(/(&lt;)/g,"<").replace(/(&gt;)/g,">");
-            promptXMLArray[editIndex] = xml;
-            console.log(xml);
-            
-            $(this).clearForm();
-            $('.collapse').collapse();
-            
-            //reset value
-            isEdit = false;
-            document.getElementById("add prompt").innerHTML="Add Prompt";
+            // check if user try to create while edit (click edit prompt but then open create message section)
+            if (typeArray[editIndex] != "prompt") {
+                
+                alert("Cannot create new items while in edit mode");
+            }
+            else {              
+                var temp2 = JSON.stringify($('#campaign-form').serializeObject());      
+                text = "<prompt>" + json2xml(jQuery.parseJSON(temp2), "")  + "</prompt>";
+                
+                var xml = $.parseXML(text); 
+                var promptType = $('#groupPromptType').val();
+                xml = addProperties(text, promptType);
+                xml = $.XMLtoStr(xml);
+                xml=xml.replace(/(&lt;)/g,"<").replace(/(&gt;)/g,">");
+                promptXMLArray[editIndex] = xml;
+                
+                $(this).clearForm();
+                $('.collapse').collapse();
+                
+                //reset value
+                isEdit = false;
+                editIndex = -1;  
+                document.getElementById("add prompt").innerHTML="Add Prompt";
+            }       
             update();
         }
 	}); // end click
-    
-    $("select#groupPromptType").change(displayPrompt);
-    displayPrompt();
-    
+     
     /*
         Click Ok on the Prompt type overlay window
     */
@@ -274,6 +287,9 @@ $(document).ready(function() {
         });       
     })
     
+    /*
+        ViewXML button
+    */
     $('#viewXML').click(function(){
         $('#XMLdata').empty();
         var smlString = "";
@@ -292,4 +308,20 @@ $(document).ready(function() {
         });
     });
     
+    // Submit Button
+    $('#create-campaign').click(function(e) {
+        // go through prompt array to get their data
+        // then create prompt using campaign edito function and save to storage
+        jQuery.each(promptXMLArray, function(i, value) {
+            if (typeArray[i] == "message") {
+                // TODO
+            }
+            else if (typeArray[i] == "prompt") {
+                // TODO
+            }
+            else if (typeArray[i] == "repeatable") {
+                // TODO
+            }
+        });
+    });
 }); // end ready

@@ -17,7 +17,7 @@ function update() {
     // update number of question
     $("#numQuestion").text(length);
 
-    // loop through prompt array and get the id
+    // get the id of each prompt in the prompt array and update them in the previous section
     jQuery.each(promptXMLArray, function(i, value) {
         var xml = $.parseXML(promptXMLArray[i]);
         var id = $(xml).find("id").text();
@@ -25,7 +25,7 @@ function update() {
         if (typeArray[i] == "message") {
             link = "#newMessage";
         }
-        else if (typeArray[i] == "message") {
+        else if (typeArray[i] == "prompt") {
             link = "#newPrompt";
         }
         // update previous prompt section
@@ -101,7 +101,6 @@ function openAccordion(index) {
         $('#displayType').val(displayType);
         $('#promptText').val(promptText);
         $('#abbreviatedText').val(abbreviatedText);
-        console.log(promptType);
         $('#groupPromptType').val(promptType);
         $('#default').val(pDefault);
         $('#condition').val(condition);
@@ -134,6 +133,7 @@ function deletePrompt(curr_index) {
         - index_a, index_b: 2 index for swapping
 */
 function swapArrayElem(promptArr, typeArr, index_a, index_b) {
+    // swap data
     var tmp = promptArr[index_a];
     promptArr[index_a] = promptArr[index_b];
     promptArr[index_b] = tmp;
@@ -212,7 +212,6 @@ function displayPrompt() {
 */
 function openConditionBox(id) {
     // create a prompt list drop down from prompt array
-    console.log(id);
     $("#promptIDList").empty();                      
     jQuery.each(promptXMLArray, function(i, JSONvalue) {
         var xml = $.parseXML(promptXMLArray[i]);
