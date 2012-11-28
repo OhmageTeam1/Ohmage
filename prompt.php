@@ -55,8 +55,11 @@
                             <div class="control-group">
                                 <button type="button" class="btn btn-primary" data-toggle="button" id="XMLBoxOK">OK</button>
                             </div>
+                            
                         </div>
-                    
+                    <div class="control-group">
+                        <button type="button" class="btn btn-primary" data-toggle="button" id="submit">Submit Prompt</button>
+                    </div>
                 </div>
                 <div class="span9 content">
 					<img src="img/ohmage-logo.png">
@@ -81,14 +84,14 @@
                                         <hr>
                                         <form class="form-horizontal" id="message-form">
                                             <div class="control-group">
-                                                <label class="control-label" for="messageID">Message ID*</label>
+                                                <label class="control-label" for="messageID">Message ID<i class="icon-asterisk"></i></label>
                                                 <div class="controls">
                                                     <textarea name="id" id="messageID" placeholder="Message ID"></textarea>
                                                     <i class="help-icon icon-question-sign" data-original-title="A unique identifier for this message." rel="tooltip" data-placement="right"></i>
                                                 </div>
                                             </div>
                                             <div class="control-group">
-                                                <label class="control-label" for="messageText">Message Text*</label>
+                                                <label class="control-label" for="messageText">Message Text<i class="icon-asterisk"></i></label>
                                                 <div class="controls">
                                                     <textarea name="messageText" id="messageText" placeholder="Message Text"></textarea>
                                                     <i class="help-icon icon-question-sign" data-original-title="The text to be displayed to the user." rel="tooltip" data-placement="right"></i>
@@ -105,6 +108,7 @@
                                                 <button type="submit" class="btn btn-primary" id="create message" value="Create Message">Create Message</button>
                                             </div>
                                         </form>
+                                        <i class="icon-asterisk"></i> Required Fields
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +122,7 @@
                                     <div class="accordion-inner">
                                         <form class="form-horizontal" id="campaign-form">
                                             <div class="control-group">
-												<label class="control-label" for="promptID">Prompt ID*</label>
+												<label class="control-label" for="promptID">Prompt ID<i class="icon-asterisk"></i></label>
                                                 <div class="controls">
                                                     <input type="text" name="id" id="promptID" placeholder="Prompt ID" />
                                                     <i class="help-icon icon-question-sign" data-original-title="A unique identifier for the prompt." rel="tooltip" data-placement="right"></i>
@@ -126,7 +130,7 @@
                                             </div>
                                             
 											<div class="control-group">
-												<label class="control-label" for="displayLabel">Display Label*</label>
+												<label class="control-label" for="displayLabel">Display Label<i class="icon-asterisk"></i></label>
                                                 <div class="controls">
                                                     <input type="text" name="displayLabel" id="displayLabel" placeholder="Display Label" />
                                                     <i class="help-icon icon-question-sign" data-original-title="The user-friendly name of this prompt used in visualizations." rel="tooltip" data-placement="right"></i>
@@ -134,7 +138,7 @@
 											</div>
                                             
 											<div class="control-group">
-												<label class="control-label" for="displayType">Display Type*</label>
+												<label class="control-label" for="displayType">Display Type<i class="icon-asterisk"></i></label>
                                                 <div class="controls">
                                                     <select name="displayType" id="displayType">
                                                         <option value="None">Please choose a display type</option>
@@ -149,7 +153,7 @@
 											</div>
                                             
 											<div class="control-group">
-												<label class="control-label" for="promptText">Prompt Text*</label>
+												<label class="control-label" for="promptText">Prompt Text<i class="icon-asterisk"></i></label>
                                                 <div class="controls">
                                                     <textarea type="text" name="promptText" id="promptText" placeholder="Prompt Text"></textarea>
                                                     <i class="help-icon icon-question-sign" data-original-title="The text to display to the user when prompting them to respond." rel="tooltip" data-placement="right"></i>
@@ -157,7 +161,7 @@
 											</div>
                                             
 											<div class="control-group">
-												<label class="control-label" for="abbreviatedText">Abbreviated Text*</label>
+												<label class="control-label" for="abbreviatedText">Abbreviated Text<i class="icon-asterisk"></i></label>
                                                 <div class="controls">
                                                     <textarea type="text" name="abbreviatedText" id="abbreviatedText" placeholder="Abbreviated Text"></textarea>
                                                     <i class="help-icon icon-question-sign" data-original-title="An abbreviated version of the prompt text for use in situations where space is limited or for display purposes." rel="tooltip" data-placement="right"></i>
@@ -165,7 +169,7 @@
 											</div>
                                             
 											<div class="control-group">
-												<label class="control-label" for="promptType">Prompt Type*</label>
+												<label class="control-label" for="promptType">Prompt Type<i class="icon-asterisk"></i></label>
                                                 <div class="controls">
                                                     <select name="promptType" id="groupPromptType">
                                                         <option value="None">Please choose a prompt type</option>
@@ -279,6 +283,7 @@
 												<button type="submit" class="btn btn-primary" id="add prompt">Add Prompt</button>
 											</div>
 										</form>
+                                        <i class="icon-asterisk"></i> Required Fields
                                     </div>
                                 </div>
                             </div>
@@ -292,7 +297,7 @@
                                     <div class="accordion-inner">
                                         <form class="form-horizontal" id="repeatable-form">
                                             <div class="control-group">
-                                                <label class="control-label" for="idRepeatable">Repeatable set ID*</label>
+                                                <label class="control-label" for="idRepeatable">Repeatable set ID<i class="icon-asterisk"></i></label>
                                                 <div class="controls">
                                                     <input type="text" name="idRepeatable" id="idRepeatable" placeholder="ID"/>
                                                     <i class="help-icon icon-question-sign" data-original-title="A unique identifier for the repeatable set." rel="tooltip" data-placement="right"></i>
@@ -300,7 +305,7 @@
                                             </div>
                                             
                                             <div class="control-group">
-                                                <label class="control-label" for="terminationQuestion">Termination Question*</label>
+                                                <label class="control-label" for="terminationQuestion">Termination Question<i class="icon-asterisk"></i></label>
                                                 <div class="controls">
                                                     <input type="text" name="terminationQuestion" id="terminationQuestion" placeholder="Termination Question"/>
                                                     <i class="help-icon icon-question-sign" data-original-title="The text to be displayed to the user to allow them to choose to repeat the set." rel="tooltip" data-placement="right"></i>
@@ -308,7 +313,7 @@
                                             </div>
                                             
                                             <div class="control-group">
-                                                <label class="control-label" for="terminationTrueLabel">Termination True Label*</label>
+                                                <label class="control-label" for="terminationTrueLabel">Termination True Label<i class="icon-asterisk"></i></label>
                                                 <div class="controls">
                                                     <input type="text" name="terminationTrueLabel" id="terminationTrueLabel" placeholder="Termination True Label"/>
                                                     <i class="help-icon icon-question-sign" data-original-title="The text indicating that the user does not wish to repeat the set." rel="tooltip" data-placement="right"></i>
@@ -316,7 +321,7 @@
                                             </div>
                                             
                                             <div class="control-group">
-                                                <label class="control-label" for="terminationFalseLabel">Termination False Label*</label>
+                                                <label class="control-label" for="terminationFalseLabel">Termination False Label<i class="icon-asterisk"></i></label>
                                                 <div class="controls">
                                                     <input type="text" name="terminationFalseLabel" id="terminationFalseLabel" placeholder="Termination False Label"/>
                                                     <i class="help-icon icon-question-sign" data-original-title="The text indicating that the user does wish to repeat the set." rel="tooltip" data-placement="right"></i>
@@ -339,7 +344,7 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="condition">Condition</label>
                                                 <div class="controls">
-                                                    <input type="text" name="Condition" id="conditionRepeatable" placeholder="Click to edit conditions" />
+                                                    <input type="text" name="Condition" id="conditionRepeatable" onclick="openConditionBox('conditionRepeatable')" placeholder="Click to edit conditions" />
                                                     <i class="help-icon icon-question-sign" data-original-title="The condition which determines if the repeatable set is displayed or not." rel="tooltip" data-placement="right"></i>
                                                 </div>
                                             </div>
@@ -358,6 +363,7 @@
                                                 <button type="submit" class="btn btn-primary" id="create repeatable" value="Create Repeatble">Create Repeatable Set</button>
                                             </div>
                                         </form>
+                                        <i class="icon-asterisk"></i> Required Fields
                                     </div>
                                 </div>
                             </div>
