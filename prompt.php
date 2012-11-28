@@ -1,4 +1,10 @@
 <!DOCTYPE HTML>
+<?php
+    session_start(); 
+    include('notice.php');
+    require_once('authorize.php');
+    authorizeUser();
+?>
 <html>
     <head>
         <title>Create Prompt</title>
@@ -17,11 +23,10 @@
         <script type="text/javascript" src="js/promptType.js"></script>
         <script type="text/javascript" src="js/prompt.js"></script>
         <script type="text/javascript" src="js/XMLProcessor.js"></script>
+        <script type="text/javascript" src="js/promptUtil.js"></script>
         <script type="text/javascript" src="js/help-icon.js"></script>
         <script type="text/javascript" src="js/vkbeautify.0.99.00.beta.js"></script>
-        <script type="text/javascript" src="js/breadcrumb.js"></script>
-
-        
+        <script type="text/javascript" src="js/breadcrumb.js"></script>      
     </head>
     <body>
 		<?php
@@ -37,8 +42,8 @@
                 </ul>
             </div>
             <div class="row">
-                <div class="well span2">
-                    <h2>Number of Questions</h2>
+                <div class="span3">
+                    <h4>Number of Questions</h4>
                     <p id="numQuestion">0</p>
                     <p><button type="button" class="btn btn-primary" id="viewXML">View XML</button></p> 
                     <div class="overlay" id="overlayXML" style="display:none;"></div>
@@ -53,7 +58,7 @@
                         </div>
                     
                 </div>
-                <div class="well span9 content">
+                <div class="span9 content">
 					<img src="img/ohmage-logo.png">
                     <h2>Previous Items</h2>
                     <table>
@@ -92,7 +97,7 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="condition">Condition</label>
                                                 <div class="controls">
-                                                    <input type="text" name="condition" id="conditionMessage" placeholder="Click to edit conditions" />
+                                                    <input type="text" name="condition" id="conditionMessage" onclick="openConditionBox('conditionMessage')" placeholder="Click to edit conditions" />
                                                     <i class="help-icon icon-question-sign" data-original-title="The condition which determines if the message is displayed or not." rel="tooltip" data-placement="right"></i>
                                                 </div>
                                             </div>
@@ -215,23 +220,27 @@
                                                             <div class="control-group">
                                                                 <label class="control-label" for="condition">Condition</label>
                                                                 <div class="controls">
-                                                                    <input type="text" name="condition" id="condition" onclick="conditionClick()" placeholder="Click to edit conditions" />
+                                                                    <input type="text" name="condition" id="condition" onclick="openConditionBox('condition')" placeholder="Click to edit conditions" />
                                                                     <i class="help-icon icon-question-sign" data-original-title="The condition which determines if the prompt is displayed or not." rel="tooltip" data-placement="right"></i>
                                                                 </div>
-                                                                <div id="condition_container">
-                                                                    <table>
+                                                                
+                                                                <div class="overlay" id="overlayCondition" style="display:none;"></div>
+                                                                <div class="OverlayBox" id="ConditionBox">
+                                                                    <table id="conditionTable">
                                                                         <tr>
-                                                                            <td><input type="radio" name="condType" style="vertical-align: middle" value="Simple" checked="checked"></td>
+                                                                            <td><input name="condType" type="radio" style="vertical-align: middle" value="Simple" checked="checked"></td>
                                                                             <td>Simple</td>
-                                                                            <td><input type="radio" name="condType" style="vertical-align: middle" value="Advance"></td>
+                                                                            <td><input name="condType" type="radio" style="vertical-align: middle" value="Advance"></td>
                                                                             <td>Advance</td>
                                                                         </tr>
+                                                                        
                                                                     </table>
                                                                     <p> </p>
                                                                     <div id="condType">
                                                                         <select id="promptIDList">
+                                                                            <!-- Prompt ID list drop down -->
                                                                         </select>
-                                                                        <select id="operator">
+                                                                        <select id="operator" width="70"  style="width: 70px">
                                                                             <option value="==">&#61;</option>
                                                                             <option value="!=">&#33;&#61;</option>
                                                                             <option value="<">&#60;</option>
@@ -241,9 +250,10 @@
                                                                         </select>
                                                                         <input type="text" id="conditionValue" placeholder="value"/>
                                                                     </div>
-                                                                    <p><button type="button" class="btn btn-primary" id="saveCondition">Save Condition</button></p>
+                                                                    <p><button type="button" class="btn btn-primary" id="saveCondition" value="condition">Save Condition</button></p>
                                                                 </div>
-                                                                <div id="bgPopup"></div>
+                                                                
+                                                                <!--<div id="bgPopup"></div>-->
                                                                 <!--<input type="text" name="Condition" id="Condition" placeholder="Condition" /> -->
                                                             </div>
                                                             <div class="control-group">
