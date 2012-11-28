@@ -141,7 +141,7 @@
 												<label class="control-label" for="displayType">Display Type<i class="icon-asterisk"></i></label>
                                                 <div class="controls">
                                                     <select name="displayType" id="displayType">
-                                                        <option value="None">Please choose a display type</option>
+                                                        <option value="">Please choose a display type</option>
                                                         <option value="Measurement">Measurement</option>
                                                         <option value="Event">Event</option>
                                                         <option value="Count">Count</option>
@@ -172,7 +172,7 @@
 												<label class="control-label" for="promptType">Prompt Type<i class="icon-asterisk"></i></label>
                                                 <div class="controls">
                                                     <select name="promptType" id="groupPromptType">
-                                                        <option value="None">Please choose a prompt type</option>
+                                                        <option value="">Please choose a prompt type</option>
                                                         <option value="Multiple Choice">Multiple Choice</option>
                                                         <option value="Multiple Choice Custom">Multiple Choice Custom</option>
                                                         <option value="Number">Number</option>

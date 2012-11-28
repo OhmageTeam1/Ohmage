@@ -309,14 +309,47 @@ $(document).ready(function() {
     });
     
     // Submit Button
-    $('#create-campaign').click(function(e) {
+    //TODO
+    $('#submit').click(function(e) {
         // go through prompt array to get their data
-        // then create prompt using campaign edito function and save to storage
+        // then create prompt using campaign editor functions and save to storage
         jQuery.each(promptXMLArray, function(i, value) {
             if (typeArray[i] == "message") {
-                // TODO
+                console.log(value);
+                var xml = $.parseXML(value);
+                
+                //get data from XML message object
+                $xml = $(xml);
+                var id = $xml.find("id").text();
+                var messageText = $xml.find("messageText").text();
+                var condition = $xml.find("condition").text();
+                
+                // call campaign edirot function here
+                // TO DO
             }
             else if (typeArray[i] == "prompt") {
+                // get data from XML object
+                $xml = $(xml);
+                var id = $xml.find("id").text();
+                var displayLabel = $xml.find("displayLabel").text();
+                var displayType = $xml.find("displayType").text();
+                var promptText = $xml.find("promptText").text();
+                var abbreviatedText = $xml.find("abbreviatedText").text();
+                var promptType = $xml.find("promptType").text();
+                var defaultValue = $xml.find("default").text();
+                var condition = $xml.find("condition").text();
+                var skippable = $xml.find("skippable").text();
+                var skipLabel = $xml.find("skipLabel").text();
+                // properties
+                // need fix depend on how the campaign editor function handle properties
+                var properties = ""
+                $(xml).find('property').each(function(){
+                    var label = $(this).find('label').text();
+                    var value = $(this).find('value').text();
+                    properties = label + ":" + value + '\n';
+                });
+                
+                // call campaign edirot function here
                 // TODO
             }
             else if (typeArray[i] == "repeatable") {

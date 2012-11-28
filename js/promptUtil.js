@@ -79,11 +79,12 @@ function openAccordion(index) {
         $xml = $(xml);
         var id = $xml.find("id").text();
         var displayLabel = $xml.find("displayLabel").text();
+        console.log(displayLabel);
         var displayType = $xml.find("displayType").text();
         var promptText = $xml.find("promptText").text();
         var abbreviatedText = $xml.find("abbreviatedText").text();
         var promptType = $xml.find("promptType").text();
-        var pDefault = $xml.find("default").text();
+        var defaultValue = $xml.find("default").text();
         var condition = $xml.find("condition").text();
         var skippable = $xml.find("skippable").text();
         var skipLabel = $xml.find("skipLabel").text();
