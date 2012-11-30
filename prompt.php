@@ -30,7 +30,7 @@
         <script type="text/javascript" src="js/breadcrumb.js"></script>      
     </head>
     <body>
-		<?php
+        <?php
             include('navbar.php');
             require_once('authorize.php');
         ?>
@@ -60,7 +60,6 @@
                             <div class="control-group">
                                 <button type="button" class="btn btn-primary" data-toggle="button" id="XMLBoxOK">OK</button>
                             </div>
-<<<<<<< HEAD
                         </div>     
                         <div class="control-group">
                             <button type="button" class="btn btn-primary" data-toggle="button" id="submit">Submit Prompt</button>
@@ -122,16 +121,16 @@
                                         <div class="accordion-inner">
                                             <br>
                                             <form class="form-horizontal" id="campaign-form">
-    											<div class="control-group">
-    												<label class="control-label" for="displayLabel">Display Label <i class="icon-asterisk"></i></label>
+                                                <div class="control-group">
+                                                    <label class="control-label" for="displayLabel">Display Label <i class="icon-asterisk"></i></label>
                                                     <div class="controls">
                                                         <input type="text" name="displayLabel" id="displayLabel" placeholder="Display Label" />
                                                         <i class="help-icon icon-question-sign" data-original-title="The user-friendly name of this prompt used in visualizations." rel="tooltip" data-placement="right"></i>
                                                     </div>
-    											</div>
+                                                </div>
                                                 
-    											<div class="control-group">
-    												<label class="control-label" for="displayType">Display Type <i class="icon-asterisk"></i></label>
+                                                <div class="control-group">
+                                                    <label class="control-label" for="displayType">Display Type <i class="icon-asterisk"></i></label>
                                                     <div class="controls">
                                                         <select name="displayType" id="displayType">
                                                             <option value="">Please choose a display type</option>
@@ -143,26 +142,26 @@
                                                         </select>
                                                         <i class="help-icon icon-question-sign" data-original-title="The type of the data being collected, which must be one of measurement, event, count, category, or metadata." rel="tooltip" data-placement="right"></i>
                                                     </div>
-    											</div>
+                                                </div>
                                                 
-    											<div class="control-group">
-    												<label class="control-label" for="promptText">Prompt Text <i class="icon-asterisk"></i></label>
+                                                <div class="control-group">
+                                                    <label class="control-label" for="promptText">Prompt Text <i class="icon-asterisk"></i></label>
                                                     <div class="controls">
                                                         <textarea type="text" name="promptText" id="promptText" placeholder="Prompt Text"></textarea>
                                                         <i class="help-icon icon-question-sign" data-original-title="The text to display to the user when prompting them to respond." rel="tooltip" data-placement="right"></i>
                                                     </div>
-    											</div>
+                                                </div>
                                                 
-    											<div class="control-group">
-    												<label class="control-label" for="abbreviatedText">Abbreviated Text <i class="icon-asterisk"></i></label>
+                                                <div class="control-group">
+                                                    <label class="control-label" for="abbreviatedText">Abbreviated Text <i class="icon-asterisk"></i></label>
                                                     <div class="controls">
                                                         <textarea type="text" name="abbreviatedText" id="abbreviatedText" placeholder="Abbreviated Text"></textarea>
                                                         <i class="help-icon icon-question-sign" data-original-title="An abbreviated version of the prompt text for use in situations where space is limited or for display purposes." rel="tooltip" data-placement="right"></i>
                                                     </div>
-    											</div>
+                                                </div>
                                                 
-    											<div class="control-group">
-    												<label class="control-label" for="promptType">Prompt Type <i class="icon-asterisk"></i></label>
+                                                <div class="control-group">
+                                                    <label class="control-label" for="promptType">Prompt Type <i class="icon-asterisk"></i></label>
                                                     <div class="controls">
                                                         <select name="promptType" id="groupPromptType">
                                                             <option value="">Please choose a prompt type</option>
@@ -196,8 +195,8 @@
                                                             <button type="button" class="btn btn-primary" data-toggle="button" id="PromptBoxOK">OK</button>
                                                         </div>
                                                     </div>
-    											</div>
-    											
+                                                </div>
+                                                
                                                 <div class="accordion" id="OptionalSection">
                                                     <div class="accordion-group">
                                                         <div class="accordion-heading">
@@ -268,10 +267,10 @@
                                                     </div>
                                                 </div>
                                                 
-    											<div class="control-group">
-    												<button type="submit" class="btn btn-primary" id="add prompt">Add Prompt</button>
-    											</div>
-    										</form>
+                                                <div class="control-group">
+                                                    <button type="submit" class="btn btn-primary" id="add prompt">Add Prompt</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
