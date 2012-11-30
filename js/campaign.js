@@ -41,6 +41,11 @@ $(function() {
     // Create Campaign Button
     $('#create-campaign').click(function(e) {
         var title = $('#campaignTitle').val();
+        if (title === '') {
+            $('#campaignTitle').parent().parent().addClass('error');
+        } else {
+            $('#campaignTitle').parent().parent().removeClass('error');
+        }
         var campaign = campaignEditor.createCampaign(title);
         if (!campaign) {
             var errorAlert = '<div class="alert alert-error create-campaign-error hide"><button class="close">&times;</button><strong>Error:</strong> A campaign needs to have a title!</div>';
