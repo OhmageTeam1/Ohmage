@@ -133,6 +133,5 @@ function createXMLString(array) {
         result += array[i];
     }
     result = "<survey>" + result + "</survey>";
-    console.log(result);
     return result;
 }
