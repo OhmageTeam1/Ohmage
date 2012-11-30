@@ -12,6 +12,7 @@ body {
 }
 .boxRounded {
     background-color: #FFF;
+    margin-bottom: 20px;
     padding: 20px;
     -moz-border-radius-top-right: 10px;
     -webkit-border-bottom-left-radius: 10px;
