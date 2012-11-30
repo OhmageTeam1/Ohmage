@@ -1,5 +1,5 @@
 /***
-    A collection of utiliti function for prompt pages
+    A collection of utility functions for prompt pages
 ***/
 
 /*
@@ -10,7 +10,8 @@
 */
 function update() {
     $("#previousItem").empty();
-    $("#repeatPromptList").empty();
+    //$("#repeatPromptList").empty();
+    $("#PromptList ul").empty();
     
     var length = promptXMLArray.length;
     
@@ -41,9 +42,13 @@ function update() {
                                  + "</th>"
                                  + "</tr>");
                                  
-        // update the list of prompt in repeatable set
-        $("#repeatPromptList").append("<option value=" + id + ">" + id + "</option>");    
+            // update the list of prompt in repeatable set
+            //$("#repeatPromptList").append("<option value=" + i + ">" + id + "</option>");
+            $("#PromptList ul").append("<li class='new-item' value=" + i + ">" + id + "</li>").find('li').draggable({appendTo: "body",
+                helper: "clone"});
+            
         });
+    
 }
 
 /*
@@ -79,7 +84,6 @@ function openAccordion(index) {
         $xml = $(xml);
         var id = $xml.find("id").text();
         var displayLabel = $xml.find("displayLabel").text();
-        console.log(displayLabel);
         var displayType = $xml.find("displayType").text();
         var promptText = $xml.find("promptText").text();
         var abbreviatedText = $xml.find("abbreviatedText").text();
@@ -103,7 +107,7 @@ function openAccordion(index) {
         $('#promptText').val(promptText);
         $('#abbreviatedText').val(abbreviatedText);
         $('#groupPromptType').val(promptType);
-        $('#default').val(pDefault);
+        $('#default').val(defaultValue);
         $('#condition').val(condition);
         if (skippable == "on") {
             $('#skippable').prop('checked', true);;

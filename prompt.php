@@ -349,14 +349,31 @@
                                                 </div>
                                             </div>
                                             
-                                            <div class="control-group">
-                                                <label class="control-label"for="choose">Choose prompts to add to the repeatable set</label>
-                                                <div class="controls">
+                                            <div class="control-group" id="addPrompt">
+                                                <!--  <label class="control-label"for="choose">Choose prompts to add to the repeatable set</label> -->
+                                                
+                                                <div id="PromptList">
+                                                    <h6><a href="#">Prompt List</a></h6>
+                                                    <div>
+                                                        <ul>
+                                                            <!-- Prompt/message after created -->
+                                                        </ul>
+                                                    </div>
+                                                    <!--
                                                     <select id="repeatPromptList">
                                                     </select>
                                                     <a href="#" id="addPromptRepeatable">Add</a>
                                                     <p></p>
                                                     <p><textarea name="promptsRepeatablt" id="promptsRepeatablt" readonly></textarea></p>
+                                                    -->
+                                                </div>
+                                            </div>
+                                            <div class="control-group" id="addedPrompt">
+                                                <h6><a href="#">Added prompts</a></h6>
+                                                <div>
+                                                    <ol>
+                                                        <li class="placeholder">Add your items here</li>
+                                                    </ol>
                                                 </div>
                                             </div>
                                             <div class="control-group">

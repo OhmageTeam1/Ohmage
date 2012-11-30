@@ -33,7 +33,6 @@ $(document).ready(function() {
             condition = $('#advanceCondition').val();
         }
         var result = $('#saveCondition').val();
-        console.log(result);
         $('#' + result).val(condition);
         
         // close the overlay box and reset values
@@ -97,8 +96,25 @@ $(document).ready(function() {
             $('#skipLabelLabel').html(skipLabel);
         }
     });
-    
-    // submit message and save to JSON object
+      
+    $( "#addedPrompt ol" ).droppable({
+            activeClass: "ui-state-default",
+            hoverClass: "ui-state-hover",
+            accept: ":not(.ui-sortable-helper)",
+            drop: function( event, ui ) {
+                $( this ).find( ".placeholder" ).remove();
+                $( "<li></li>" ).text( ui.draggable.text() ).appendTo( this );
+            }
+        }).sortable({
+            items: "li:not(.placeholder)",
+            sort: function() {
+                // gets added unintentionally by droppable interacting with sortable
+                // using connectWithSortable fixes this, but doesn't allow you to customize active/hoverClass options
+                $( this ).removeClass( "ui-state-default" );
+            }
+        });
+        
+    // submit message and save to internal array
     $('#message-form').submit(function(event) {
         event.preventDefault();
         var $this = $(this);
@@ -144,10 +160,9 @@ $(document).ready(function() {
 	}); // end click
    
     
-    // submit prompt and save to JSON object
+    // submit prompt and save to internal array
     $('#campaign-form').submit(function(event) {
         event.preventDefault();
-		// saving to JSON
         if (isEdit == false) { // create
             event.preventDefault();
             temp = ($(this).serializeArray());
@@ -307,6 +322,22 @@ $(document).ready(function() {
             $('textarea#XMLdata').css('width', '50px');
         });
     });
+    
+    /*
+        Repeatable set
+    */
+    // add prompt
+    $('#addPromptRepeatable').click(function(){
+        alert('Doing nothing, havent implemented');
+        var promptID = $('#repeatPromptList').text();
+        var index = $('#repeatPromptList').attr('value');
+        console.log(promptID);
+    })
+    // create repeatable button
+    $('#repeatable-form').submit(function(event){
+        event.preventDefault();
+        alert('Doing nothing, havent implemented');
+    })
     
     // Submit Button
     //TODO
