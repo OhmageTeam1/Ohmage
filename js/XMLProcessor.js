@@ -127,11 +127,13 @@ function extractProperties(input, promptType) {
     $(xml).find('property').each(function(){
         console.log('Test');
         if (promptType == "Multiple Choice" || promptType == "Multiple Choice Custom") {
+            var key = $(this).find('key').text();
+            key = '<key>' + key + '</key>';
             var label = $(this).find('label').text();
             label = '<label>' + label + '</label>';
             var value = $(this).find('value').text();
             value = '<value>' + value + '</value>';
-            properties += '<property>' + label + value + '</property>';
+            properties += '<property>' + key + label + value + '</property>';
         }
         else if (promptType == "Number") {
             var key = $(this).find('key').text();
@@ -143,7 +145,9 @@ function extractProperties(input, promptType) {
         else if (promptType == "Photo") {
             var key = $(this).find('key').text();
             key = '<key>' + key + '</key>';
-            properties += '<property>' + key + '</property>';
+            var label = $(this).find('label').text();
+            label = '<label>' + label + '</label>';
+            properties += '<property>' + key + label + '</property>';
         }
         else if (promptType == "Remote Activity") {
             var key = $(this).find('key').text();
@@ -153,6 +157,8 @@ function extractProperties(input, promptType) {
             properties += '<property>' + key + label + '</property>';
         }
         else if (promptType == "Single Choice" || promptType == "Single Choice Custom") {
+            var key = $(this).find('key').text();
+            key = '<key>' + key + '</key>';
             var label = $(this).find('label').text();
             label = '<label>' + label + '</label>';
             var value = $(this).find('value').text();
