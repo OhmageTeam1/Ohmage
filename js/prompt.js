@@ -113,7 +113,13 @@ $(document).ready(function() {
                 $( this ).removeClass( "ui-state-default" );
             }
         });
-        
+    /*
+    $('.content').on('click', '.close', function() {
+        console.log('test');
+        var $this = $(this);
+        $this.parent().slideToggle('slow', function() { $(this).alert('close'); });
+    });
+    */
     // submit message and save to internal array
     $('#message-form').submit(function(event) {
         event.preventDefault();
@@ -124,14 +130,26 @@ $(document).ready(function() {
             
             typeArray.push("message");
             
-            var temp2 = JSON.stringify($('#message-form').serializeObject());
-            text = "<message>" + json2xml(jQuery.parseJSON(temp2), "")  + "</message>";
-            xml = text;
-            promptXMLArray.push(xml);
+            var temp = $('#message-form').serializeObject();
+            var temp2 = JSON.stringify(temp);
+    
+            var success = checkValidMessage(temp['messageText']);
+            if (!success) {
+                var errorAlert = '<div class="alert alert-error createMessage hide"><button class="close">&times;</button><strong>Error:</strong> A required field is missing!</div>';
+                $(errorAlert).insertAfter('.newMess hr').slideToggle();
+                if($('.createMessage').size() > 1) {
+                    $('.createMessage').slice(1).delay('1000').slideToggle('slow',function() { $(this).alert('close')});
+                }
+            }
+            else { 
+                text = "<message>" + json2xml(jQuery.parseJSON(temp2), "")  + "</message>";
+                xml = text;
+                promptXMLArray.push(xml);
+                $this.clearForm();
+                $('.collapse').collapse();
+                update();
+            }
             
-            $this.clearForm();
-            $('.collapse').collapse();
-            update();
         }
         else { // edit, not create
             // check if user try to create while edit (click edit prompt but then open create message section)
@@ -139,20 +157,30 @@ $(document).ready(function() {
                 alert("Cannot create new items while in edit mode");
             }
             else {
+                var temp = $('#message-form').serializeObject();
+                var temp2 = JSON.stringify(temp);
                 
-                
-                var temp2 = JSON.stringify($('#message-form').serializeObject());
-                text = "<message>" + json2xml(jQuery.parseJSON(temp2), "")  + "</message>";
-                xml = text;
-                promptXMLArray[editIndex] = xml;
-                
-                $this.clearForm();
-                $('.collapse').collapse();
-                
-                //reset value
-                document.getElementById("create message").innerHTML="Create Message";
-                isEdit = false;
-                editIndex = -1; 
+                var success = checkValidMessage(temp['messageText']);
+                if (!success) {
+                    var errorAlert = '<div class="alert alert-error createMessage hide"><button class="close">&times;</button><strong>Error:</strong> A required field is missing!</div>';
+                    $(errorAlert).insertAfter('.newMess hr').slideToggle();
+                    if($('.createMessage').size() > 1) {
+                        $('.createMessage').slice(1).delay('1000').slideToggle('slow',function() { $(this).alert('close')});
+                    }
+                }
+                else {
+                    text = "<message>" + json2xml(jQuery.parseJSON(temp2), "")  + "</message>";
+                    xml = text;
+                    promptXMLArray[editIndex] = xml;
+                    
+                    $this.clearForm();
+                    $('.collapse').collapse();
+                    
+                    //reset value
+                    document.getElementById("create message").innerHTML="Create Message";
+                    isEdit = false;
+                    editIndex = -1; 
+                }
             }                     
             update();
         }
@@ -165,23 +193,34 @@ $(document).ready(function() {
         event.preventDefault();
         if (isEdit == false) { // create
             event.preventDefault();
-            temp = ($(this).serializeArray());
+            //temp = ($(this).serializeArray());
             
             typeArray.push("prompt");
+            var temp = $('#campaign-form').serializeObject();
+            var temp2 = JSON.stringify(temp);
             
-            var temp2 = JSON.stringify($('#campaign-form').serializeObject());
-            text = "<prompt>" + json2xml(jQuery.parseJSON(temp2), "")  + "</prompt>";
-            
-            var xml = $.parseXML(text); 
-            var promptType = $('#groupPromptType').val();
-            xml = addProperties(text, promptType);
-            xml = $.XMLtoStr(xml);
-            xml=xml.replace(/(&lt;)/g,"<").replace(/(&gt;)/g,">");
-            promptXMLArray.push(xml);    
-           
-            $(this).clearForm();
-            $('.collapse').collapse();
-            update();            
+            var success = checkValidPrompt(temp['displayLabel'], temp['displayType'], temp['promptText'], temp['abbreviatedText'], temp['promptType'], temp['skippable'], temp['skipLabel']);
+            if (!success) {
+                    var errorAlert = '<div class="alert alert-error createPrompt hide"><button class="close">&times;</button><strong>Error:</strong> A required field is missing!</div>';
+                    $(errorAlert).insertAfter('.newPrompt hr').slideToggle();
+                    if($('.createPrompt').size() > 1) {
+                        $('.createPrompt').slice(1).delay('1000').slideToggle('slow',function() { $(this).alert('close')});
+                    }
+            }
+            else {
+                text = "<prompt>" + json2xml(jQuery.parseJSON(temp2), "")  + "</prompt>";
+                
+                var xml = $.parseXML(text); 
+                var promptType = $('#groupPromptType').val();
+                xml = addProperties(text, promptType);
+                xml = $.XMLtoStr(xml);
+                xml=xml.replace(/(&lt;)/g,"<").replace(/(&gt;)/g,">");
+                promptXMLArray.push(xml);    
+               
+                $(this).clearForm();
+                $('.collapse').collapse();
+                update();
+            }            
         }
         else { // edit, not create
             
@@ -191,23 +230,35 @@ $(document).ready(function() {
                 alert("Cannot create new items while in edit mode");
             }
             else {              
-                var temp2 = JSON.stringify($('#campaign-form').serializeObject());      
-                text = "<prompt>" + json2xml(jQuery.parseJSON(temp2), "")  + "</prompt>";
+                var temp = $('#campaign-form').serializeObject();
+                var temp2 = JSON.stringify(temp);
                 
-                var xml = $.parseXML(text); 
-                var promptType = $('#groupPromptType').val();
-                xml = addProperties(text, promptType);
-                xml = $.XMLtoStr(xml);
-                xml=xml.replace(/(&lt;)/g,"<").replace(/(&gt;)/g,">");
-                promptXMLArray[editIndex] = xml;
-                
-                $(this).clearForm();
-                $('.collapse').collapse();
-                
-                //reset value
-                isEdit = false;
-                editIndex = -1;  
-                document.getElementById("add prompt").innerHTML="Add Prompt";
+                var success = checkValidPrompt(temp['displayLabel'], temp['displayType'], temp['promptText'], temp['abbreviatedText'], temp['promptType'], temp['skippable'], temp['skipLabel']);
+                if (!success) {
+                        var errorAlert = '<div class="alert alert-error createPrompt hide"><button class="close">&times;</button><strong>Error:</strong> A required field is missing!</div>';
+                        $(errorAlert).insertAfter('.newPrompt hr').slideToggle();
+                        if($('.createPrompt').size() > 1) {
+                            $('.createPrompt').slice(1).delay('1000').slideToggle('slow',function() { $(this).alert('close')});
+                        }
+                }
+                else {
+                    text = "<prompt>" + json2xml(jQuery.parseJSON(temp2), "")  + "</prompt>";
+                    
+                    var xml = $.parseXML(text); 
+                    var promptType = $('#groupPromptType').val();
+                    xml = addProperties(text, promptType);
+                    xml = $.XMLtoStr(xml);
+                    xml=xml.replace(/(&lt;)/g,"<").replace(/(&gt;)/g,">");
+                    promptXMLArray[editIndex] = xml;
+                    
+                    $(this).clearForm();
+                    $('.collapse').collapse();
+                    
+                    //reset value
+                    isEdit = false;
+                    editIndex = -1;  
+                    document.getElementById("add prompt").innerHTML="Add Prompt";
+                }
             }       
             update();
         }
@@ -357,31 +408,57 @@ $(document).ready(function() {
                 
                 // call campaign edirot function here
                 // TO DO
+                var surveyIndex =  $.cookie('currentSurvey');
+                var surveyTitle = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['title'];
+                var test = campaignWrapper['campaign']['surveys']['survey'][surveyIndex];
+                console.log(test);
+                var success = campaignEditor.addMessage(campaignWrapper['campaign'], surveyIndex, messageText, condition);
+                if (!success) {
+                    alert('Failure while adding messages to the survey' + surveyTitle);
+                } 
             }
             else if (typeArray[i] == "prompt") {
+                var xml = $.parseXML(value);
                 // get data from XML object
                 $xml = $(xml);
                 var id = $xml.find("id").text();
                 var displayLabel = $xml.find("displayLabel").text();
                 var displayType = $xml.find("displayType").text();
                 var promptText = $xml.find("promptText").text();
-                var abbreviatedText = $xml.find("abbreviatedText").text();
+                var abbrText = $xml.find("abbreviatedText").text();
                 var promptType = $xml.find("promptType").text();
                 var defaultValue = $xml.find("default").text();
                 var condition = $xml.find("condition").text();
                 var skippable = $xml.find("skippable").text();
                 var skipLabel = $xml.find("skipLabel").text();
                 // properties
-                // need fix depend on how the campaign editor function handle properties
-                var properties = ""
-                $(xml).find('property').each(function(){
-                    var label = $(this).find('label').text();
-                    var value = $(this).find('value').text();
-                    properties = label + ":" + value + '\n';
-                });
+                // WARNING: might need fix depend on how the campaign editor function handle properties
+                // currently return all the text in sinde <properties> tag
+                // example: <property><key><1></key><label>2</label></property>
+                var properties = $xml.find("properties").text();
+                properties = extractProperties(xml, promptType);
                 
                 // call campaign edirot function here
                 // TODO
+                var surveyIndex =  $.cookie('currentSurvey');
+                var surveyTitle = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['title'];
+                var test = campaignWrapper['campaign']['surveys']['survey'][surveyIndex];
+                console.log(test);
+                var success = campaignEditor.addPrompt(campaignWrapper['campaign'], 
+                                                        surveyIndex, 
+                                                        displayLabel,
+                                                        displayType,
+                                                        promptText,
+                                                        abbrText,
+                                                        promptType,
+                                                        defaultValue,
+                                                        condition,
+                                                        skippable,
+                                                        skipLabel,
+                                                        properties);
+                if (!success) {
+                    alert('Failure while adding prompts to the survey ' + surveyTitle);
+                } 
             }
             else if (typeArray[i] == "repeatable") {
                 // TODO

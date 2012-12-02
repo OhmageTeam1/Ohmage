@@ -21,10 +21,11 @@
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/navbar.js"></script>
         <script type="text/javascript" src="js/json2xml.js"></script>
-        <script type="text/javascript" src="js/promptType.js"></script>
+        <script type="text/javascript" src="js/alerts.js"></script>
         <script type="text/javascript" src="js/prompt.js"></script>
         <script type="text/javascript" src="js/XMLProcessor.js"></script>
         <script type="text/javascript" src="js/promptUtil.js"></script>
+        <script type="text/javascript" src="js/campaign-editor.js"></script>
         <script type="text/javascript" src="js/help-icon.js"></script>
         <script type="text/javascript" src="js/vkbeautify.0.99.00.beta.js"></script>
         <script type="text/javascript" src="js/breadcrumb.js"></script>      
@@ -66,8 +67,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="span9">
-                    <div class="boxRounded boxDark content">
+                <div class="span9 content">
+                    <div class="boxRounded boxDark">
                         <h2>Existing Survey Items</h2>
                         <table>
                             <div class="previousItems" id="previousItem">
@@ -85,8 +86,8 @@
                                         </a>
                                     </div>
                                     <div id="newMessage" class="accordion-body collapse in">
-                                        <div class="accordion-inner">
-                                            <br>
+                                        <div class="accordion-inner newMess">
+                                            <hr>
                                             <form class="form-horizontal" id="message-form">
                                                 <div class="control-group">
                                                     <label class="control-label" for="messageText">Message Text <i class="icon-asterisk"></i></label>
@@ -118,8 +119,8 @@
                                         </a>
                                     </div>
                                     <div id="newPrompt" class="accordion-body collapse in">
-                                        <div class="accordion-inner">
-                                            <br>
+                                        <div class="accordion-inner newPrompt">
+                                            <hr>
                                             <form class="form-horizontal" id="campaign-form">
                                                 <div class="control-group">
                                                     <label class="control-label" for="displayLabel">Display Label <i class="icon-asterisk"></i></label>

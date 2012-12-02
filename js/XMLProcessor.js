@@ -112,6 +112,71 @@ function addProperties(input, promptType) {
     }
     
 }
+
+/*
+    extractProperties will extract all properties and return the text inside the properties tag
+    input: the XML of the prompt
+    promptType: prompt's type (multiple choice, single choice, etc..)
+*/
+function extractProperties(input, promptType) {
+    //xml = $.parseXML(input);
+    xml = input;
+    text = $(xml).find("properties").text();
+    var properties = "";
+    
+    $(xml).find('property').each(function(){
+        console.log('Test');
+        if (promptType == "Multiple Choice" || promptType == "Multiple Choice Custom") {
+            var label = $(this).find('label').text();
+            label = '<label>' + label + '</label>';
+            var value = $(this).find('value').text();
+            value = '<value>' + value + '</value>';
+            properties += '<property>' + label + value + '</property>';
+        }
+        else if (promptType == "Number") {
+            var key = $(this).find('key').text();
+            key = '<key>' + key + '</key>';
+            var label = $(this).find('label').text();
+            label = '<label>' + label + '</label>'; 
+            properties += '<property>' + key + label + '</property>';
+        }
+        else if (promptType == "Photo") {
+            var key = $(this).find('key').text();
+            key = '<key>' + key + '</key>';
+            properties += '<property>' + key + '</property>';
+        }
+        else if (promptType == "Remote Activity") {
+            var key = $(this).find('key').text();
+            key = '<key>' + key + '</key>';
+            var label = $(this).find('label').text();
+            label = '<label>' + label + '</label>'; 
+            properties += '<property>' + key + label + '</property>';
+        }
+        else if (promptType == "Single Choice" || promptType == "Single Choice Custom") {
+            var label = $(this).find('label').text();
+            label = '<label>' + label + '</label>';
+            var value = $(this).find('value').text();
+            value = '<value>' + value + '</value>';
+            properties += '<property>' + label + value + '</property>';
+            
+        }
+        else if (promptType == "Text") {
+            var key = $(this).find('key').text();
+            key = '<key>' + key + '</key>';
+            var label = $(this).find('label').text();
+            label = '<label>' + label + '</label>'; 
+            properties += '<property>' + key + label + '</property>';
+        }
+        else if (promptType == "Timestamp") {
+            // doing nothing
+        }
+        else {
+            // invalid
+        }
+        
+    });
+    return properties;
+}
 /*
     change a XML object into string
 */

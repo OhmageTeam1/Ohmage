@@ -228,6 +228,37 @@ function openConditionBox(id) {
 }
 
 /*
+    Check if all required field of the message form is filled when submitted
+*/
+function checkValidMessage(messageText) {
+    // Check if all required components are present
+    if (!messageText) {
+        return false;
+    }
+    return true;
+}
+
+/*
+    Check if all required field of the prompt form is filled when submitted
+*/
+function checkValidPrompt(displayLabel,
+        displayType,
+        promptText,
+        abbrText,
+        promptType,
+        skippable,
+        skipLabel
+        ) {
+        
+    // Check if all required components are present
+    if (!displayLabel || !displayType || !promptText || !abbrText || !promptType ||
+            (skippable && !skipLabel)) {
+            return false;
+    }
+    return true;
+}
+
+/*
     This function wiil clear (reset) the form. Called after click submit/edit on the form
     credit goes to: http://www.learningjquery.com/2007/08/clearing-form-data
 */
