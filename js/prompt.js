@@ -435,8 +435,10 @@ $(document).ready(function() {
                 // WARNING: might need fix depend on how the campaign editor function handle properties
                 // currently return all the text in sinde <properties> tag
                 // example: <property><key><1></key><label>2</label></property>
-                var properties = $xml.find("properties").text();
-                properties = extractProperties(xml, promptType);
+                //var properties = $xml.find("properties").text();
+                var properties = extractProperties(xml, promptType);
+                //var properties = xml2json(value);
+                console.log(properties);
                 
                 // call campaign edirot function here
                 // TODO
