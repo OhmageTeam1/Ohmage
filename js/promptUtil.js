@@ -266,3 +266,12 @@ $.fn.serializeObject = function()
     });
     return o;
 };
+
+/*
+    Saves the form to be cleared (after a setTimeout delay)
+*/
+function formCallback(form){
+    return function(){
+        form.clearForm();
+    }
+}

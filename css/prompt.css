@@ -1,6 +1,36 @@
+#previousItemsSortable {
+    list-style: none;
+    margin-left: 0;
+}
+#previousItemsSortable li {
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background-color: #FFF;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px #A4A4A4;
+    -moz-box-shadow: 2px 2px 5px #A4A4A4;
+    -webkit-box-shadow: 2px 2px 5px #A4A4A4;
+    overflow: hidden;
+}
+.editItem {
+    margin-right: 10px;
+}
+
+
 .accordion-group {
+    overflow: hidden;
+    background-color: #FCFCFC;
+}
+.accordion-heading a{
+    color: #444;
     background-color: #FFF;
 }
+
+
+
 td, th {
     padding: 5px;
     text-align:left;

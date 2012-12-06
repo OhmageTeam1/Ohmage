@@ -1,18 +1,27 @@
 // overlay box script from : http://tympanus.net/codrops/2009/12/03/css-and-jquery-tutorial-overlay-with-slide-out-box/
-
+/*
 var promptXMLArray = new Array(); // array of XML prompt
 var promptArray = new Array(); // array of JSON prompt
 var typeArray = new Array(); // array of type (message, prompt, etc..)
 var arrayIndex = 0; // array index
 var isEdit = false;
 var editIndex = -1;
+*/
 
 var campaignWrapper = $.parseJSON(localStorage['campaignWrapper']);
    
-$(document).ready(function() {
+$(function() {
+    $('#previousItemsSortable').sortable({
+        start: function(event, ui) {
+            $(ui.item).data('startIndex', ui.item.index());
+        },
+        stop: function(event, ui) {
+            campaignEditor.shiftSurveyItems($(ui.item).data('startIndex'), ui.item.index());
+        }
+    }).disableSelection();
+
     $('#groupPromptType').val("None");
     $( "#previousItem" ).disableSelection();
-    $('.collapse').collapse();
     $("select#groupPromptType").change(displayPrompt);
     displayPrompt();
     
@@ -76,6 +85,7 @@ $(document).ready(function() {
     /*
     Previous item section
     */
+    /*
     $( "#previousItem" ).sortable({
 			start: function(event, ui) {
                 ui.item.startPos = ui.item.index();
@@ -85,6 +95,7 @@ $(document).ready(function() {
                 update();
             }
     });
+    */
    
     var skipLabel = $('#skipLabelLabel').text();
     $('#skippable').change(function() { 
@@ -98,8 +109,33 @@ $(document).ready(function() {
         }
     });
     
-    // submit message and save to JSON object
-    $('#message-form').submit(function(event) {
+    function addMessageToPrevItems(index) {
+        var message = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][index];
+        var newItem = '<li class="previousItem">' +
+            '<button type="button" class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i> Delete</button>' +
+            '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
+            '<i class="icon-comment"></i> <strong>Message</strong><br><p>' + message['messageText'] + '</p>' +
+            '</li>';
+        $('#previousItemsSortable').append(newItem);
+        return true;
+    }
+
+    // Save message to campaignWrapper object
+    $('#messageForm').submit(function(event) {
+        var $this = $(this);
+
+        // get form data
+        var messageData = $this.serializeObject();
+
+        var itemIndex = campaignEditor.addMessage(campaignWrapper['campaign'], $.cookie('currentSurvey'), messageData);
+        addMessageToPrevItems(itemIndex);
+
+        // cleanup code
+        $('#newMessage').collapse('hide');
+        setTimeout(formCallback($this), 150);
+        event.preventDefault();
+
+        /*
         event.preventDefault();
         var $this = $(this);
         if (isEdit == false) { // create
@@ -140,8 +176,9 @@ $(document).ready(function() {
             }                     
             update();
         }
+        */
         
-	}); // end click
+	});
    
     
     // submit prompt and save to JSON object

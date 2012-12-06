@@ -1,4 +1,7 @@
 $(function() {
+    $('#campaignTitle').focus();
+
+
     // Get existing campaigns
     $.post("https://test.ohmage.org/app/user_info/read", { auth_token: $.cookie('authToken'), client: "campaign-webapp" },
         function(response) {
