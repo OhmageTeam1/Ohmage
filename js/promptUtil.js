@@ -1,5 +1,5 @@
 /***
-    A collection of utility functions for prompt pages
+    A collection of utiliti function for prompt pages
 ***/
 
 /*
@@ -10,8 +10,7 @@
 */
 function update() {
     $("#previousItem").empty();
-    //$("#repeatPromptList").empty();
-    $("#PromptList ul").empty();
+    $("#repeatPromptList").empty();
     
     var length = promptXMLArray.length;
     
@@ -42,13 +41,9 @@ function update() {
                                  + "</th>"
                                  + "</tr>");
                                  
-            // update the list of prompt in repeatable set
-            //$("#repeatPromptList").append("<option value=" + i + ">" + id + "</option>");
-            $("#PromptList ul").append("<li class='new-item' value=" + i + ">" + id + "</li>").find('li').draggable({appendTo: "body",
-                helper: "clone"});
-            
+        // update the list of prompt in repeatable set
+        $("#repeatPromptList").append("<option value=" + id + ">" + id + "</option>");    
         });
-    
 }
 
 /*
@@ -84,6 +79,7 @@ function openAccordion(index) {
         $xml = $(xml);
         var id = $xml.find("id").text();
         var displayLabel = $xml.find("displayLabel").text();
+        console.log(displayLabel);
         var displayType = $xml.find("displayType").text();
         var promptText = $xml.find("promptText").text();
         var abbreviatedText = $xml.find("abbreviatedText").text();
@@ -107,7 +103,7 @@ function openAccordion(index) {
         $('#promptText').val(promptText);
         $('#abbreviatedText').val(abbreviatedText);
         $('#groupPromptType').val(promptType);
-        $('#default').val(defaultValue);
+        $('#default').val(pDefault);
         $('#condition').val(condition);
         if (skippable == "on") {
             $('#skippable').prop('checked', true);;
@@ -227,35 +223,96 @@ function openConditionBox(id) {
     $('#ConditionBox').animate({'top':'160px'},500);
 }
 
-/*
-    Check if all required field of the message form is filled when submitted
-*/
-function checkValidMessage(messageText) {
-    // Check if all required components are present
-    if (!messageText) {
-        return false;
+function addProperties(input, promptType) {
+    text = input['properties'];
+    var properties = {'property':[]};
+    if (promptType == "Multiple Choice" || promptType == "Multiple Choice Custom"
+        || promptType == "Single Choice" || promptType == "Single Choice Custom") {
+        propertiesText = text.replace("\r\n", "\n").split("\n");
+        lenText = propertiesText.length;
+        console.log(lenText);
+        for (i = 0; i < lenText; i++)
+        {
+            property = [];
+            temp = propertiesText[i].split(":");
+            if (temp[0] != '') {
+                key = i 
+                label = temp[0].replace("\r", "");
+                value = temp[1].replace("\r", "");
+                
+                property['key'] = key;
+                property['label'] = label;
+                property['value'] = value;
+                properties['property'].push(property);
+            }
+        }
+        return properties;
     }
-    return true;
-}
-
-/*
-    Check if all required field of the prompt form is filled when submitted
-*/
-function checkValidPrompt(displayLabel,
-        displayType,
-        promptText,
-        abbrText,
-        promptType,
-        skippable,
-        skipLabel
-        ) {
-        
-    // Check if all required components are present
-    if (!displayLabel || !displayType || !promptText || !abbrText || !promptType ||
-            (skippable && !skipLabel)) {
-            return false;
+    else if (promptType == "Number") {
+        propertiesText = text.split("\n");
+        for (i = 0; i < 2; i++)
+        {
+            property = [];
+            temp = propertiesText[i].split(":");
+            key = temp[0].replace("\r", "");
+            label = temp[1].replace("\r", "");
+            
+            property['key'] = key;
+            property['label'] = label;
+            properties['property'].push(property);
+        }
+        return properties;
     }
-    return true;
+    else if (promptType == "Photo") {
+        propertiesText = text.split("\n");
+        temp = propertiesText[0].split(":");
+        key = temp[1];
+        property = [];
+        property['key'] = key;
+        properties['property'].push(property);
+        return properties;
+    }
+    else if (promptType == "Remote Activity") {
+        propertiesText = text.split("\n");
+        lenText = propertiesText.length;
+        for (i = 0; i < lenText; i++)
+        {
+            property = [];
+            temp = propertiesText[i].split(":");
+            if (temp[0] != "") {
+                key = temp[0].toLowerCase();
+                label = temp[1].replace("\r", "");;
+     
+                property['key'] = key;
+                property['label'] = label;
+                properties['property'].push(property);
+            }
+        }
+        return properties;
+    }
+    else if (promptType == "Text") {
+         propertiesText = text.split("\n");
+        for (i = 0; i < 2; i++)
+        {
+            property = [];
+            temp = propertiesText[i].split(":");
+            key = temp[0].replace("\r", "");
+            label = temp[1].replace("\r", "");
+            
+            property['key'] = key;
+            property['label'] = label;
+            properties['property'].push(property);
+        }
+        return properties;
+    }
+    else if (promptType == "Timestamp") {
+        // doing nothing
+        return properties;
+    }
+    else {
+        // invalid
+        return properties;
+    }
 }
 
 /*
@@ -301,3 +358,12 @@ $.fn.serializeObject = function()
     });
     return o;
 };
+
+/*
+    Saves the form to be cleared (after a setTimeout delay)
+*/
+function formCallback(form){
+    return function(){
+        form.clearForm();
+    }
+}

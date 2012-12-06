@@ -76,7 +76,7 @@
                                     <label class="control-label" for="runningState">Running State <i class="icon-asterisk"></i></label>
                                     <div class="controls">
                                         <button type="button" class="btn btn-success" id="runningStateBtn">Running</button>
-                                        <i class="help-icon icon-question-sign" data-original-title="User's can only upload responses on running campaigns. This can be updated once you submit your campaign." rel="tooltip" data-placement="right"></i>
+                                        <i class="help-icon icon-question-sign" data-original-title="Users can only upload responses on running campaigns. This can be updated once you submit your campaign." rel="tooltip" data-placement="right"></i>
                                     </div>
                                 </div>
                                 <div class="control-group">
