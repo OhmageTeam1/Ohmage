@@ -146,8 +146,6 @@ function xml2json(xml, tab) {
          return o;
       },
       toJson: function(o, name, ind) {
-         if (name == "")
-            console.log(o);
          var json = name ? ("\""+name+"\"") : "";
          if (o instanceof Array) {
             for (var i=0,n=o.length; i<n; i++)

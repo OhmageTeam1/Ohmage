@@ -51,6 +51,7 @@ function update() {
     "Edit" link in the previous prompt section
     Input: an array index to determine if it's a message/prompt/repeatable
 */
+/*
 function openAccordion(index) { 
     if (typeArray[index] == "message") {
         var xml = $.parseXML(promptXMLArray[index]);
@@ -116,6 +117,7 @@ function openAccordion(index) {
         editIndex = index;
     }
 }
+*/
 
 /*
     Delete a prompt from the previous prompt section. Called when click "delete" in the previous prompt section

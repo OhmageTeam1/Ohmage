@@ -70,25 +70,28 @@ var campaignEditor = {
         if (!messageData['messageText']) {
             return false;
         }
-
-        var savedId = 0;
+        console.log('Adding message to campaign wrapper now.')
+        console.log('Item Index: ' + index);
+        var savedId;
         var contentList = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][''];
-
+        console.log('Before contentList changes');
+        console.log(contentList);
         if (typeof(index) === "undefined") {
             index = contentList.length;
         } else {
             // We need to save the ID in case another condition references this item
             savedId = contentList[index]['id'];
-            ccontentList.splice(index, 1);
+            contentList.splice(index, 1);
         }
-
+        console.log('After contentList changes');
+        console.log(contentList);
         var message = {};
 
         message['messageText'] = messageData['messageText'];
-        if (messageData['condition']) message['condition'] = messageData['condition'];
+        if (messageData['messageCondition']) message['condition'] = messageData['messageCondition'];
         
-        message['id'] = savedId || campaignEditor.maxItemIndex(contentList) + 1;
-        contentList.splice(index, 1, {'message': message});
+        message['id'] = typeof(saveId) === "undefined" ? campaignEditor.maxItemIndex(contentList) + 1 : savedId;
+        contentList.splice(index, 0, {'message': message});
 
         return index;
     },
@@ -216,7 +219,11 @@ var campaignEditor = {
         if (contentList.length === 0) {
             return 0;
         }
-        return Math.max.apply(Math, contentList.map(function(item) {
+        return Math.max.apply(Math, campaignEditor.surveyItemIndexes(contentList));
+    },
+
+    surveyItemIndexes: function(contentList) {
+        return contentList.map(function(item) {
             if (item['message']) {
                 return item['message']['id'];
             } else if (item['prompt']) {
@@ -224,6 +231,6 @@ var campaignEditor = {
             } else {
                 return item['repeatableSet']['id'];
             }
-        }));
+        });
     }
 };

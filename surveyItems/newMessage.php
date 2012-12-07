@@ -8,6 +8,7 @@
         <div class="accordion-inner">
             <br>
             <form class="form-horizontal" id="messageForm">
+                <input type="hidden" name="editMessageId" id="editMessageId">
                 <div class="control-group">
                     <label class="control-label" for="messageText">Message <i class="icon-asterisk"></i></label>
                     <div class="controls">
@@ -28,6 +29,7 @@
                 <div class="control-group">
                     <div class="controls">
                         <button type="submit" class="btn btn-primary" id="createMessage">Create Message</button>
+                        <button type="button" class="btn hide" id="cancelMessageEdit">Cancel</button>
                     </div>
                 </div>
             </form>

@@ -12,6 +12,7 @@ var campaignWrapper = $.parseJSON(localStorage['campaignWrapper']);
 var tempSurvey = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')];
    
 $(function() {
+
     $('#previousItemsSortable').sortable({
         start: function(event, ui) {
             $(ui.item).data('startIndex', ui.item.index());
@@ -152,12 +153,39 @@ $(function() {
         campaignEditor.deleteItem(index);
     });
 
+    function setupEditMessage (message) {
+        var itemId = message['id'];
+        console.log('This items ID is ' + itemId);
+        $('#editMessageId').val(itemId);
+        $('#messageText').val(message['messageText']);
+        if (message['condition']) $('#messageCondition').val(message['condition']);
+
+        $('#createMessage').text('Edit Message');
+        $('#cancelMessageEdit').toggle();
+
+        $('#newPrompt').collapse('hide');
+        $('#newRepeatableSet').collapse('hide');
+        $('#newMessage').collapse('show');
+        console.log(campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList']['']);
+    }
+
     $('#previousItemsSortable').on('click', 'button.editItem', function() {
+        console.log('Edit Button Clicked');
         $parent = $(this).parent();
+        var currentSurvey = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')];
         var index = $('#previousItemsSortable li').index($parent);
-        $parent.slideUp('fast');
-        setTimeout(deleteItemCallback($parent), 200);
-        campaignEditor.deleteItem(index);
+        console.log('Index of item clicked in display is ' + index);
+        var item = currentSurvey['contentList'][''][index]
+
+        if (item['message']) {
+            setupEditMessage(item['message']);
+        } else if (item['prompt']) {
+
+        } else if (item['repeatableSet']) {
+
+        } else {
+            console.log('Error: Unknown survey item type.')
+        }
     });
 
     function addMessageToPrevItems(index) {
@@ -166,7 +194,12 @@ $(function() {
             '<button type="button" class="btn btn-danger pull-right deleteItem"><i class="icon-trash icon-white"></i> Delete</button>' +
             '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
             '<i class="icon-comment"></i> <strong>Message</strong><br><p>' + message['messageText'] + '</p>' + '</li>';
-        $(newItem).appendTo('#previousItemsSortable').slideToggle().removeClass('hide');
+        $('#previousItemsSortable').children().eq(index).remove();
+        if (index != 0) {   
+            $(newItem).insertAfter($('#previousItemsSortable').children().eq(index - 1)).slideToggle().removeClass('hide');
+        } else {
+            $(newItem).prependTo('#previousItemsSortable').slideToggle().removeClass('hide');
+        }
         return true;
     };
 
@@ -176,8 +209,18 @@ $(function() {
 
         // get form data
         var messageData = $this.serializeObject();
+        var itemIndex;
+        if (messageData['editMessageId']) {
+            var messageId = parseInt(messageData['editMessageId']);
+            console.log('Edit clicked.');
+            console.log('This items ID is now ' + messageId);
+            itemIndex = campaignEditor.surveyItemIndexes(campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList']['']).indexOf(messageId);
+            console.log('This items index is now ' + itemIndex);
+            campaignEditor.addMessage(messageData, itemIndex);
+        } else {
+            itemIndex = campaignEditor.addMessage(messageData); 
+        }
 
-        var itemIndex = campaignEditor.addMessage(messageData);
         if (itemIndex === false) {
             surveyItemError('Some required fields are missing!')
             event.preventDefault();
@@ -186,6 +229,9 @@ $(function() {
         addMessageToPrevItems(itemIndex);
 
         // cleanup code
+        $('#editMessageId').val('');
+        $('#createMessage').text('Create Message');
+        $('#cancelMessageEdit').hide();
         $('.createItemError').slideToggle('slow',function() { $(this).alert('close')});
         $('#newMessage').collapse('hide');
         setTimeout(formCallback($this), 150);
@@ -238,6 +284,7 @@ $(function() {
    
     
     // submit prompt and save to JSON object
+    /*
     $('#campaign-form').submit(function(event) {
         event.preventDefault();
 		// saving to JSON
@@ -290,7 +337,7 @@ $(function() {
             update();
         }
 	}); // end click
-     
+    */
     /*
         Click Ok on the Prompt type overlay window
     */
@@ -408,6 +455,7 @@ $(function() {
         $('#xmlModal').modal('show');
     })
     
+    /*
     // Submit Button
     //TODO
     $('#submit').click(function(e) {
@@ -457,4 +505,5 @@ $(function() {
             }
         });
     });
+    */
 }); // end ready
