@@ -70,12 +70,8 @@ var campaignEditor = {
         if (!messageData['messageText']) {
             return false;
         }
-        console.log('Adding message to campaign wrapper now.')
-        console.log('Item Index: ' + index);
         var savedId;
         var contentList = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][''];
-        console.log('Before contentList changes');
-        console.log(contentList);
         if (typeof(index) === "undefined") {
             index = contentList.length;
         } else {
@@ -83,8 +79,6 @@ var campaignEditor = {
             savedId = contentList[index]['id'];
             contentList.splice(index, 1);
         }
-        console.log('After contentList changes');
-        console.log(contentList);
         var message = {};
 
         message['messageText'] = messageData['messageText'];

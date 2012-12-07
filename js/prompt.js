@@ -155,7 +155,6 @@ $(function() {
 
     function setupEditMessage (message) {
         var itemId = message['id'];
-        console.log('This items ID is ' + itemId);
         $('#editMessageId').val(itemId);
         $('#messageText').val(message['messageText']);
         if (message['condition']) $('#messageCondition').val(message['condition']);
@@ -166,15 +165,12 @@ $(function() {
         $('#newPrompt').collapse('hide');
         $('#newRepeatableSet').collapse('hide');
         $('#newMessage').collapse('show');
-        console.log(campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList']['']);
     }
 
     $('#previousItemsSortable').on('click', 'button.editItem', function() {
-        console.log('Edit Button Clicked');
         $parent = $(this).parent();
         var currentSurvey = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')];
         var index = $('#previousItemsSortable li').index($parent);
-        console.log('Index of item clicked in display is ' + index);
         var item = currentSurvey['contentList'][''][index]
 
         if (item['message']) {
@@ -184,7 +180,7 @@ $(function() {
         } else if (item['repeatableSet']) {
 
         } else {
-            console.log('Error: Unknown survey item type.')
+
         }
     });
 
@@ -212,10 +208,7 @@ $(function() {
         var itemIndex;
         if (messageData['editMessageId']) {
             var messageId = parseInt(messageData['editMessageId']);
-            console.log('Edit clicked.');
-            console.log('This items ID is now ' + messageId);
             itemIndex = campaignEditor.surveyItemIndexes(campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList']['']).indexOf(messageId);
-            console.log('This items index is now ' + itemIndex);
             campaignEditor.addMessage(messageData, itemIndex);
         } else {
             itemIndex = campaignEditor.addMessage(messageData); 
