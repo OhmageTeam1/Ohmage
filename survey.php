@@ -1,3 +1,6 @@
+<!--
+    Auto focus on title input 
+-->
 <!DOCTYPE HTML>
 <?php
     session_start(); 

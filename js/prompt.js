@@ -1,18 +1,27 @@
 // overlay box script from : http://tympanus.net/codrops/2009/12/03/css-and-jquery-tutorial-overlay-with-slide-out-box/
-
+/*
 var promptXMLArray = new Array(); // array of XML prompt
 var promptArray = new Array(); // array of JSON prompt
 var typeArray = new Array(); // array of type (message, prompt, etc..)
 var arrayIndex = 0; // array index
 var isEdit = false;
 var editIndex = -1;
+*/
 
 var campaignWrapper = $.parseJSON(localStorage['campaignWrapper']);
    
-$(document).ready(function() {
+$(function() {
+    $('#previousItemsSortable').sortable({
+        start: function(event, ui) {
+            $(ui.item).data('startIndex', ui.item.index());
+        },
+        stop: function(event, ui) {
+            campaignEditor.shiftSurveyItems($(ui.item).data('startIndex'), ui.item.index());
+        }
+    }).disableSelection();
+
     $('#groupPromptType').val("None");
     $( "#previousItem" ).disableSelection();
-    $('.collapse').collapse();
     $("select#groupPromptType").change(displayPrompt);
     displayPrompt();
     
@@ -76,6 +85,7 @@ $(document).ready(function() {
     /*
     Previous item section
     */
+    /*
     $( "#previousItem" ).sortable({
 			start: function(event, ui) {
                 ui.item.startPos = ui.item.index();
@@ -85,6 +95,7 @@ $(document).ready(function() {
                 update();
             }
     });
+    */
    
     var skipLabel = $('#skipLabelLabel').text();
     $('#skippable').change(function() { 
@@ -98,56 +109,191 @@ $(document).ready(function() {
         }
     });
     
-    // submit message and save to JSON object
-    $('#message-form').submit(function(event) {
-        event.preventDefault();
+    function addMessageToPrevItems(index) {
+        var message = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][index];
+        var newItem = '<li class="previousItem">' +
+            '<button type="button" class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i> Delete</button>' +
+            '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
+            '<i class="icon-comment"></i> <strong>Message</strong><br><p>' + message['messageText'] + '</p>' +
+            '</li>';
+        $('#previousItemsSortable').append(newItem);
+        return true;
+    }
+
+    function addMultipleChoiceToPrevItem(index) {
+        var prompt = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][index];
+        var newItem = '<li class="previousItem">' +
+            '<button type="button" class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i> Delete</button>' +
+            '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
+            '<i class="icon-stop"></i> <strong>Multiple Choice</strong><br><p>' + prompt['promptText'] + '</p>' +
+            '</li>';
+        $('#previousItemsSortable').append(newItem);
+        return true;
+    }
+    
+    function addNumberToPrevItem(index) {
+        var prompt = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][index];
+        var newItem = '<li class="previousItem">' +
+            '<button type="button" class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i> Delete</button>' +
+            '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
+            '<i class="icon-camera"></i> <strong>Number</strong><br><p>' + prompt['promptText'] + '</p>' +
+            '</li>';
+        $('#previousItemsSortable').append(newItem);
+        return true;
+    }
+    
+    function addPhotoToPrevItem(index) {
+        var prompt = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][index];
+        var newItem = '<li class="previousItem">' +
+            '<button type="button" class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i> Delete</button>' +
+            '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
+            '<i class="icon-minus"></i> <strong>Photo</strong><br><p>' + prompt['promptText'] + '</p>' +
+            '</li>';
+        $('#previousItemsSortable').append(newItem);
+        return true;
+    }
+    
+    function addRemoteToPrevItem(index) {
+        var prompt = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][index];
+        var newItem = '<li class="previousItem">' +
+            '<button type="button" class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i> Delete</button>' +
+            '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
+            '<i class="icon-user"></i> <strong>Remote Activity</strong><br><p>' + prompt['promptText'] + '</p>' +
+            '</li>';
+        $('#previousItemsSortable').append(newItem);
+        return true;
+    }
+    
+    function addSingleChoiceToPrevItem(index) {
+        var prompt = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][index];
+        var newItem = '<li class="previousItem">' +
+            '<button type="button" class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i> Delete</button>' +
+            '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
+            '<i class="icon-ok-circle"></i> <strong>Single Choice</strong><br><p>' + prompt['promptText'] + '</p>' +
+            '</li>';
+        $('#previousItemsSortable').append(newItem);
+        return true;
+    }
+    
+    function addTextToPrevItem(index) {
+        var prompt = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][index];
+        var newItem = '<li class="previousItem">' +
+            '<button type="button" class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i> Delete</button>' +
+            '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
+            '<i class="icon-font"></i> <strong>Text</strong><br><p>' + prompt['promptText'] + '</p>' +
+            '</li>';
+        $('#previousItemsSortable').append(newItem);
+        return true;
+    }
+    
+    function addTimestampToPrevItem(index) {
+        var prompt = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][index];
+        var newItem = '<li class="previousItem">' +
+            '<button type="button" class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i> Delete</button>' +
+            '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
+            '<i class="icon-time"></i> <strong>Timestamp</strong><br><p>' + prompt['promptText'] + '</p>' +
+            '</li>';
+        $('#previousItemsSortable').append(newItem);
+        return true;
+    }
+    
+    // Save message to campaignWrapper object
+    $('#messageForm').submit(function(event) {
         var $this = $(this);
-        if (isEdit == false) { // create
-            
-            temp = ($this.serializeArray());
-            
-            typeArray.push("message");
-            
-            var temp2 = JSON.stringify($('#message-form').serializeObject());
-            text = "<message>" + json2xml(jQuery.parseJSON(temp2), "")  + "</message>";
-            xml = text;
-            promptXMLArray.push(xml);
-            
-            $this.clearForm();
-            $('.collapse').collapse();
-            update();
-        }
-        else { // edit, not create
-            // check if user try to create while edit (click edit prompt but then open create message section)
-            if (typeArray[editIndex] != "message") {
-                alert("Cannot create new items while in edit mode");
-            }
-            else {
-                
-                
-                var temp2 = JSON.stringify($('#message-form').serializeObject());
-                text = "<message>" + json2xml(jQuery.parseJSON(temp2), "")  + "</message>";
-                xml = text;
-                promptXMLArray[editIndex] = xml;
-                
-                $this.clearForm();
-                $('.collapse').collapse();
-                
-                //reset value
-                document.getElementById("create message").innerHTML="Create Message";
-                isEdit = false;
-                editIndex = -1; 
-            }                     
-            update();
-        }
+
+        // get form data
+        var messageData = $this.serializeObject();
+        console.log(messageData);
+        var itemIndex = campaignEditor.addMessage(campaignWrapper['campaign'], $.cookie('currentSurvey'), messageData);
         
-	}); // end click
+        if (itemIndex == -1) { // not success
+            var errorAlert = '<div class="alert alert-error createMessage hide"><button class="close">&times;</button><strong>Error:</strong> A required field is missing!</div>';
+            $(errorAlert).insertAfter('.newMessage hr').slideToggle();
+            if($('.createMessage').size() > 1) {
+                $('.createMessage').slice(1).delay('1000').slideToggle('slow',function() { $(this).alert('close')});
+            }
+        }
+        else {
+            addMessageToPrevItems(itemIndex);
+            // cleanup code
+            $('#newMessage').collapse('hide');
+            setTimeout(formCallback($this), 150);
+        }
+        event.preventDefault();        
+	});
    
     
     // submit prompt and save to JSON object
     $('#campaign-form').submit(function(event) {
+        var $this = $(this);
+
+        // get form data
+        var promptData = $this.serializeObject();
+        console.log(promptData);
+        
+        var promptType = promptData['promptType'];
+        console.log(promptType);
+        
+        properties = addProperties(promptData, promptType);
+        console.log(properties);
+        var itemIndex = campaignEditor.addPrompt(campaignWrapper['campaign'], 
+                                                        $.cookie('currentSurvey'), 
+                                                        promptData['displayLabel'],
+                                                        promptData['displayType'],
+                                                        promptData['promptText'],
+                                                        promptData['abbreviatedText'],
+                                                        promptData['promptType'],
+                                                        promptData['default'],
+                                                        promptData['condition'],
+                                                        promptData['skippable'],
+                                                        promptData['skipLabel'],
+                                                        properties);
+      
+        if (itemIndex == -1) { // not success
+            var errorAlert = '<div class="alert alert-error createPrompt hide"><button class="close">&times;</button><strong>Error:</strong> A required field is missing!</div>';
+            $(errorAlert).insertAfter('.newPrompt hr').slideToggle();
+            if($('.createPrompt').size() > 1) {
+                $('.createPrompt').slice(1).delay('1000').slideToggle('slow',function() { $(this).alert('close')});
+            }
+        }
+        else {
+            switch (promptType) {
+                case "Multiple Choice":
+                case "Multiple Choice Custom":
+                    addMultipleChoiceToPrevItem(itemIndex);
+                    break;
+                case "Number":
+                    addNumberToPrevItem(itemIndex);
+                    break;
+                case "Photo":
+                    addPhotoToPrevItem(itemIndex);
+                    break;
+                case "Remote Activity":
+                    addRemoteToPrevItem(itemIndex);
+                    break;
+                case "Single Choice":
+                case "Single Choice Custom":
+                    addSingleChoiceToPrevItem(itemIndex);
+                    break;
+                case "Text":
+                    addTextToPrevItem(itemIndex)
+                    break;
+                case "Timestamp":
+                    addTimestampToPrevItem(itemIndex)
+                    break;
+                default:
+                    break;
+            }
+            //addMessageToPrevItems(itemIndex);
+            // cleanup code
+            $('#newPrompt').collapse('hide');
+            setTimeout(formCallback($this), 150);
+        }
         event.preventDefault();
-		// saving to JSON
+        
+        /*
+        event.preventDefault();
+		
         if (isEdit == false) { // create
             event.preventDefault();
             temp = ($(this).serializeArray());
@@ -196,6 +342,7 @@ $(document).ready(function() {
             }       
             update();
         }
+        */
 	}); // end click
      
     /*

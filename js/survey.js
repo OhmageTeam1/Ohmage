@@ -1,6 +1,9 @@
 var campaignWrapper = $.parseJSON(localStorage['campaignWrapper']);
 
 $(function() {
+    
+    $('#surveyTitle').focus();
+
     $('.formToggleBtn').click(function(e) {
         var $this = $(this);
         var toToggle = $this.attr('id').replace('Add', '').replace('Remove', '');
