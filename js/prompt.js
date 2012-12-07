@@ -120,6 +120,83 @@ $(function() {
         return true;
     }
 
+    function addMultipleChoiceToPrevItem(index) {
+        var prompt = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][index];
+        var newItem = '<li class="previousItem">' +
+            '<button type="button" class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i> Delete</button>' +
+            '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
+            '<i class="icon-stop"></i> <strong>Multiple Choice</strong><br><p>' + prompt['promptText'] + '</p>' +
+            '</li>';
+        $('#previousItemsSortable').append(newItem);
+        return true;
+    }
+    
+    function addNumberToPrevItem(index) {
+        var prompt = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][index];
+        var newItem = '<li class="previousItem">' +
+            '<button type="button" class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i> Delete</button>' +
+            '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
+            '<i class="icon-camera"></i> <strong>Number</strong><br><p>' + prompt['promptText'] + '</p>' +
+            '</li>';
+        $('#previousItemsSortable').append(newItem);
+        return true;
+    }
+    
+    function addPhotoToPrevItem(index) {
+        var prompt = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][index];
+        var newItem = '<li class="previousItem">' +
+            '<button type="button" class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i> Delete</button>' +
+            '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
+            '<i class="icon-minus"></i> <strong>Photo</strong><br><p>' + prompt['promptText'] + '</p>' +
+            '</li>';
+        $('#previousItemsSortable').append(newItem);
+        return true;
+    }
+    
+    function addRemoteToPrevItem(index) {
+        var prompt = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][index];
+        var newItem = '<li class="previousItem">' +
+            '<button type="button" class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i> Delete</button>' +
+            '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
+            '<i class="icon-user"></i> <strong>Remote Activity</strong><br><p>' + prompt['promptText'] + '</p>' +
+            '</li>';
+        $('#previousItemsSortable').append(newItem);
+        return true;
+    }
+    
+    function addSingleChoiceToPrevItem(index) {
+        var prompt = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][index];
+        var newItem = '<li class="previousItem">' +
+            '<button type="button" class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i> Delete</button>' +
+            '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
+            '<i class="icon-ok-circle"></i> <strong>Single Choice</strong><br><p>' + prompt['promptText'] + '</p>' +
+            '</li>';
+        $('#previousItemsSortable').append(newItem);
+        return true;
+    }
+    
+    function addTextToPrevItem(index) {
+        var prompt = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][index];
+        var newItem = '<li class="previousItem">' +
+            '<button type="button" class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i> Delete</button>' +
+            '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
+            '<i class="icon-font"></i> <strong>Text</strong><br><p>' + prompt['promptText'] + '</p>' +
+            '</li>';
+        $('#previousItemsSortable').append(newItem);
+        return true;
+    }
+    
+    function addTimestampToPrevItem(index) {
+        var prompt = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][index];
+        var newItem = '<li class="previousItem">' +
+            '<button type="button" class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i> Delete</button>' +
+            '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
+            '<i class="icon-time"></i> <strong>Timestamp</strong><br><p>' + prompt['promptText'] + '</p>' +
+            '</li>';
+        $('#previousItemsSortable').append(newItem);
+        return true;
+    }
+    
     // Save message to campaignWrapper object
     $('#messageForm').submit(function(event) {
         var $this = $(this);
@@ -129,7 +206,7 @@ $(function() {
         console.log(messageData);
         var itemIndex = campaignEditor.addMessage(campaignWrapper['campaign'], $.cookie('currentSurvey'), messageData);
         
-        if (!itemIndex) { // not success
+        if (itemIndex == -1) { // not success
             var errorAlert = '<div class="alert alert-error createMessage hide"><button class="close">&times;</button><strong>Error:</strong> A required field is missing!</div>';
             $(errorAlert).insertAfter('.newMessage hr').slideToggle();
             if($('.createMessage').size() > 1) {
@@ -142,51 +219,7 @@ $(function() {
             $('#newMessage').collapse('hide');
             setTimeout(formCallback($this), 150);
         }
-        event.preventDefault();
-
-        /*
-        event.preventDefault();
-        var $this = $(this);
-        if (isEdit == false) { // create
-            
-            temp = ($this.serializeArray());
-            
-            typeArray.push("message");
-            
-            var temp2 = JSON.stringify($('#message-form').serializeObject());
-            text = "<message>" + json2xml(jQuery.parseJSON(temp2), "")  + "</message>";
-            xml = text;
-            promptXMLArray.push(xml);
-            
-            $this.clearForm();
-            $('.collapse').collapse();
-            update();
-        }
-        else { // edit, not create
-            // check if user try to create while edit (click edit prompt but then open create message section)
-            if (typeArray[editIndex] != "message") {
-                alert("Cannot create new items while in edit mode");
-            }
-            else {
-                
-                
-                var temp2 = JSON.stringify($('#message-form').serializeObject());
-                text = "<message>" + json2xml(jQuery.parseJSON(temp2), "")  + "</message>";
-                xml = text;
-                promptXMLArray[editIndex] = xml;
-                
-                $this.clearForm();
-                $('.collapse').collapse();
-                
-                //reset value
-                document.getElementById("create message").innerHTML="Create Message";
-                isEdit = false;
-                editIndex = -1; 
-            }                     
-            update();
-        }
-        */
-        
+        event.preventDefault();        
 	});
    
     
@@ -215,9 +248,8 @@ $(function() {
                                                         promptData['skippable'],
                                                         promptData['skipLabel'],
                                                         properties);
-        console.log(itemIndex);
       
-        if (!itemIndex) { // not success
+        if (itemIndex == -1) { // not success
             var errorAlert = '<div class="alert alert-error createPrompt hide"><button class="close">&times;</button><strong>Error:</strong> A required field is missing!</div>';
             $(errorAlert).insertAfter('.newPrompt hr').slideToggle();
             if($('.createPrompt').size() > 1) {
@@ -225,6 +257,33 @@ $(function() {
             }
         }
         else {
+            switch (promptType) {
+                case "Multiple Choice":
+                case "Multiple Choice Custom":
+                    addMultipleChoiceToPrevItem(itemIndex);
+                    break;
+                case "Number":
+                    addNumberToPrevItem(itemIndex);
+                    break;
+                case "Photo":
+                    addPhotoToPrevItem(itemIndex);
+                    break;
+                case "Remote Activity":
+                    addRemoteToPrevItem(itemIndex);
+                    break;
+                case "Single Choice":
+                case "Single Choice Custom":
+                    addSingleChoiceToPrevItem(itemIndex);
+                    break;
+                case "Text":
+                    addTextToPrevItem(itemIndex)
+                    break;
+                case "Timestamp":
+                    addTimestampToPrevItem(itemIndex)
+                    break;
+                default:
+                    break;
+            }
             //addMessageToPrevItems(itemIndex);
             // cleanup code
             $('#newPrompt').collapse('hide');

@@ -68,7 +68,7 @@ var campaignEditor = {
 
         // Check if all required components are present
         if (!campaign || !surveyIndex || !messageData['messageText']) {
-            return false;
+            return -1;
         }
 
         var message = {};
@@ -109,7 +109,7 @@ var campaignEditor = {
         if (!campaign || !surveyIndex || !displayLabel || !displayType ||
             !promptText || (showSummary && !abbrText) || !promptType ||
             (skippable && !skipLabel) || !properties) {
-            return false;
+            return -1;
         }
 
         var promptItem = {};
@@ -131,7 +131,7 @@ var campaignEditor = {
         promptItem['id'] = campaign['surveys']['survey'][surveyIndex]['contentList'].length + 1;
         campaign['surveys']['survey'][surveyIndex]['contentList'].push(promptItem);
 
-        return true;
+        return promptItem['id'] - 1;
 
     },
 
