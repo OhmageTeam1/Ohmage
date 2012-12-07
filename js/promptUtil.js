@@ -223,6 +223,98 @@ function openConditionBox(id) {
     $('#ConditionBox').animate({'top':'160px'},500);
 }
 
+function addProperties(input, promptType) {
+    text = input['properties'];
+    var properties = {'property':[]};
+    if (promptType == "Multiple Choice" || promptType == "Multiple Choice Custom"
+        || promptType == "Single Choice" || promptType == "Single Choice Custom") {
+        propertiesText = text.replace("\r\n", "\n").split("\n");
+        lenText = propertiesText.length;
+        console.log(lenText);
+        for (i = 0; i < lenText; i++)
+        {
+            property = [];
+            temp = propertiesText[i].split(":");
+            if (temp[0] != '') {
+                key = i 
+                label = temp[0].replace("\r", "");
+                value = temp[1].replace("\r", "");
+                
+                property['key'] = key;
+                property['label'] = label;
+                property['value'] = value;
+                properties['property'].push(property);
+            }
+        }
+        return properties;
+    }
+    else if (promptType == "Number") {
+        propertiesText = text.split("\n");
+        for (i = 0; i < 2; i++)
+        {
+            property = [];
+            temp = propertiesText[i].split(":");
+            key = temp[0].replace("\r", "");
+            label = temp[1].replace("\r", "");
+            
+            property['key'] = key;
+            property['label'] = label;
+            properties['property'].push(property);
+        }
+        return properties;
+    }
+    else if (promptType == "Photo") {
+        propertiesText = text.split("\n");
+        temp = propertiesText[0].split(":");
+        key = temp[1];
+        property = [];
+        property['key'] = key;
+        properties['property'].push(property);
+        return properties;
+    }
+    else if (promptType == "Remote Activity") {
+        propertiesText = text.split("\n");
+        lenText = propertiesText.length;
+        for (i = 0; i < lenText; i++)
+        {
+            property = [];
+            temp = propertiesText[i].split(":");
+            if (temp[0] != "") {
+                key = temp[0].toLowerCase();
+                label = temp[1].replace("\r", "");;
+     
+                property['key'] = key;
+                property['label'] = label;
+                properties['property'].push(property);
+            }
+        }
+        return properties;
+    }
+    else if (promptType == "Text") {
+         propertiesText = text.split("\n");
+        for (i = 0; i < 2; i++)
+        {
+            property = [];
+            temp = propertiesText[i].split(":");
+            key = temp[0].replace("\r", "");
+            label = temp[1].replace("\r", "");
+            
+            property['key'] = key;
+            property['label'] = label;
+            properties['property'].push(property);
+        }
+        return properties;
+    }
+    else if (promptType == "Timestamp") {
+        // doing nothing
+        return properties;
+    }
+    else {
+        // invalid
+        return properties;
+    }
+}
+
 /*
     This function wiil clear (reset) the form. Called after click submit/edit on the form
     credit goes to: http://www.learningjquery.com/2007/08/clearing-form-data
@@ -266,3 +358,12 @@ $.fn.serializeObject = function()
     });
     return o;
 };
+
+/*
+    Saves the form to be cleared (after a setTimeout delay)
+*/
+function formCallback(form){
+    return function(){
+        form.clearForm();
+    }
+}

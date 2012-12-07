@@ -1,8 +1,10 @@
 var campaignEditor = {
 
-    // Creates and sets up new campaign object.
-    // INPUT: Campaign metadata
-    // OUTPUT: New campaign object
+    /*
+    Creates and sets up new campaign object.
+    INPUT: Campaign metadata
+    OUTPUT: New campaign object
+    */
     createCampaign: function(title, version) {
         if (typeof(version) === 'undefined') {
             version = 1;
@@ -22,9 +24,11 @@ var campaignEditor = {
         return campaign;
     },
 
-    // Adds a survey to the given campaign object.
-    // INPUT: Campaign object, survey metadata
-    // OUTPUT: True if the addition succeeded, false otherwise
+    /*
+    Adds a survey to the given campaign object.
+    INPUT: Campaign object, survey metadata
+    OUTPUT: True if the addition succeeded, false otherwise
+    */
     addSurvey: function(campaign, surveyData) {
         // Check if all required components are present
         if (!campaign || !surveyData['title'] || !surveyData['submitText'] ||
@@ -52,32 +56,39 @@ var campaignEditor = {
         return true;
     },
 
-    // Adds a message to the given survey of the given campaign.
-    // INPUT: Campaign object, the index of the survey within that campaign, message metadata
-    // OUTPUT: True if the addition succeeded, false otherwise
-    addMessage: function(campaign, surveyIndex, messageText, condition) {
+    /*
+    Adds a message to the given survey of the given campaign.
+    INPUT: Campaign object, the index of the survey within that campaign, and messageData
+        messageData can contain the following keys:
+            messageText,
+            condition
+    OUTPUT: Index of added item, false otherwise
+    */
+    addMessage: function(campaign, surveyIndex, messageData) {
 
         // Check if all required components are present
-        if (!campaign || !surveyIndex || !messageText) {
-            return false;
+        if (!campaign || !surveyIndex || !messageData['messageText']) {
+            return -1;
         }
 
         var message = {};
 
-        message['messageText'] = messageText;
-        if (condition) message['condition'] = condition;
-
+        message['messageText'] = messageData['messageText'];
+        if (messageData['condition']) message['condition'] = messageData['condition'];
+        
         message['id'] = campaign['surveys']['survey'][surveyIndex]['contentList'].length + 1;
         campaign['surveys']['survey'][surveyIndex]['contentList'].push(message);
 
-        return true;
+        return message['id'] - 1;
     },
 
 
-    //TODO: TURN PARAMETERS INTO AN OBJECT INSTEAD..
-    // Adds a prompt to the given survey of the given campaign.
-    // INPUT: Campaign object, the index of the survey within that campaign, prompt metadata
-    // OUTPUT: True if the addition succeeded, false otherwise
+    //TODO: TURN PARAMETERS INTO AN OBJECT INSTEAD...
+    /*
+    Adds a prompt to the given survey of the given campaign.
+    INPUT: Campaign object, the index of the survey within that campaign, prompt metadata
+    OUTPUT: True if the addition succeeded, false otherwise
+    */
     addPrompt: function(
         campaign,
         surveyIndex,
@@ -98,7 +109,7 @@ var campaignEditor = {
         if (!campaign || !surveyIndex || !displayLabel || !displayType ||
             !promptText || (showSummary && !abbrText) || !promptType ||
             (skippable && !skipLabel) || !properties) {
-            return false;
+            return -1;
         }
 
         var promptItem = {};
@@ -120,13 +131,15 @@ var campaignEditor = {
         promptItem['id'] = campaign['surveys']['survey'][surveyIndex]['contentList'].length + 1;
         campaign['surveys']['survey'][surveyIndex]['contentList'].push(promptItem);
 
-        return true;
+        return promptItem['id'] - 1;
 
     },
 
-    // Adds a repeatable set to the given survey of the given campaign.
-    // INPUT: Campaign object, the index of the survey within that campaign, repeatable set metadata
-    // OUTPUT: True if the addition succeeded, false otherwise
+    /*
+    Adds a repeatable set to the given survey of the given campaign.
+    INPUT: Campaign object, the index of the survey within that campaign, repeatable set metadata
+    OUTPUT: True if the addition succeeded, false otherwise
+    */
     addRepeatableSet: function(
         campaign,
         surveyIndex,
@@ -161,13 +174,23 @@ var campaignEditor = {
         return true;
     },
 
-    // Generate the URN for a campaign based on the campaign title, current author, etc.
-    // INPUT: Campaign metadata, current author
-    // OUTPUT: The campaign URN string
+    /*
+    Generate the URN for a campaign based on the campaign title, current author, etc.
+    INPUT: Campaign metadata, current author
+    OUTPUT: The campaign URN string
+    */
     generateCampaignURN: function(title, author, version) {
         var campaignURN = 'urn:campaign:';
         campaignURN += title.replace(/\s/g, '') + '::' + author + ':' + version;
 
         return campaignURN;
+    },
+
+    shiftSurveyItems: function(startIndex, endIndex) {
+        var surveyIndex = $.cookie('currentSurvey');
+        var contentList = campaignWrapper['campaign']['surveys']['survey'][surveyIndex]['contentList'];
+
+        // Remove element, and insert it into endIndex
+        contentList.splice(endIndex, 0, contentList.splice(startIndex, 1)[0]);
     }
 };
