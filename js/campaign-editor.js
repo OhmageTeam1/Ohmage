@@ -37,7 +37,7 @@ var campaignEditor = {
             return false;
         }
 
-        var survey = {'contentList': []};
+        var survey = {};
            
         survey['id'] = surveyData['title'].replace(/\s/g, '');    // ID is equivalent to title sans whitespace
         survey['title'] = surveyData['title'];
@@ -50,8 +50,9 @@ var campaignEditor = {
             survey['editSummary'] = surveyData['editSummary'];
         }
         survey['anytime'] = surveyData['anytime'];
-
+        survey['contentList'] = {'': []}
         campaign['surveys']['survey'].push(survey);
+
 
         return true;
     },
@@ -64,11 +65,21 @@ var campaignEditor = {
             condition
     OUTPUT: Index of added item, false otherwise
     */
-    addMessage: function(campaign, surveyIndex, messageData) {
-
+    addMessage: function(messageData, index) {
         // Check if all required components are present
-        if (!campaign || !surveyIndex || !messageData['messageText']) {
+        if (!messageData['messageText']) {
             return false;
+        }
+
+        var savedId = 0;
+        var contentList = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][''];
+
+        if (typeof(index) === "undefined") {
+            index = contentList.length;
+        } else {
+            // We need to save the ID in case another condition references this item
+            savedId = contentList[index]['id'];
+            ccontentList.splice(index, 1);
         }
 
         var message = {};
@@ -76,10 +87,10 @@ var campaignEditor = {
         message['messageText'] = messageData['messageText'];
         if (messageData['condition']) message['condition'] = messageData['condition'];
         
-        message['id'] = campaign['surveys']['survey'][surveyIndex]['contentList'].length + 1;
-        campaign['surveys']['survey'][surveyIndex]['contentList'].push(message);
+        message['id'] = savedId || campaignEditor.maxItemIndex(contentList) + 1;
+        contentList.splice(index, 1, {'message': message});
 
-        return message['id'] - 1;
+        return index;
     },
 
 
@@ -128,11 +139,15 @@ var campaignEditor = {
             promptItem['skipLabel'] = skipLabel;
         }
 
-        promptItem['id'] = campaign['surveys']['survey'][surveyIndex]['contentList'].length + 1;
-        campaign['surveys']['survey'][surveyIndex]['contentList'].push(promptItem);
+        promptItem['id'] = campaignEditor.maxItemIndex(campaign['surveys']['survey'][surveyIndex]['contentList']['']) + 1;
+        campaign['surveys']['survey'][surveyIndex]['contentList'][''].push(promptItem);
 
         return true;
 
+    },
+
+    deleteItem: function(index) {
+        campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][''].splice(index, 1);
     },
 
     /*
@@ -168,8 +183,8 @@ var campaignEditor = {
         }
         repeatableSet['condition'] = condition;
 
-        repeatableSet['id'] = campaign['surveys']['survey'][surveyIndex]['contentList'].length + 1;
-        campaign['surveys']['survey'][surveyIndex]['contentList'].push(repeatableSet);
+        repeatableSet['id'] = campaignEditor.maxItemIndex(campaign['surveys']['survey'][surveyIndex]['contentList']['']) + 1;
+        campaign['surveys']['survey'][surveyIndex]['contentList'][''].push(repeatableSet);
 
         return true;
     },
@@ -186,11 +201,29 @@ var campaignEditor = {
         return campaignURN;
     },
 
+
+    // Function used when user moves a survey item.  Takes the object at an index and moves it to another.
     shiftSurveyItems: function(startIndex, endIndex) {
         var surveyIndex = $.cookie('currentSurvey');
-        var contentList = campaignWrapper['campaign']['surveys']['survey'][surveyIndex]['contentList'];
+        var contentList = campaignWrapper['campaign']['surveys']['survey'][surveyIndex]['contentList'][''];
 
         // Remove element, and insert it into endIndex
         contentList.splice(endIndex, 0, contentList.splice(startIndex, 1)[0]);
+    },
+
+    // Find the current maximum index in the contentList
+    maxItemIndex: function(contentList) {
+        if (contentList.length === 0) {
+            return 0;
+        }
+        return Math.max.apply(Math, contentList.map(function(item) {
+            if (item['message']) {
+                return item['message']['id'];
+            } else if (item['prompt']) {
+                return item['prompt']['id'];
+            } else {
+                return item['repeatableSet']['id'];
+            }
+        }));
     }
 };

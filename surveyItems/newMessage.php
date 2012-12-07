@@ -18,7 +18,10 @@
                 <div class="control-group">
                     <label class="control-label" for="condition">Condition</label>
                     <div class="controls">
-                        <input type="text" name="condition" id="conditionMessage" onclick="openConditionBox('conditionMessage')" placeholder="Click to edit conditions" />
+                        <div class="input-append">
+                            <input type="text" name="condition" id="messageCondition" placeholder="None." disabled/>
+                            <button type="button" class="btn" id="messageConditionBtn">Edit</button>
+                        </div>
                         <i class="help-icon icon-question-sign" data-original-title="The condition which determines if the message is displayed or not." rel="tooltip" data-placement="right"></i>
                     </div>
                 </div>

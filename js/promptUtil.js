@@ -271,7 +271,34 @@ $.fn.serializeObject = function()
     Saves the form to be cleared (after a setTimeout delay)
 */
 function formCallback(form){
-    return function(){
+    return function() {
         form.clearForm();
     }
+}
+
+// Removes the survey item from the previous items list
+function deleteItemCallback(item) {
+    return function() {
+        item.remove();
+    }
+}
+
+function surveyItemError(text) {
+    var errorAlert = '<div class="alert alert-error createItemError hide"><button class="close">&times;</button><strong>Error:</strong> ' + text + '</div>';
+    $(errorAlert).prependTo('.addNewItem').slideToggle();
+    if($('.createItemError').size() > 1) {
+        $('.createItemError').slice(1).delay('1000').slideToggle('slow',function() { $(this).alert('close')});
+    }
+}
+
+function deepCopy(source) {
+    var newObject = (source instanceof Array) ? [] : {};
+    for (i in source) {
+        if (source[i] && typeof source[i] == "object") {
+            newObject[i] = deepCopy(source[i]);
+        } else {
+            newObject[i] = source[i];
+        } 
+    }
+    return newObject;
 }

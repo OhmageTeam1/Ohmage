@@ -9,6 +9,7 @@ var editIndex = -1;
 */
 
 var campaignWrapper = $.parseJSON(localStorage['campaignWrapper']);
+var tempSurvey = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')];
    
 $(function() {
     $('#previousItemsSortable').sortable({
@@ -20,14 +21,46 @@ $(function() {
         }
     }).disableSelection();
 
+    $('#saveSurvey').click(function(e) {
+        if (confirm('Are you sure you wish to save this survey?')) {
+            localStorage['campaignWrapper'] = JSON.stringify(campaignWrapper);
+        } else {
+            e.preventDefault();
+        }
+    }) 
+
+    /*
     $('#groupPromptType').val("None");
     $( "#previousItem" ).disableSelection();
     $("select#groupPromptType").change(displayPrompt);
     displayPrompt();
-    
+    */
+
+    $('#messageConditionBtn').click(function() {
+        $('#conditionSource').val('message');
+        $('#advancedCondition').val($(this).prev().val());
+        $('#conditionModal').modal('show');
+    });
+
+    // Condition toggle button
+    $('#conditionToggle').click(function(){
+        var $this = $(this);
+        if ($this.text() === 'Simple') {
+            $this.text('Advanced');
+            $('#conditionType').val('advanced');
+        } else {
+            $this.text('Simple');
+            $('#conditionType').val('simple');
+        }
+        $this.toggleClass('btn-inverse');
+        $('#simpleCondition').toggle();
+        $('#advancedCondition').toggle();
+    });
+
     /*
     Condition text box
     */
+    /*
     $("#saveCondition").click(function(){
         var value = $('input:radio[name=condType]:checked').val();
         var condition = "";
@@ -81,7 +114,8 @@ $(function() {
             });
         }
     });
-    
+    */
+
     /*
     Previous item section
     */
@@ -96,7 +130,7 @@ $(function() {
             }
     });
     */
-   
+    /*
     var skipLabel = $('#skipLabelLabel').text();
     $('#skippable').change(function() { 
         if (this.checked) {
@@ -108,17 +142,33 @@ $(function() {
             $('#skipLabelLabel').html(skipLabel);
         }
     });
-    
+    */
+
+    $('#previousItemsSortable').on('click', 'button.deleteItem', function() {
+        $parent = $(this).parent();
+        var index = $('#previousItemsSortable li').index($parent);
+        $parent.slideUp('fast');
+        setTimeout(deleteItemCallback($parent), 200);
+        campaignEditor.deleteItem(index);
+    });
+
+    $('#previousItemsSortable').on('click', 'button.editItem', function() {
+        $parent = $(this).parent();
+        var index = $('#previousItemsSortable li').index($parent);
+        $parent.slideUp('fast');
+        setTimeout(deleteItemCallback($parent), 200);
+        campaignEditor.deleteItem(index);
+    });
+
     function addMessageToPrevItems(index) {
-        var message = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][index];
-        var newItem = '<li class="previousItem">' +
-            '<button type="button" class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i> Delete</button>' +
+        var message = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][''][index]['message'];
+        var newItem = '<li class="previousItem hide">' +
+            '<button type="button" class="btn btn-danger pull-right deleteItem"><i class="icon-trash icon-white"></i> Delete</button>' +
             '<button type="button" class="btn btn-primary pull-right editItem"><i class="icon-pencil icon-white"></i> Edit</button>' +
-            '<i class="icon-comment"></i> <strong>Message</strong><br><p>' + message['messageText'] + '</p>' +
-            '</li>';
-        $('#previousItemsSortable').append(newItem);
+            '<i class="icon-comment"></i> <strong>Message</strong><br><p>' + message['messageText'] + '</p>' + '</li>';
+        $(newItem).appendTo('#previousItemsSortable').slideToggle().removeClass('hide');
         return true;
-    }
+    };
 
     // Save message to campaignWrapper object
     $('#messageForm').submit(function(event) {
@@ -127,10 +177,16 @@ $(function() {
         // get form data
         var messageData = $this.serializeObject();
 
-        var itemIndex = campaignEditor.addMessage(campaignWrapper['campaign'], $.cookie('currentSurvey'), messageData);
+        var itemIndex = campaignEditor.addMessage(messageData);
+        if (itemIndex === false) {
+            surveyItemError('Some required fields are missing!')
+            event.preventDefault();
+            return;
+        }
         addMessageToPrevItems(itemIndex);
 
         // cleanup code
+        $('.createItemError').slideToggle('slow',function() { $(this).alert('close')});
         $('#newMessage').collapse('hide');
         setTimeout(formCallback($this), 150);
         event.preventDefault();
@@ -327,6 +383,7 @@ $(function() {
     /*
         ViewXML button
     */
+    /*
     $('#viewXML').click(function(){
         $('#XMLdata').empty();
         var smlString = "";
@@ -344,6 +401,12 @@ $(function() {
             $('textarea#XMLdata').css('width', '50px');
         });
     });
+    */
+    $('#viewXML').click(function() {
+        var xml = json2xml({'survey': campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]});
+        $('#surveyXml').text(vkbeautify.xml(xml));
+        $('#xmlModal').modal('show');
+    })
     
     // Submit Button
     //TODO

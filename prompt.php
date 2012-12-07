@@ -20,12 +20,12 @@
         <script type="text/javascript" src="js/jquery-ui-1.9.0.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/navbar.js"></script>
+        <script type="text/javascript" src="js/alerts.js"></script>
+        <script type="text/javascript" src="js/promptUtil.js"></script>
         <script type="text/javascript" src="js/json2xml.js"></script>
         <script type="text/javascript" src="js/campaign-editor.js"></script>
-        <script type="text/javascript" src="js/promptType.js"></script>
         <script type="text/javascript" src="js/prompt.js"></script>
         <script type="text/javascript" src="js/XMLProcessor.js"></script>
-        <script type="text/javascript" src="js/promptUtil.js"></script>
         <script type="text/javascript" src="js/help-icon.js"></script>
         <script type="text/javascript" src="js/vkbeautify.0.99.00.beta.js"></script>
         <script type="text/javascript" src="js/breadcrumb.js"></script>      
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <hr>
-                        <button type="button" class="btn btn-primary btn-block" id="submit">Submit Prompt</button>
+                        <a href="survey.php" class="btn btn-primary btn-block" id="saveSurvey">Save Survey</a>
                     </div>
                 </div>
                 <div class="span9">
@@ -85,6 +85,8 @@
                             <h2 class="centered">Add a New Survey Item</h2>
                             <div class="accordion" id="addNewItemAccordion">
                                 <?php
+                                    include('promptModals/conditionModal.php');
+                                    include('promptModals/viewXmlModal.php');
                                     include('surveyItems/newMessage.php');
                                     include('surveyItems/newPrompt.php');
                                     include('surveyItems/newRepeatableSet.php');
