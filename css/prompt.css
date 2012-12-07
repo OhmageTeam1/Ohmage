@@ -1,3 +1,7 @@
+#multiChoiceAnswer, #multiChoiceValue {
+    height: 200px;
+}
+
 #advancedCondition {
     width: 90%;
     margin: auto;

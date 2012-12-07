@@ -7,7 +7,7 @@
     <div id="newPrompt" class="accordion-body collapse">
         <div class="accordion-inner">
             <br>
-            <form class="form-horizontal" id="campaign-form">
+            <form class="form-horizontal" id="promptForm">
                 <div class="control-group">
                     <label class="control-label" for="displayLabel">Display Label <i class="icon-asterisk"></i></label>
                     <div class="controls">
@@ -52,23 +52,22 @@
                     <div class="controls">
                         <select name="promptType" id="groupPromptType">
                             <option value="">Please choose a prompt type</option>
-                            <option value="Multiple Choice">Multiple Choice</option>
-                            <option value="Multiple Choice Custom">Multiple Choice Custom</option>
-                            <option value="Number">Number</option>
-                            <option value="Photo">Photo</option>
-                            <option value="Remote Activity">Remote Activity</option>
-                            <option value="Single Choice">Single Choice</option>
-                            <option value="Single Choice Custom">Single Choice Custom</option>
-                            <option value="Text">Text</option>
-                            <option value="Timestamp">Timestamp</option>
+                            <option value="multi_choice">Multiple Choice</option>
+                            <option value="multi_choice_custom">Multiple Choice Custom</option>
+                            <option value="number">Number</option>
+                            <option value="photo">Photo</option>
+                            <option value="remote_activity">Remote Activity</option>
+                            <option value="single_choice">Single Choice</option>
+                            <option value="single_choice_custom">Single Choice Custom</option>
+                            <option value="text">Text</option>
+                            <option value="timestamp">Timestamp</option>
                         </select>
                         <i class="help-icon icon-question-sign" data-original-title="Choose type of your prompt" rel="tooltip" data-placement="right"></i>
                     </div>
-                    <div class="controls">
-                        
+                    <div class="controls">  
                         <div>
-                            <p></p>
-                            <p><textarea name="properties" id="addedPrompt" readonly></textarea></p>
+                            <br>
+                            <textarea name="properties" id="addedPrompt" readonly></textarea>
                         </div>
                     </div>
                     <!-- Overlay window section -->
@@ -103,7 +102,7 @@
                                 <div class="control-group">
                                     <label class="control-label" for="condition">Condition</label>
                                     <div class="controls">
-                                        <input type="text" name="condition" id="condition" onclick="openConditionBox('condition')" placeholder="Click to edit conditions" />
+                                        <input type="text" name="promptCondition" id="promptCondition" onclick="openConditionBox('condition')" placeholder="Click to edit conditions" />
                                         <i class="help-icon icon-question-sign" data-original-title="The condition which determines if the prompt is displayed or not." rel="tooltip" data-placement="right"></i>
                                     </div>
                                     <div class="overlay" id="overlayCondition" style="display:none;"></div>
@@ -137,10 +136,12 @@
                                     <!--<input type="text" name="Condition" id="Condition" placeholder="Condition" /> -->
                                 </div>
                                 <div class="control-group">
-                                    <label class="checkbox">
-                                    <input type="checkbox" name="skippable" id="skippable">
-                                    Can this survey be skippable?
-                                    </label>
+                                    <div class="controls"> 
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="skippable" id="skippable">
+                                            Can this survey be skippable?
+                                        </label>
+                                    </div>
                                 </div> 
                                 
                                 <div class="control-group">
@@ -155,7 +156,9 @@
                 </div>
                 
                 <div class="control-group">
-                    <button type="submit" class="btn btn-primary" id="add prompt">Add Prompt</button>
+                    <div class="controls">
+                        <button type="submit" class="btn btn-primary" id="add prompt">Add Prompt</button>
+                    </div>
                 </div>
             </form>
         </div>

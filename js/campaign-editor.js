@@ -76,7 +76,7 @@ var campaignEditor = {
             index = contentList.length;
         } else {
             // We need to save the ID in case another condition references this item
-            savedId = contentList[index]['id'];
+            savedId = contentList[index]['message']['id'];
             contentList.splice(index, 1);
         }
         var message = {};
@@ -95,7 +95,7 @@ var campaignEditor = {
     /*
     Adds a prompt to the given survey of the given campaign.
     INPUT: Campaign object, the index of the survey within that campaign, prompt metadata
-    OUTPUT: True if the addition succeeded, false otherwise
+    OUTPUT: Index of added item, false otherwise
     */
     addPrompt: function(
         campaign,
@@ -109,7 +109,8 @@ var campaignEditor = {
         condition,
         skippable,
         skipLabel,
-        properties
+        properties, 
+        index
         ) {
 
         var showSummary = campaign['surveys']['survey'][surveyIndex]['showSummary'];
@@ -118,6 +119,16 @@ var campaignEditor = {
             !promptText || (showSummary && !abbrText) || !promptType ||
             (skippable && !skipLabel) || !properties) {
             return false;
+        }
+
+        var savedId;
+        var contentList = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][''];
+        if (typeof(index) === "undefined") {
+            index = contentList.length;
+        } else {
+            // We need to save the ID in case another condition references this item
+            savedId = contentList[index]['prompt']['id'];
+            contentList.splice(index, 1);
         }
 
         var promptItem = {};
@@ -130,16 +141,17 @@ var campaignEditor = {
         }
         promptItem['promptType'] = promptType;
         promptItem['default'] = defaultValue;
-        promptItem['condition'] = condition;
+        if (condition) promptItem['condition'] = condition;
         promptItem['skippable'] = skippable
         if (skippable) {
             promptItem['skipLabel'] = skipLabel;
         }
+        promptItem['properties'] = properties;
 
-        promptItem['id'] = campaignEditor.maxItemIndex(campaign['surveys']['survey'][surveyIndex]['contentList']['']) + 1;
-        campaign['surveys']['survey'][surveyIndex]['contentList'][''].push(promptItem);
+        promptItem['id'] = typeof(saveId) === "undefined" ? campaignEditor.maxItemIndex(contentList) + 1 : savedId;
+        contentList.splice(index, 0, {'prompt': promptItem});
 
-        return true;
+        return index;
 
     },
 
@@ -193,7 +205,7 @@ var campaignEditor = {
     */
     generateCampaignURN: function(title, author, version) {
         var campaignURN = 'urn:campaign:';
-        campaignURN += title.replace(/\s/g, '') + '::' + author + ':' + version;
+        campaignURN += title.replace(/\s/g, '') + ':nodesc:' + author.replace('.', '') + ':' + version;
 
         return campaignURN;
     },

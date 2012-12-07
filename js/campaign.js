@@ -59,8 +59,8 @@ $(function() {
             e.preventDefault();
         } else {
             var campaignWrapper = {
-                'privacyState': $('#privacyStateBtn').html(),
-                'runningState': $('#runningStateBtn').html(),
+                'privacyState': $('#privacyStateBtn').html().toLowerCase(),
+                'runningState': $('#runningStateBtn').html().toLowerCase(),
                 'campaign': campaignEditor.createCampaign(title)
             };
             $.cookie('currentCampaign', campaignWrapper['campaign']['campaignName']);

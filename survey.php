@@ -1,6 +1,3 @@
-<!--
-    Auto focus on title input 
--->
 <!DOCTYPE HTML>
 <?php
     session_start(); 
@@ -52,7 +49,7 @@
                 </div>
                 <div class="span9 content">
                     <div class="boxRounded boxDark">
-                        <h1>Campaign Details <small>Create a new survey, or edit an existing one.</small></h1>
+                        <h1>Survey Details <small>Create a new survey, or edit an existing one.</small></h1>
                         <div class="newSurvey">
                             <hr>
                             <form class="form-horizontal" id="surveyForm" action="prompt.php">
@@ -142,6 +139,9 @@
                             </form>
                         </div>
                         <i class="icon-asterisk"></i> Required Fields
+                        <hr>
+                        <p><h2 class="centered">Finished editing this campaign?</h2></p>
+                        <button type="button" class="btn btn-primary btn-block" id="submitCampaign"><h3>Submit Campaign to Ohmage Server</h3></button>
                     </div>
                 </div>
             </div>

@@ -24,11 +24,12 @@
         <script type="text/javascript" src="js/promptUtil.js"></script>
         <script type="text/javascript" src="js/json2xml.js"></script>
         <script type="text/javascript" src="js/campaign-editor.js"></script>
+        <script type="text/javascript" src="js/surveyItemDisplay.js"></script>
         <script type="text/javascript" src="js/prompt.js"></script>
-        <script type="text/javascript" src="js/XMLProcessor.js"></script>
         <script type="text/javascript" src="js/help-icon.js"></script>
         <script type="text/javascript" src="js/vkbeautify.0.99.00.beta.js"></script>
-        <script type="text/javascript" src="js/breadcrumb.js"></script>      
+        <script type="text/javascript" src="js/breadcrumb.js"></script>
+        <script type="text/javascript" src="js/promptType.js"></script>       
     </head>
     <body>
         <?php
@@ -87,6 +88,12 @@
                                 <?php
                                     include('promptModals/conditionModal.php');
                                     include('promptModals/viewXmlModal.php');
+                                    include('promptModals/multiChoiceModal.php');
+                                    include('promptModals/singleChoiceModal.php');
+                                    include('promptModals/photoModal.php');
+                                    include('promptModals/numberModal.php');
+                                    include('promptModals/remoteActivityModal.php');
+                                    include('promptModals/textModal.php');
                                     include('surveyItems/newMessage.php');
                                     include('surveyItems/newPrompt.php');
                                     include('surveyItems/newRepeatableSet.php');
