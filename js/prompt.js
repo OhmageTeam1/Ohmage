@@ -2,6 +2,41 @@ var campaignWrapper = $.parseJSON(localStorage['campaignWrapper']);
 var tempSurvey = campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')];
    
 $(function() {
+    for (i in campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList']['']) {
+        console.log(campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][''][i]);
+        if (campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][''][i]['message']) {
+            addMessageToPrevItems(i);
+        } else if (campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][''][i]['prompt']) {
+            switch (campaignWrapper['campaign']['surveys']['survey'][$.cookie('currentSurvey')]['contentList'][''][i]['prompt']['promptType']) {
+                case 'multi_choice':
+                case 'multi_choice_custom':
+                    addMultipleChoiceToPrevItem(i);
+                    break;
+                case 'single_choice':
+                case 'single_choice_custom':
+                    addSingleChoiceToPrevItem(i);
+                    break;
+                case 'number':
+                    addNumberToPrevItem(i);
+                    break;
+                case 'photo':
+                    addPhotoToPrevItem(i);
+                    break; 
+                case 'remote_activity':
+                    addRemoteToPrevItem(i);
+                    break;
+                case 'text':
+                    addTextToPrevItem(i);
+                    break;
+                case 'timestamp':
+                    addTimestampToPrevItem(i);
+                    break;                
+                default:
+                    break;
+            }
+        }
+    }
+
     $("#groupPromptType").change(function() {
         $this = $(this);
         console.log($this.val());

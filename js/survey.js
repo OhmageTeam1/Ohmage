@@ -1,7 +1,16 @@
 var campaignWrapper = $.parseJSON(localStorage['campaignWrapper']);
 
 $(function() {
-    
+    for (i in campaignWrapper['campaign']['surveys']['survey']) {
+        var surveySelect = '<option value="' + i + '">' + campaignWrapper['campaign']['surveys']['survey'][i]['title'] + '</option>';
+        $(surveySelect).appendTo('#existingSurveys');
+    }
+
+    $('#editExistingSurvey').click(function() {
+        $.cookie('currentSurvey', $('#existingSurveys').val());
+        window.location.replace('prompt.php');
+    });
+
     $('#surveyTitle').focus();
 
     $('.formToggleBtn').click(function(e) {
@@ -35,10 +44,10 @@ $(function() {
         surveyData['submitText'] = $('#surveySubmitText').val();
         surveyData['showSummary'] = $('#showSummary').attr('checked') ? true : false;
         surveyData['summaryText'] = false;
-        surveyData['editableSummary'] = false;
+        surveyData['editSummary'] = false;
         if (surveyData['showSummary']) {
             surveyData['summaryText'] = $('#surveySummaryText').val();
-            surveyData['editableSummary'] = $('#editSummary').attr('checked') ? true : false;
+            surveyData['editSummary'] = $('#editSummary').attr('checked') ? true : false;
         }
         surveyData['anytime'] = $('#surveyAnytime').attr('checked') ? true : false;
 

@@ -46,6 +46,15 @@
                             <button type="button" class="formToggleBtn btn btn-primary btn-block" id="introTextAdd"><i class="icon-plus icon-white"></i> Add Introduction Text</button>
                         </div>
                     </div>
+                    <div class="boxRounded boxDark">
+                        <div class="centered">
+                            <h4>Existing Surveys</h4>
+                            <select id="existingSurveys">
+                            </select>
+                            <hr>
+                            <button type="button" class="btn btn-primary btn-block" id="editExistingSurvey">Edit Survey</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="span9 content">
                     <div class="boxRounded boxDark">
